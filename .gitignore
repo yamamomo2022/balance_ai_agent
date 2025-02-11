@@ -46,4 +46,4 @@ app.*.map.json
 
 # Node.jsの依存ディレクトリ
 genkit/node_modules/
-.genkit/
+genkit/.genkit/
