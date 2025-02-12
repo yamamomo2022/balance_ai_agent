@@ -30,12 +30,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // TextEditingController を追加してテキストフィールドの入力値を管理
+  final TextEditingController _controller = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  // 入力されたテキストを送信するメソッド
+  void _sendText() {
+    final text = _controller.text;
+    if (text.isNotEmpty) {
+      // ここでは例として、コンソール出力と SnackBar 表示を行っています。
+      print('Sending text: $text');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sent: $text')),
+      );
+      // 送信後、テキストフィールドをクリア
+      _controller.clear();
+    } else {
+      // 入力が空の場合の通知
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter some text')),
+      );
+    }
   }
 
   @override
@@ -49,21 +63,23 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            SizedBox(
+              width: 300,
+              child: TextField(
+                controller: _controller,
+                decoration: const InputDecoration(
+                  hintText: 'Enter text to send',
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _sendText,
+              child: const Icon(Icons.send),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
