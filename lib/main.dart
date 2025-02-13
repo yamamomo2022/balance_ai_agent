@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:balance_ai_agent/genkit_client.dart';
+import 'package:dio/dio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Balance AI Agent',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Balance AI Agent'),
     );
   }
 }
@@ -30,12 +32,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // TextEditingController を追加してテキストフィールドの入力値を管理
+  final TextEditingController _controller = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  final dio = Dio();
+  late final GenkitClient _genkitClient;
+
+  @override
+  void initState() {
+    super.initState();
+    _genkitClient = GenkitClient(dio: dio);
+  }
+
+  // 入力されたテキストを送信するメソッド
+  void _sendText() async {
+    final inputText = _controller.text;
+    if (inputText.isNotEmpty) {
+      try {
+        final responseText =
+            await _genkitClient.generateChatResponse(inputText);
+        print('Sending text: $responseText');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sent: $responseText')),
+        );
+        // 送信後、テキストフィールドをクリア
+        _controller.clear();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    } else {
+      // 入力が空の場合の通知
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter some text')),
+      );
+    }
   }
 
   @override
@@ -49,21 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            SizedBox(
+              width: 300,
+              child: TextField(
+                controller: _controller,
+                decoration: const InputDecoration(
+                  hintText: 'Enter text to send',
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _sendText,
+              child: const Icon(Icons.send),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
