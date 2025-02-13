@@ -1,22 +1,25 @@
 import 'package:dio/dio.dart';
 
-/// Genkit 経由で Imagen 3 を使用して画像を生成するためのクライアント
+/// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
   GenkitClient({
-    required this.dio,
-  });
+    required Dio dio,
+  }) : dio = dio
+          ..options.connectTimeout =
+              const Duration(seconds: 60); // Set timeout to 60 seconds
+
   final Dio dio;
 
-  Future<String> generatetext() async {
+  Future<String> generateChatResponse(String inputText) async {
     try {
       final response = await dio.post(
-        'http://10.0.2.2/genkit/googleai/gemini-1.0-pro',
+        'http://10.0.2.2/model/vertexai/gemini-1.5-flash/chat',
         data: {
           "messages": [
             {
               "role": "user",
               "content": [
-                {"text": "hello"}
+                {"text": inputText}
               ]
             }
           ],
@@ -26,12 +29,19 @@ class GenkitClient {
       );
 
       if (response.statusCode == 200) {
-        print("test");
-        return response.data['result']['url'] as String;
+        print("Chat response received");
+        return response.data['result']['text'] as String;
       }
-      throw Exception('Failed to generate image: ${response.statusCode}');
+      throw Exception(
+          'Failed to generate chat response: ${response.statusCode}');
     } on DioException catch (e) {
-      throw Exception('Failed to generate image: ${e.message}');
+      if (e.type == DioExceptionType.connectionError) {
+        throw Exception('Failed to generate chat response: Connection refused');
+      } else if (e.type == DioExceptionType.sendTimeout) {
+        throw Exception(
+            'Failed to generate chat response: Connection timed out');
+      }
+      throw Exception('Failed to generate chat response: ${e.message}');
     }
   }
 }

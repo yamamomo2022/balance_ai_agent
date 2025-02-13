@@ -1,15 +1,52 @@
-// import the Genkit and Google AI plugin libraries
-import { gemini15Flash, googleAI } from '@genkit-ai/googleai';
-import { genkit } from 'genkit';
+import { genkit, z } from "genkit";
+import { vertexAI } from "@genkit-ai/vertexai";
+import { logger } from "genkit/logging";
+import { startFlowServer } from "@genkit-ai/express";
+import express from "express";
 
-// configure a Genkit instance
-const ai = genkit({
-  plugins: [googleAI()],
-  model: gemini15Flash, // set default model
+// 独自の Express インスタンスを作成し、JSON パーサーを適用
+const app = express();
+app.use(express.json());
+
+const ai = genkit({ plugins: [vertexAI()] });
+logger.setLogLevel("debug");
+
+export const chatFlow = ai.defineFlow(
+  {
+    name: "chat",
+    inputSchema: z.preprocess(
+      (data) => (typeof data === "string" ? { message: data } : data),
+      z.object({
+        message: z.string(),
+      })
+    ),
+  },
+  async (input) => {
+    // チャット用プロンプト例（必要に応じて調整してください）
+    const prompt = `You are a helpful assistant conversing in Japanese.
+User: ${input.message}
+Assistant:`;
+    
+    const response = await ai.generate({
+      model: `vertexai/gemini-1.5-flash`,
+      prompt: prompt,
+      config: {
+        temperature: 0.7,
+      },
+      output: {
+        format: `text`,
+      },
+    });
+
+    console.log("Chat Response:", response);
+    return response.text;
+  }
+);
+
+// Express アプリを startFlowServer に渡す
+startFlowServer({
+  flows: [chatFlow],
+  cors: {
+    origin: true,
+  },
 });
-
-(async () => {
-  // make a generation request
-  const { text } = await ai.generate('Hello, Gemini!');
-  console.log(text);
-})();

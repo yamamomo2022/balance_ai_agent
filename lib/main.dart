@@ -35,10 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // TextEditingController を追加してテキストフィールドの入力値を管理
   final TextEditingController _controller = TextEditingController();
 
-  final dio = Dio(BaseOptions(
-    connectTimeout: Duration(minutes: 1),
-    // 他のオプションも必要に応じて設定
-  ));
+  final dio = Dio();
   late final GenkitClient _genkitClient;
 
   @override
@@ -49,16 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // 入力されたテキストを送信するメソッド
   void _sendText() async {
-    // final text = _controller.text;
-    final text = await _genkitClient.generatetext();
-    if (text.isNotEmpty) {
-      // ここでは例として、コンソール出力と SnackBar 表示を行っています。
-      print('Sending text: $text');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sent: $text')),
-      );
-      // 送信後、テキストフィールドをクリア
-      _controller.clear();
+    final inputText = _controller.text;
+    if (inputText.isNotEmpty) {
+      try {
+        final responseText =
+            await _genkitClient.generateChatResponse(inputText);
+        print('Sending text: $responseText');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sent: $responseText')),
+        );
+        // 送信後、テキストフィールドをクリア
+        _controller.clear();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     } else {
       // 入力が空の場合の通知
       ScaffoldMessenger.of(context).showSnackBar(
