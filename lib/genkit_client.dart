@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'dart:io' show Platform;
+import 'dart:convert';
 
 /// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
@@ -10,27 +12,19 @@ class GenkitClient {
 
   final Dio dio;
 
+  final String baseUrl =
+      Platform.isAndroid ? 'http://10.0.2.2:3400' : 'http://127.0.0.1:3400';
+
   Future<String> generateChatResponse(String inputText) async {
     try {
-      final response = await dio.post(
-        'http://10.0.2.2/model/vertexai/gemini-1.5-flash/chat',
-        data: {
-          "messages": [
-            {
-              "role": "user",
-              "content": [
-                {"text": inputText}
-              ]
-            }
-          ],
-          "config": {"temperature": 0.4, "topK": 32, "topP": 0.95},
-          "tools": []
-        },
-      );
+      final response = await dio.post('$baseUrl/chat', data: {
+        "data": {"message": inputText}
+      });
 
       if (response.statusCode == 200) {
         print("Chat response received");
-        return response.data['result']['text'] as String;
+        print("Response data: ${response.data}"); // デバッグ用
+        return response.data['result'] as String;
       }
       throw Exception(
           'Failed to generate chat response: ${response.statusCode}');
