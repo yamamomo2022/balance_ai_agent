@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat_page.dart';
+import "lifestyle_page.dart";
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +8,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,12 +33,27 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ChatPage()));
-          },
-          child: const Text('Go to Chat Page'),
+        // Centerでラップ
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // 内容分だけの高さにする
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChatPage()));
+              },
+              child: const Text('Go to Chat Page'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LifestylePage()));
+              },
+              child: const Text('Go to Lifestyle Page'),
+            ),
+            // 必要に応じて他のボタンも追加できます
+          ],
         ),
       ),
     );
