@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
 
-typedef OnSendCallback = void Function(String inputText);
+typedef OnSendCallback = void Function(String inputText, String prePrompt);
 
 class ChatInputWidget extends StatelessWidget {
   final TextEditingController controller;
   final OnSendCallback onSend;
+  final String prePrompt; // 事前プロンプトを追加
 
   const ChatInputWidget({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onSend,
-  }) : super(key: key);
+    this.prePrompt = '', // デフォルト値は空文字列
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Row(
+      child: Column(
+        // Row を Column に変更
         children: [
-          Expanded(
+          SizedBox(
+            // SizedBox で TextField の高さを制限
+            height: 50,
+            width: 300,
             child: TextField(
               controller: controller,
               decoration: const InputDecoration(
                 hintText: 'Enter text to send',
-                border: OutlineInputBorder(),
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {
               final inputText = controller.text;
-              onSend(inputText);
+              onSend(inputText, prePrompt); // 事前プロンプトも渡す
             },
             child: const Icon(Icons.send),
           ),

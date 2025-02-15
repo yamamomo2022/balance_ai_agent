@@ -29,15 +29,15 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
     messages.add('【事前プロンプト】\n$prePrompt');
   }
 
-  void _sendMessage() {
-    if (messageController.text.trim().isEmpty) return;
-    setState(() {
-      messages.add("あなた: ${messageController.text}");
-      // ここで生成AIへのリクエストを実施、今回はエコーする例
-      messages.add("AI: ${messageController.text}");
-    });
-    messageController.clear();
-  }
+  // void _sendMessage() {
+  //   if (messageController.text.trim().isEmpty) return;
+  //   setState(() {
+  //     messages.add("あなた: ${messageController.text}");
+  //     // ここで生成AIへのリクエストを実施、今回はエコーする例
+  //     messages.add("AI: ${messageController.text}");
+  //   });
+  //   messageController.clear();
+  // }
 
   @override
   void dispose() {

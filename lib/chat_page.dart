@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'genkit_client.dart';
 import 'widgets/chat_input_widget.dart';
+import 'services/chat_service.dart'; // Import ChatService
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -15,36 +16,21 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
   final dio = Dio();
   late final GenkitClient _genkitClient;
+  late final ChatService _chatService; // Declare ChatService
 
   @override
   void initState() {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
+    _chatService = ChatService(
+        genkitClient: _genkitClient,
+        context: context); // Initialize ChatService
   }
 
-  // 新たに送信処理を関数化
-  void _handleSend(String inputText) async {
-    if (inputText.isNotEmpty) {
-      try {
-        final responseText =
-            await _genkitClient.generateChatResponse(inputText);
-        print('Sending text: $responseText');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sent: $responseText')),
-        );
-        // Clear text field after sending
-        _controller.clear();
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
-      }
-    } else {
-      // Notify when input is empty
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter some text')),
-      );
-    }
+  // Use ChatService's sendMessage method
+  void _handleSend(String inputText, String prePrompt) async {
+    await _chatService.sendMessage(inputText, prePrompt);
+    _controller.clear();
   }
 
   @override
