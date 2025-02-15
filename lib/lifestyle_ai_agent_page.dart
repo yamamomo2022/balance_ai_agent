@@ -34,7 +34,9 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
     _genkitClient = GenkitClient(dio: dio);
     // 最初のメッセージとして事前プロンプトを表示
     if (prePrompt.isNotEmpty) {
-      messages.add('【事前プロンプト】\n$prePrompt');
+      setState(() {
+        messages.add('【事前プロンプト】\n$prePrompt');
+      });
     }
   }
 
@@ -77,6 +79,7 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
               if (messageController.text.trim().isNotEmpty) {
                 await _chatService.sendMessage(
                     messageController.text, prePrompt);
+                messageController.clear();
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('メッセージを入力してください。')),
