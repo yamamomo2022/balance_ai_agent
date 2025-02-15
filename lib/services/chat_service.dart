@@ -17,8 +17,9 @@ class ChatService {
           SnackBar(content: Text('Sent: $responseText')),
         );
       } catch (e) {
+        print('Error occurred: $e'); // エラーをログに記録
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('An error occurred. Please try again.')),
         );
       }
     } else {

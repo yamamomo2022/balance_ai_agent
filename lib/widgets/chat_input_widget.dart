@@ -36,7 +36,13 @@ class ChatInputWidget extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               final inputText = controller.text;
-              onSend(inputText, prePrompt); // 事前プロンプトも渡す
+              if (inputText.isNotEmpty) {
+                onSend(inputText, prePrompt); // 事前プロンプトも渡す
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('メッセージを入力してください。')),
+                );
+              }
             },
             child: const Icon(Icons.send),
           ),

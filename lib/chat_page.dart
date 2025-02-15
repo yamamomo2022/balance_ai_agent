@@ -22,9 +22,12 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
-    _chatService = ChatService(
-        genkitClient: _genkitClient,
-        context: context); // Initialize ChatService
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _chatService = ChatService(genkitClient: _genkitClient, context: context);
   }
 
   // Use ChatService's sendMessage method
