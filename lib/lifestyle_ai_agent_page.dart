@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'models/lifestyle.dart';
+import 'services/chat_service.dart';
+import 'genkit_client.dart';
+import 'package:dio/dio.dart';
 
 class LifestyleAIAgentPage extends StatefulWidget {
   final Lifestyle lifestyle;
@@ -13,6 +16,9 @@ class LifestyleAIAgentPage extends StatefulWidget {
 class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
   final List<String> messages = [];
   final TextEditingController messageController = TextEditingController();
+  late final GenkitClient _genkitClient;
+  late final ChatService _chatService;
+  final dio = Dio();
 
   // 事前プロンプト（ライフスタイル情報）を文字列に整形
   String get prePrompt {
@@ -25,19 +31,16 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
   @override
   void initState() {
     super.initState();
+    _genkitClient = GenkitClient(dio: dio);
     // 最初のメッセージとして事前プロンプトを表示
     messages.add('【事前プロンプト】\n$prePrompt');
   }
 
-  // void _sendMessage() {
-  //   if (messageController.text.trim().isEmpty) return;
-  //   setState(() {
-  //     messages.add("あなた: ${messageController.text}");
-  //     // ここで生成AIへのリクエストを実施、今回はエコーする例
-  //     messages.add("AI: ${messageController.text}");
-  //   });
-  //   messageController.clear();
-  // }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _chatService = ChatService(genkitClient: _genkitClient, context: context);
+  }
 
   @override
   void dispose() {
@@ -55,21 +58,6 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Expanded(
-          //   child: ListView.builder(
-          //     padding: const EdgeInsets.all(16),
-          //     itemCount: messages.length,
-          //     itemBuilder: (context, index) {
-          //       return Padding(
-          //         padding: const EdgeInsets.symmetric(vertical: 4),
-          //         child: Text(
-          //           messages[index],
-          //           style: const TextStyle(fontSize: 16),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
           Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 300),
@@ -83,7 +71,9 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await _chatService.sendMessage(messageController.text, prePrompt);
+            },
             child: const Icon(Icons.send),
           ),
         ],
