@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
+import 'lifestyle_ai_agent_page.dart';
 
 class LifestylePage extends StatefulWidget {
   const LifestylePage({Key? key}) : super(key: key);
@@ -42,6 +43,10 @@ class _LifestylePageState extends State<LifestylePage> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('ライフスタイル情報を保存しました。')),
     );
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LifestyleAIAgentPage(lifestyle: lifestyle)));
   }
 
   @override
