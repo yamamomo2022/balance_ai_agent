@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/genkit_client.dart';
-import 'package:dio/dio.dart';
+import 'chat_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,79 +21,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomePage extends StatelessWidget {
   final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // TextEditingController を追加してテキストフィールドの入力値を管理
-  final TextEditingController _controller = TextEditingController();
-
-  final dio = Dio();
-  late final GenkitClient _genkitClient;
-
-  @override
-  void initState() {
-    super.initState();
-    _genkitClient = GenkitClient(dio: dio);
-  }
-
-  // 入力されたテキストを送信するメソッド
-  void _sendText() async {
-    final inputText = _controller.text;
-    if (inputText.isNotEmpty) {
-      try {
-        final responseText =
-            await _genkitClient.generateChatResponse(inputText);
-        print('Sending text: $responseText');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sent: $responseText')),
-        );
-        // 送信後、テキストフィールドをクリア
-        _controller.clear();
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
-      }
-    } else {
-      // 入力が空の場合の通知
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter some text')),
-      );
-    }
-  }
+  const MyHomePage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 300,
-              child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  hintText: 'Enter text to send',
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _sendText,
-              child: const Icon(Icons.send),
-            ),
-          ],
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ChatPage()));
+          },
+          child: const Text('Go to Chat Page'),
         ),
       ),
     );
