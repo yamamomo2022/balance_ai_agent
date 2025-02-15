@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
 
 class LifestylePage extends StatefulWidget {
   const LifestylePage({Key? key}) : super(key: key);
@@ -26,12 +27,29 @@ class _LifestylePageState extends State<LifestylePage> {
     super.dispose();
   }
 
+  void _saveLifestyle() {
+    final lifestyle = Lifestyle(
+      investment: investmentController.text,
+      savings: savingsController.text,
+      growth: growthController.text,
+      goals: goalsController.text,
+    );
+
+    // ここで lifestyle オブジェクトを使用した処理を記述
+    // 例: コンソールに出力
+    print('Lifestyle Saved: ${lifestyle.toMap()}');
+    // または、SnackBarで通知する例
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('ライフスタイル情報を保存しました。')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('充実したライフスタイル'),
+        title: const Text('Your Lifestyle'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -100,6 +118,11 @@ class _LifestylePageState extends State<LifestylePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
               ),
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _saveLifestyle,
+              child: const Text('保存'),
             ),
           ],
         ),

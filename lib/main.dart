@@ -33,18 +33,9 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        // Centerでラップ
         child: Column(
           mainAxisSize: MainAxisSize.min, // 内容分だけの高さにする
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChatPage()));
-              },
-              child: const Text('Go to Chat Page'),
-            ),
-            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
@@ -52,7 +43,14 @@ class MyHomePage extends StatelessWidget {
               },
               child: const Text('Go to Lifestyle Page'),
             ),
-            // 必要に応じて他のボタンも追加できます
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChatPage()));
+              },
+              child: const Text('Go to Chat Page'),
+            ),
           ],
         ),
       ),
