@@ -28,9 +28,28 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 114, 219, 184),
+                Color.fromARGB(255, 87, 151, 199)
+              ], // グラデーションの色を指定
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        elevation: 0, // 影の強さを指定
+        // backgroundColor: Colors.transparent, // 背景色を透明にする
+        title: Text(title,
+            style: const TextStyle(
+                color: Color.fromARGB(255, 44, 56, 229),
+                fontFamily: "Roboto",
+                fontSize: 24,
+                fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
