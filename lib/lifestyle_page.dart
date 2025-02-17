@@ -53,7 +53,7 @@ class _LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Liyestyle Page'),
+      appBar: const CustomAppBar(title: 'Lifestyle Page'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

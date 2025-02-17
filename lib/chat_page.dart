@@ -40,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Chat Page'),
+      appBar: CustomAppBar(title: widget.title),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

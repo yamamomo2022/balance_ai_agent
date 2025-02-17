@@ -30,7 +30,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: title != null ? Text(title!) : const Text(""),
+      title: title != null
+          ? Text(title!, style: Theme.of(context).textTheme.labelLarge)
+          : const Text(""),
       actions: actions ?? const <Widget>[],
     );
   }

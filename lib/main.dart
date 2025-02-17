@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Balance AI Agent',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -29,10 +29,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const CustomAppBar(
-        // Use the custom AppBar
-        title: 'Balance AI Agent',
-      ),
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min, // 内容分だけの高さにする
