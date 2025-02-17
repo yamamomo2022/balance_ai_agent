@@ -12,7 +12,6 @@ class LoginSignupPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const LoginForm(), // LoginForm を使用
-            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 // サインアップ画面に遷移する処理
