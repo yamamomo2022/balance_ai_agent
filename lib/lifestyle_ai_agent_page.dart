@@ -3,6 +3,7 @@ import 'models/lifestyle.dart';
 import 'services/chat_service.dart';
 import 'genkit_client.dart';
 import 'package:dio/dio.dart';
+import 'widgets/custom_app_bar.dart';
 
 class LifestyleAIAgentPage extends StatefulWidget {
   final Lifestyle lifestyle;
@@ -55,10 +56,7 @@ class _LifestyleAIAgentPageState extends State<LifestyleAIAgentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Chat with AI Agent'),
-      ),
+      appBar: const CustomAppBar(title: 'Lifestyle AI Agent'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

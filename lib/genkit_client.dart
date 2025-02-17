@@ -24,42 +24,7 @@ class GenkitClient {
       if (response.statusCode == 200) {
         print("Chat response received");
         print("Response data: ${response.data}"); // デバッグ用
-
-        final resultData = response.data['result'];
-
-        if (resultData is String) {
-          // JSON文字列であればパース
-          try {
-            final parsed = jsonDecode(resultData);
-            if (parsed is Map<String, dynamic>) {
-              if (parsed.containsKey('assistant')) {
-                return parsed['assistant'] as String;
-              } else if (parsed.containsKey('user')) {
-                return parsed['user'] as String;
-              } else {
-                // Map の最初の値を返す
-                return parsed.values.first.toString();
-              }
-            }
-          } catch (_) {
-            // 単純な文字列として返す
-            return resultData;
-          }
-        } else if (resultData is Map<String, dynamic>) {
-          // すでに Map として返ってきている場合
-          if (resultData.containsKey('assistant')) {
-            return resultData['assistant'] as String;
-          } else if (resultData.containsKey('text')) {
-            return resultData['text'] as String;
-          } else if (resultData.containsKey('user')) {
-            return resultData['user'] as String;
-          } else {
-            return resultData.values.first.toString();
-          }
-        } else {
-          // その他の型の場合は文字列変換して返す
-          return resultData.toString();
-        }
+        return response.data['result'] as String;
       }
       throw Exception(
           'Failed to generate chat response: ${response.statusCode}');
