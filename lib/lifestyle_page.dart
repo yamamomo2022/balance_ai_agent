@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
 import 'lifestyle_ai_agent_page.dart';
+import 'widgets/custom_app_bar.dart';
 
 class LifestylePage extends StatefulWidget {
   const LifestylePage({Key? key}) : super(key: key);
@@ -52,10 +53,7 @@ class _LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Your Lifestyle'),
-      ),
+      appBar: const CustomAppBar(title: 'Lifestyle Page'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

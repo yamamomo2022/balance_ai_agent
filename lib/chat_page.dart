@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'genkit_client.dart';
 import 'widgets/chat_input_widget.dart';
 import 'services/chat_service.dart'; // Import ChatService
+import 'widgets/custom_app_bar.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -39,10 +40,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: CustomAppBar(title: widget.title),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

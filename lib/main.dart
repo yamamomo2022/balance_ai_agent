@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'chat_page.dart';
 import "lifestyle_page.dart";
+import 'widgets/custom_app_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,25 +14,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Balance AI Agent',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Balance AI Agent'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
-      ),
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min, // 内容分だけの高さにする
