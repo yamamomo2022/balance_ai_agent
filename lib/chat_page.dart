@@ -4,6 +4,7 @@ import 'genkit_client.dart';
 import 'widgets/chat_input_widget.dart';
 import 'services/chat_service.dart'; // Import ChatService
 import 'widgets/custom_app_bar.dart';
+import 'lifestyle_page.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -40,7 +41,19 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.title),
+      appBar: CustomAppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.assignment_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LifestylePage()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
