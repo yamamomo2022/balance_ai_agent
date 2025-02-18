@@ -11,6 +11,12 @@ class LoginSignupPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Icon(
+              Icons.balance_rounded,
+              size: 120,
+              color: Colors.blueGrey,
+            ),
+            const SizedBox(height: 16),
             const LoginForm(), // LoginForm を使用
             ElevatedButton(
               onPressed: () {
