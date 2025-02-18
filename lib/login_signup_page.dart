@@ -18,20 +18,6 @@ class LoginSignupPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const LoginForm(), // LoginForm を使用
-            ElevatedButton(
-              onPressed: () {
-                // サインアップ画面に遷移する処理
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SignupPage()),
-                );
-              },
-              child: const Text(
-                'Sign Up',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-            const SizedBox(height: 16),
             SizedBox(
               width: 300,
               child: Row(
@@ -39,22 +25,47 @@ class LoginSignupPage extends StatelessWidget {
                   Expanded(child: Divider()),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text('Or Register with'),
+                    child: Text('Or'),
                   ),
                   Expanded(child: Divider()),
                 ],
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // 匿名で使用する処理
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ChatPage()),
-                );
-              },
-              child: const Text('Use Anonymously'),
+            SizedBox(
+              width: 300,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () {
+                  // サインアップ画面に遷移する処理
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignupPage()),
+                  );
+                },
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: 300,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () {
+                  // 匿名で使用する処理
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChatPage()),
+                  );
+                },
+                child: const Text(
+                  'Use Anonymously',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
             ),
           ],
         ),
@@ -119,16 +130,24 @@ class _LoginFormState extends State<LoginForm> {
                 },
               ),
               const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ChatPage()),
-                    );
-                  }
-                },
-                child: const Text('Log In'),
+              SizedBox(
+                width: 300,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChatPage()),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Log In',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
               ),
             ],
           ),
