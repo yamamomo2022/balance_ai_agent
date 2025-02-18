@@ -26,7 +26,24 @@ class LoginSignupPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignupPage()),
                 );
               },
-              child: const Text('Sign Up'),
+              child: const Text(
+                'Sign Up',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: 300,
+              child: Row(
+                children: const [
+                  Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text('Or Register with'),
+                  ),
+                  Expanded(child: Divider()),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -47,7 +64,7 @@ class LoginSignupPage extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
