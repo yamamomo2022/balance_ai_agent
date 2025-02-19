@@ -64,9 +64,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
       text: responseText,
     );
 
-    Future.delayed(const Duration(milliseconds: 500), () {
-      _addMessage(agentMessage);
-    });
+    _addMessage(agentMessage);
   }
 
   @override
