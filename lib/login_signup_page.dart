@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'chat_page.dart';
 import 'chat_room_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
@@ -151,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ChatPage()),
+                            builder: (context) => const ChatRoomPage()),
                       );
                     }
                   },
