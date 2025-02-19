@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat_page.dart';
+import 'chat_room_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
   const LoginSignupPage({super.key});
@@ -58,7 +59,8 @@ class LoginSignupPage extends StatelessWidget {
                   // 匿名で使用する処理
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ChatPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const ChatRoomPage()),
                   );
                 },
                 child: const Text(

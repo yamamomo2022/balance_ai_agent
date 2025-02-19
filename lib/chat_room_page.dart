@@ -3,15 +3,15 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:uuid/uuid.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+class ChatRoomPage extends StatefulWidget {
+  const ChatRoomPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _ChatPageState createState() => _ChatPageState();
+  _ChatRoomPageState createState() => _ChatRoomPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatRoomPageState extends State<ChatRoomPage> {
   final List<types.Message> _messages = [];
   final types.User _user =
       const types.User(id: '82091a39-a3a4-4731-96ea-72e94a6886f8');
