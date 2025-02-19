@@ -7,6 +7,9 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import 'lifestyle_page.dart';
 import 'widgets/custom_app_bar.dart';
+import 'package:dio/dio.dart';
+import 'genkit_client.dart';
+import 'services/chat_service.dart'; // Import ChatService
 
 String randomString() {
   final random = Random.secure();
@@ -25,6 +28,16 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   final List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
   final _agent = const types.User(id: 'agentId');
+  final dio = Dio();
+  late final GenkitClient _genkitClient;
+  late final ChatService _chatService; // Declare ChatService
+
+  @override
+  void initState() {
+    super.initState();
+    _genkitClient = GenkitClient(dio: dio);
+    _chatService = ChatService(genkitClient: _genkitClient, context: context);
+  }
 
   void _addMessage(types.Message message) {
     setState(() {
@@ -32,7 +45,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     });
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  Future<void> _handleSendPressed(types.PartialText message) async {
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -42,12 +55,13 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
+    final responseText = await _genkitClient.generateChatResponse(message.text);
     // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: randomString(),
-      text: message.text,
+      text: responseText,
     );
 
     Future.delayed(const Duration(milliseconds: 500), () {
