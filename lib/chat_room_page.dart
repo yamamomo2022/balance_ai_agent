@@ -24,6 +24,13 @@ class ChatRoomPage extends StatefulWidget {
 class ChatRoomPageState extends State<ChatRoomPage> {
   final List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
+  final _agent = const types.User(id: 'agentId');
+
+  void _addMessage(types.Message message) {
+    setState(() {
+      _messages.insert(0, message);
+    });
+  }
 
   void _handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
@@ -34,6 +41,18 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     );
 
     _addMessage(textMessage);
+
+    // Agent's reply (parrot)
+    final agentMessage = types.TextMessage(
+      author: _agent,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: randomString(),
+      text: message.text,
+    );
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _addMessage(agentMessage);
+    });
   }
 
   @override
@@ -58,10 +77,4 @@ class ChatRoomPageState extends State<ChatRoomPage> {
           onSendPressed: _handleSendPressed,
         ),
       );
-
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
 }
