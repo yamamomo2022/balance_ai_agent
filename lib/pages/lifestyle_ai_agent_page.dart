@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'models/lifestyle.dart';
-import 'services/chat_service.dart';
-import 'genkit_client.dart';
+import '../models/lifestyle.dart';
+import '../services/chat_service.dart';
+import '../genkit_client.dart';
 import 'package:dio/dio.dart';
-import 'widgets/custom_app_bar.dart';
+import '../widgets/custom_app_bar.dart';
 
 class LifestyleAIAgentPage extends StatefulWidget {
   final Lifestyle lifestyle;
