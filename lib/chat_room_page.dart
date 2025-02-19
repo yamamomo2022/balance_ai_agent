@@ -1,49 +1,50 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:uuid/uuid.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+
+String randomString() {
+  final random = Random.secure();
+  final values = List<int>.generate(16, (i) => random.nextInt(255));
+  return base64UrlEncode(values);
+}
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ChatRoomPageState createState() => _ChatRoomPageState();
+  ChatRoomPageState createState() => ChatRoomPageState();
 }
 
-class _ChatRoomPageState extends State<ChatRoomPage> {
+class ChatRoomPageState extends State<ChatRoomPage> {
   final List<types.Message> _messages = [];
-  final types.User _user =
-      const types.User(id: '82091a39-a3a4-4731-96ea-72e94a6886f8');
+  final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
-  void _addMessage(types.TextMessage message) {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: Chat(
+          user: _user,
+          messages: _messages,
+          onSendPressed: _handleSendPressed,
+        ),
+      );
+
+  void _addMessage(types.Message message) {
     setState(() {
       _messages.insert(0, message);
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Example text message creation; modify as needed.
+  void _handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: const Uuid().v4(),
-      text: 'Hello, world!', // Replace with the desired text.
+      id: randomString(),
+      text: message.text,
     );
-    _addMessage(textMessage);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat'),
-      ),
-      body: Chat(
-        messages: _messages,
-        user: _user,
-        onSendPressed: (message) {
-          // TODO: Implement send message action
-        },
-      ),
-    );
+    _addMessage(textMessage);
   }
 }
