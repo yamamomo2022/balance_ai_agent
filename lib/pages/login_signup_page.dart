@@ -19,7 +19,7 @@ class LoginSignupPage extends StatelessWidget {
               color: Colors.blueGrey,
             ),
             const SizedBox(height: 16),
-            const LoginForm(), // LoginForm を使用
+            const AuthForm(bottomText: 'Login'), // LoginForm を使用
             SizedBox(
               width: 300,
               child: Row(

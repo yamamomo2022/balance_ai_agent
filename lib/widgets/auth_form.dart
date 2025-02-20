@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class AuthForm extends StatefulWidget {
+  const AuthForm({super.key, required this.bottomText});
+  final String bottomText;
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<AuthForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
 
@@ -79,8 +80,8 @@ class _LoginFormState extends State<LoginForm> {
                       );
                     }
                   },
-                  child: const Text(
-                    'Log In',
+                  child: Text(
+                    widget.bottomText,
                     style: TextStyle(fontSize: 16),
                   ),
                 ),

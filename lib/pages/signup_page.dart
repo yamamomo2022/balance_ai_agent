@@ -10,6 +10,11 @@ class SignupPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
         ),
-        body: Center(child: const LoginForm()));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: AuthForm(bottomText: 'Sign Up')),
+          ],
+        ));
   }
 }
