@@ -56,7 +56,7 @@ class LoginSignupPage extends StatelessWidget {
               children: [
                 Text("Does not have account?", style: TextStyle(fontSize: 16)),
                 SizedBox(width: 16),
-                GestureDetector(
+                InkWell(
                   // GestureDetector で Text をラップ
                   onTap: () {
                     // サインアップ画面に遷移する処理
