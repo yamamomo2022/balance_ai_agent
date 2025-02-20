@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/widgets/login_form.dart';
+import 'package:balance_ai_agent/widgets/auth_form.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -10,6 +10,6 @@ class SignupPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
         ),
-        body: const LoginForm());
+        body: Center(child: const LoginForm()));
   }
 }

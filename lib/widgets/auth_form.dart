@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/chat_room_page.dart';
+import 'package:balance_ai_agent/pages/chat_room_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

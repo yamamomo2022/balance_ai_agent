@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/widgets/login_form.dart';
+import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'chat_room_page.dart';
 import 'signup_page.dart';
 
