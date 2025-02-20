@@ -6,10 +6,10 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import 'lifestyle_page.dart';
-import 'widgets/custom_app_bar.dart';
+import '../widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
-import 'genkit_client.dart';
-import 'services/chat_service.dart'; // Import ChatService
+import '../genkit_client.dart';
+import '../services/chat_service.dart'; // Import ChatService
 
 String randomString() {
   final random = Random.secure();
