@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:balance_ai_agent/pages/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -82,6 +83,38 @@ class ChatRoomPageState extends State<ChatRoomPage> {
               },
             ),
           ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              SizedBox(
+                height: 128,
+                child: DrawerHeader(
+                  child: Text('Menu'),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 114, 219, 184),
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(Icons.login),
+                    SizedBox(width: 8),
+                    Text('Login'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginSignupPage()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
         body: Chat(
           user: _user,
