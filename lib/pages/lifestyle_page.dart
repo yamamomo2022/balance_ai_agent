@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
-import 'lifestyle_ai_agent_page.dart';
-import '../widgets/custom_app_bar.dart';
+import 'package:balance_ai_agent/models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
+import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'chat_room_page.dart';
 
 class LifestylePage extends StatefulWidget {

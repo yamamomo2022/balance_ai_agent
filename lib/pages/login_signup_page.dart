@@ -56,7 +56,7 @@ class LoginSignupPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // 匿名で使用する処理
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ChatRoomPage()),
