@@ -37,24 +37,6 @@ class LoginSignupPage extends StatelessWidget {
               height: 56,
               child: ElevatedButton(
                 onPressed: () {
-                  // サインアップ画面に遷移する処理
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignupPage()),
-                  );
-                },
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: 300,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: () {
                   // 匿名で使用する処理
                   Navigator.pushReplacement(
                     context,
@@ -67,6 +49,31 @@ class LoginSignupPage extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
+            ),
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Does not have account?", style: TextStyle(fontSize: 16)),
+                SizedBox(width: 16),
+                InkWell(
+                  // GestureDetector で Text をラップ
+                  onTap: () {
+                    // サインアップ画面に遷移する処理
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignupPage()),
+                    );
+                  },
+                  child: const Text(
+                    // TextButton の代わりに Text を使用
+                    'Sign Up',
+                    style: TextStyle(
+                        fontSize: 16, color: Colors.blueGrey), // スタイルを調整
+                  ),
+                ),
+              ],
             ),
           ],
         ),

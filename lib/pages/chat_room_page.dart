@@ -100,9 +100,9 @@ class ChatRoomPageState extends State<ChatRoomPage> {
               ListTile(
                 title: Row(
                   children: [
-                    Icon(Icons.login),
+                    Icon(Icons.logout),
                     SizedBox(width: 8),
-                    Text('Login'),
+                    Text('Logout'),
                   ],
                 ),
                 onTap: () {
