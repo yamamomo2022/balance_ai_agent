@@ -1,0 +1,30 @@
+{
+	"debug.internalConsoleOptions": "openOnSessionStart",
+	"[dart]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.rulers": [80],
+		"editor.selectionHighlight": false,
+		"editor.tabCompletion": "onlySnippets",
+		"editor.wordBasedSuggestions": "off"
+	},
+    "github.copilot.chat.codeGeneration.instructions": [
+        {
+            "text": "Use descriptive variable names."
+          },
+          {
+            "text": "Prioritize readability and maintainability."
+          },
+          {
+            "text": "Follow Flutter's style guide."
+          }
+      ],
+      "github.copilot.chat.commitMessageGeneration.instructions": [   
+        {
+            "text": "Use conventional commit message format."
+        },
+        {
+            "text": "Then, please include detailed changes for each file."
+        }
+    ]
+}
