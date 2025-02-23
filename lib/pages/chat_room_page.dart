@@ -11,6 +11,7 @@ import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:balance_ai_agent/genkit_client.dart';
 import 'package:balance_ai_agent/services/chat_service.dart'; // Import ChatService
+import 'package:firebase_auth/firebase_auth.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -105,7 +106,8 @@ class ChatRoomPageState extends State<ChatRoomPage> {
                     Text('Logout'),
                   ],
                 ),
-                onTap: () {
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

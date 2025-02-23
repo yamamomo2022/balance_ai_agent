@@ -3,18 +3,72 @@ import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm({super.key, required this.bottomText});
-  final String bottomText;
+  const AuthForm({
+    Key? key,
+    required this.isLogin,
+  }) : super(key: key);
+
+  final bool isLogin;
 
   @override
-  State<AuthForm> createState() => _LoginFormState();
+  State<AuthForm> createState() => _AuthFormState();
 }
 
-class _LoginFormState extends State<AuthForm> {
+class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
-  String emailAddress = ''; // Add this line
-  String password = ''; // Add this line
+  String _emailAddress = '';
+  String _password = '';
+
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        if (widget.isLogin) {
+          // Sign-in logic
+          final credential =
+              await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: _emailAddress,
+            password: _password,
+          );
+          print('User signed in: ${credential.user?.email}');
+        } else {
+          // Sign-up logic
+          final credential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailAddress,
+            password: _password,
+          );
+          print('User created: ${credential.user?.email}');
+        }
+
+        // Navigate to chat room after successful authentication
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+        );
+      } on FirebaseAuthException catch (e) {
+        String errorMessage = 'An error occurred.';
+        if (e.code == 'weak-password') {
+          errorMessage = 'The password provided is too weak.';
+        } else if (e.code == 'email-already-in-use') {
+          errorMessage = 'The account already exists for that email.';
+        } else if (e.code == 'user-not-found') {
+          errorMessage = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          errorMessage = 'Wrong password provided for that user.';
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
+      } catch (e) {
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An unexpected error occurred.')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +77,12 @@ class _LoginFormState extends State<AuthForm> {
       child: Form(
         key: _formKey,
         child: SizedBox(
-          width: 300, // 幅を指定
+          width: 300,
           child: Column(
             children: [
               TextFormField(
                 autofocus: true,
-                cursorColor: const Color.fromARGB(255, 93, 190, 163),
+                keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -43,14 +97,14 @@ class _LoginFormState extends State<AuthForm> {
                   return null;
                 },
                 onChanged: (value) {
-                  // Add this line
-                  emailAddress = value;
+                  setState(() {
+                    _emailAddress = value;
+                  });
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
                 obscureText: _obscurePassword,
-                cursorColor: const Color.fromARGB(255, 93, 190, 163),
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: const OutlineInputBorder(),
@@ -74,43 +128,19 @@ class _LoginFormState extends State<AuthForm> {
                   return null;
                 },
                 onChanged: (value) {
-                  // Add this line
-                  password = value;
+                  setState(() {
+                    _password = value;
+                  });
                 },
               ),
               const SizedBox(height: 32),
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailAddress,
-                          password: password,
-                        );
-                        print(
-                            'User created: ${credential.user?.email}'); // Add this line
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ChatRoomPage()),
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('The account already exists for that email.');
-                        }
-                      } catch (e) {
-                        print(e);
-                      }
-                    }
-                  },
+                  onPressed: _submitForm,
                   child: Text(
-                    widget.bottomText,
-                    style: TextStyle(fontSize: 16),
+                    widget.isLogin ? 'Login' : 'Signup',
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),
