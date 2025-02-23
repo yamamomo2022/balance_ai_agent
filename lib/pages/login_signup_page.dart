@@ -58,6 +58,12 @@ class LoginSignupPage extends StatelessWidget {
                       default:
                         print("Unknown error.");
                     }
+                    // ユーザーにエラーメッセージを表示するためのUI要素を追加
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              "Anonymous auth hasn't been enabled for this project.")),
+                    );
                   }
                 },
                 child: const Text(
