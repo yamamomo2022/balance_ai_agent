@@ -107,7 +107,11 @@ class ChatRoomPageState extends State<ChatRoomPage> {
                   ],
                 ),
                 onTap: () async {
-                  await FirebaseAuth.instance.signOut();
+                  try {
+                    await FirebaseAuth.instance.signOut();
+                  } catch (e) {
+                    // エラーメッセージを表示するなどの処理を追加
+                  }
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
