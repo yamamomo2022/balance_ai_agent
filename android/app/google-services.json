@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "369174040690",
+    "project_id": "balance-ai-agent-49377",
+    "storage_bucket": "balance-ai-agent-49377.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369174040690:android:7641b0546d2f7b6fbfb2eb",
+        "android_client_info": {
+          "package_name": "com.yamamomo2022.balance_ai_agent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZGvQB6ro4ZdAxZGuxenHzBncS9SJax-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
