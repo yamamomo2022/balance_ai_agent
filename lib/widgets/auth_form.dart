@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key, required this.bottomText});
@@ -12,6 +13,8 @@ class AuthForm extends StatefulWidget {
 class _LoginFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
+  String emailAddress = ''; // Add this line
+  String password = ''; // Add this line
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,10 @@ class _LoginFormState extends State<AuthForm> {
                     return 'Please enter a valid email';
                   }
                   return null;
+                },
+                onChanged: (value) {
+                  // Add this line
+                  emailAddress = value;
                 },
               ),
               const SizedBox(height: 16),
@@ -66,18 +73,39 @@ class _LoginFormState extends State<AuthForm> {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  // Add this line
+                  password = value;
+                },
               ),
               const SizedBox(height: 32),
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatRoomPage()),
-                      );
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: emailAddress,
+                          password: password,
+                        );
+                        print(
+                            'User created: ${credential.user?.email}'); // Add this line
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChatRoomPage()),
+                        );
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          print('The password provided is too weak.');
+                        } else if (e.code == 'email-already-in-use') {
+                          print('The account already exists for that email.');
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
                     }
                   },
                   child: Text(
