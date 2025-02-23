@@ -13,7 +13,7 @@ class SignupPage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: AuthForm(bottomText: 'Sign Up')),
+            Center(child: AuthForm(isLogin: false)), // sign up
           ],
         ));
   }
