@@ -11,10 +11,10 @@ class LifestylePage extends StatefulWidget {
 }
 
 class _LifestylePageState extends State<LifestylePage> {
-  final TextEditingController goalsController = TextEditingController(
-      text: '毎日200本のシュート練習を行い、ゴールの4隅に狙ったシュートの成功率を80%以上にする。');
   final TextEditingController aspirationsController =
       TextEditingController(text: '世界一のストライカーになる!');
+  final TextEditingController goalsController =
+      TextEditingController(text: 'チームメイトからボールを奪ってシュートを決める!');
 
   @override
   void dispose() {
@@ -37,7 +37,9 @@ class _LifestylePageState extends State<LifestylePage> {
       const SnackBar(content: Text('保存しました。')),
     );
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ChatRoomPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatRoomPage(lifestyle: lifestyle)));
   }
 
   @override

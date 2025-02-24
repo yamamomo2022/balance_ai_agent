@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/pages/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -19,7 +20,9 @@ String randomString() {
 }
 
 class ChatRoomPage extends StatefulWidget {
-  const ChatRoomPage({super.key});
+  const ChatRoomPage({super.key, this.lifestyle});
+
+  final Lifestyle? lifestyle;
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
@@ -54,7 +57,8 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
-    final responseText = await _genkitClient.generateChatResponse(message.text);
+    final responseText = await _genkitClient.generateChatResponse(
+        message.text, widget.lifestyle);
     // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
