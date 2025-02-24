@@ -48,4 +48,7 @@ app.*.map.json
 genkit/node_modules/
 genkit/.genkit/
 
+# Firebaseの設定ファイル
 lib/firebase_options.dart
+
+.env
