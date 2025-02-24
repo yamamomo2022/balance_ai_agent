@@ -9,8 +9,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'lifestyle_page.dart';
 import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
-import 'package:balance_ai_agent/genkit_client.dart';
-import 'package:balance_ai_agent/services/chat_service.dart'; // Import ChatService
+import 'package:balance_ai_agent/services/genkit_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 String randomString() {
@@ -32,13 +31,11 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   final _agent = const types.User(id: 'agentId');
   final dio = Dio();
   late final GenkitClient _genkitClient;
-  late final ChatService _chatService; // Declare ChatService
 
   @override
   void initState() {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
-    _chatService = ChatService(genkitClient: _genkitClient, context: context);
   }
 
   void _addMessage(types.Message message) {
