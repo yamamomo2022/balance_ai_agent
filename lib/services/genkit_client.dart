@@ -1,7 +1,9 @@
+import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:dio/dio.dart';
 import 'dart:io' show Platform;
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:balance_ai_agent/models/lifestyle.dart';
 
 /// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
@@ -15,10 +17,17 @@ class GenkitClient {
 
   final String baseUrl = dotenv.env['API_SERVER'] ?? 'http://10.0.2.2:3400';
 
-  Future<String> generateChatResponse(String inputText) async {
+  Future<String> generateChatResponse(
+      String inputText, Lifestyle? lifestyle) async {
     try {
+      String combinedInputText = inputText;
+
+      if (lifestyle != null) {
+        combinedInputText =
+            'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\n\n$inputText';
+      }
       final response = await dio.post('$baseUrl/chat', data: {
-        "data": {"message": inputText}
+        "data": {"message": combinedInputText}
       });
 
       if (response.statusCode == 200) {

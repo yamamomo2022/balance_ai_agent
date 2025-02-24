@@ -11,47 +11,41 @@ class LifestylePage extends StatefulWidget {
 }
 
 class _LifestylePageState extends State<LifestylePage> {
-  final TextEditingController investmentController =
-      TextEditingController(text: '旅行、趣味、スキルアップなどの体験への投資についてご入力ください。');
-  final TextEditingController savingsController =
-      TextEditingController(text: '節約術や貯蓄計画、効率的な家計管理についてご入力ください。');
-  final TextEditingController growthController =
-      TextEditingController(text: '学習、趣味、メンタルヘルス向上など自己成長に関するアイディアをご入力ください。');
+  final TextEditingController aspirationsController =
+      TextEditingController(text: '世界一のストライカーになる!');
   final TextEditingController goalsController =
-      TextEditingController(text: '具体的な目標設定や達成のための戦略についてご入力ください。');
+      TextEditingController(text: 'チームメイトからボールを奪ってシュートを決める!');
 
   @override
   void dispose() {
-    investmentController.dispose();
-    savingsController.dispose();
-    growthController.dispose();
+    aspirationsController.dispose();
     goalsController.dispose();
     super.dispose();
   }
 
   void _saveLifestyle() {
     final lifestyle = Lifestyle(
-      investment: investmentController.text,
-      savings: savingsController.text,
-      growth: growthController.text,
       goals: goalsController.text,
+      aspirations: aspirationsController.text,
     );
 
     // ここで lifestyle オブジェクトを使用した処理を記述
     // 例: コンソールに出力
-    print('Lifestyle Saved: ${lifestyle.toMap()}');
+    print('Saved: ${lifestyle.toMap()}');
     // または、SnackBarで通知する例
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('ライフスタイル情報を保存しました。')),
+      const SnackBar(content: Text('保存しました。')),
     );
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ChatRoomPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatRoomPage(lifestyle: lifestyle)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Lifestyle Page'),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -59,14 +53,14 @@ class _LifestylePageState extends State<LifestylePage> {
           children: [
             Center(
               child: const Text(
-                '体験投資',
+                '願望',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 8),
             TextField(
-              controller: investmentController,
+              controller: aspirationsController,
               maxLines: 5,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -75,39 +69,7 @@ class _LifestylePageState extends State<LifestylePage> {
             const SizedBox(height: 24),
             Center(
               child: const Text(
-                '節約・貯蓄',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: savingsController,
-              maxLines: 5,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: const Text(
-                '自己成長',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: growthController,
-              maxLines: 5,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: const Text(
-                '目標設定',
+                '目標',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),

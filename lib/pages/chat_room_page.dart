@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/pages/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -9,8 +10,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'lifestyle_page.dart';
 import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
-import 'package:balance_ai_agent/genkit_client.dart';
-import 'package:balance_ai_agent/services/chat_service.dart'; // Import ChatService
+import 'package:balance_ai_agent/services/genkit_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 String randomString() {
@@ -20,7 +20,9 @@ String randomString() {
 }
 
 class ChatRoomPage extends StatefulWidget {
-  const ChatRoomPage({super.key});
+  const ChatRoomPage({super.key, this.lifestyle});
+
+  final Lifestyle? lifestyle;
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
@@ -32,13 +34,23 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   final _agent = const types.User(id: 'agentId');
   final dio = Dio();
   late final GenkitClient _genkitClient;
-  late final ChatService _chatService; // Declare ChatService
 
   @override
   void initState() {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
-    _chatService = ChatService(genkitClient: _genkitClient, context: context);
+
+    // Add lifestyle information as a message if it's not null
+    if (widget.lifestyle != null) {
+      final lifestyleMessage = types.TextMessage(
+        author: _agent, // Or _user, depending on who "owns" the lifestyle
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: randomString(),
+        text:
+            '- 願望 -\n${widget.lifestyle!.aspirations}\n\n- 目標 -\n${widget.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
+      );
+      _addMessage(lifestyleMessage);
+    }
   }
 
   void _addMessage(types.Message message) {
@@ -57,7 +69,8 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
-    final responseText = await _genkitClient.generateChatResponse(message.text);
+    final responseText = await _genkitClient.generateChatResponse(
+        message.text, widget.lifestyle);
     // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
