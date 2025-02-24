@@ -11,30 +11,22 @@ class LifestylePage extends StatefulWidget {
 }
 
 class _LifestylePageState extends State<LifestylePage> {
-  final TextEditingController investmentController =
-      TextEditingController(text: '旅行、趣味、スキルアップなどの体験への投資についてご入力ください。');
-  final TextEditingController savingsController =
-      TextEditingController(text: '節約術や貯蓄計画、効率的な家計管理についてご入力ください。');
-  final TextEditingController growthController =
-      TextEditingController(text: '学習、趣味、メンタルヘルス向上など自己成長に関するアイディアをご入力ください。');
   final TextEditingController goalsController =
       TextEditingController(text: '具体的な目標設定や達成のための戦略についてご入力ください。');
+  final TextEditingController aspirationsController =
+      TextEditingController(text: '学習、趣味、メンタルヘルス向上など自己成長に関するアイディアをご入力ください。');
 
   @override
   void dispose() {
-    investmentController.dispose();
-    savingsController.dispose();
-    growthController.dispose();
+    aspirationsController.dispose();
     goalsController.dispose();
     super.dispose();
   }
 
   void _saveLifestyle() {
     final lifestyle = Lifestyle(
-      investment: investmentController.text,
-      savings: savingsController.text,
-      growth: growthController.text,
       goals: goalsController.text,
+      aspirations: aspirationsController.text,
     );
 
     // ここで lifestyle オブジェクトを使用した処理を記述
@@ -59,55 +51,7 @@ class _LifestylePageState extends State<LifestylePage> {
           children: [
             Center(
               child: const Text(
-                '体験投資',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: investmentController,
-              maxLines: 5,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: const Text(
-                '節約・貯蓄',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: savingsController,
-              maxLines: 5,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: const Text(
-                '自己成長',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: growthController,
-              maxLines: 5,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: const Text(
-                '目標設定',
+                '目標',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -115,6 +59,22 @@ class _LifestylePageState extends State<LifestylePage> {
             const SizedBox(height: 8),
             TextField(
               controller: goalsController,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Center(
+              child: const Text(
+                '願望',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: aspirationsController,
               maxLines: 5,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
