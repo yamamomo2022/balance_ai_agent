@@ -52,3 +52,4 @@ genkit/.genkit/
 lib/firebase_options.dart
 
 .env
+firebase.json
