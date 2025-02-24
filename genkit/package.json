@@ -8,7 +8,7 @@
     "start": "node lib/index.js"
   },
   "engines": {
-    "node": "23.6.0"
+    "node": "22.14.0"
   },
   "main": "index.js",
   "license": "ISC",

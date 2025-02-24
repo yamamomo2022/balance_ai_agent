@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'dart:io' show Platform;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
@@ -12,8 +13,7 @@ class GenkitClient {
 
   final Dio dio;
 
-  final String baseUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:3400' : 'http://127.0.0.1:3400';
+  final String baseUrl = dotenv.env['API_SERVER'] ?? 'http://10.0.2.2:3400';
 
   Future<String> generateChatResponse(String inputText) async {
     try {
