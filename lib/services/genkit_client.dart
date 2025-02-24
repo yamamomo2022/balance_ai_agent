@@ -26,7 +26,6 @@ class GenkitClient {
         combinedInputText =
             'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\n\n$inputText';
       }
-      print(combinedInputText);
       final response = await dio.post('$baseUrl/chat', data: {
         "data": {"message": combinedInputText}
       });

@@ -39,6 +39,18 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   void initState() {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
+
+    // Add lifestyle information as a message if it's not null
+    if (widget.lifestyle != null) {
+      final lifestyleMessage = types.TextMessage(
+        author: _agent, // Or _user, depending on who "owns" the lifestyle
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: randomString(),
+        text:
+            '- 願望 -\n${widget.lifestyle!.aspirations}\n\n- 目標 -\n${widget.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
+      );
+      _addMessage(lifestyleMessage);
+    }
   }
 
   void _addMessage(types.Message message) {
