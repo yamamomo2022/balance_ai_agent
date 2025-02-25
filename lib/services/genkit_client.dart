@@ -24,7 +24,7 @@ class GenkitClient {
 
       if (lifestyle != null) {
         combinedInputText =
-            'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\n\n$inputText';
+            'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\nしかし，以下の逆効果のことをやろうとしてしまっています．願望と目標に沿った代替案を具体的に30字程度で提案してください．\n\n```\n$inputText\n```';
       }
       final response = await dio.post('$baseUrl/chat', data: {
         "data": {"message": combinedInputText}

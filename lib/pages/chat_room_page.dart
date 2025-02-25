@@ -60,6 +60,9 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   }
 
   Future<void> _handleSendPressed(types.PartialText message) async {
+    if (message.text.isEmpty) {
+      return;
+    }
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
