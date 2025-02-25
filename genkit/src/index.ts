@@ -23,7 +23,7 @@ export const chatFlow = ai.defineFlow(
   },
   async (input) => {
     // チャット用プロンプト例（必要に応じて調整してください）
-    const prompt = `You are a helpful assistant conversing in Japanese.
+    const prompt = `You are a helpful assistant conversing in Japanese. You MUST respond with a JSON object that has the following structure: { "response": "your response here" }. Do not include any other text.\n
 User: ${input.message}
 Assistant:`;
     

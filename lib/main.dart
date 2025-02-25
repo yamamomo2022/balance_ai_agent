@@ -3,13 +3,18 @@ import 'pages/login_signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // flavor に応じて .env ファイルをロード
+  String envFile = kReleaseMode ? '.env.production' : '.env.development';
+  await dotenv.load(fileName: envFile);
+
   runApp(const MyApp());
 }
 
