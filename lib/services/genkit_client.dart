@@ -4,6 +4,8 @@ import 'dart:io' show Platform;
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:balance_ai_agent/providers/user_provider.dart';
 
 /// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
@@ -20,15 +22,33 @@ class GenkitClient {
   Future<String> generateChatResponse(
       String inputText, Lifestyle? lifestyle) async {
     try {
+      // get current user's id
+      final user = FirebaseAuth.instance.currentUser;
+      String? idToken;
+      if (user != null) {
+        idToken = await user.getIdToken();
+      }
+
       String combinedInputText = inputText;
 
       if (lifestyle != null) {
         combinedInputText =
             'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\nしかし，以下の逆効果のことをやろうとしてしまっています．願望と目標に沿った代替案を具体的に30字程度で提案してください．\n\n```\n$inputText\n```';
       }
-      final response = await dio.post('$baseUrl/chat', data: {
-        "data": {"message": combinedInputText}
-      });
+
+      // add user id to the request header
+      Map<String, dynamic> headers = {};
+      if (idToken != null) {
+        headers['Authorization'] = 'Bearer $idToken';
+      }
+
+      final response = await dio.post('$baseUrl/chat',
+          data: {
+            "data": {"message": combinedInputText},
+          },
+          options: Options(
+            headers: headers,
+          ));
 
       if (response.statusCode == 200) {
         print("Chat response received");
