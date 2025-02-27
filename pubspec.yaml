@@ -40,6 +40,8 @@ dependencies:
   flutter_chat_types: ^3.6.2
   firebase_auth: ^5.5.0
   flutter_dotenv: ^5.2.1
+  provider: ^6.1.2
+  firebase_core: ^3.12.1
 
 dev_dependencies:
   flutter_test:
