@@ -55,7 +55,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     super.initState();
     // Listen to auth state changes
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      Provider.of<UserProvider>(context, listen: false).setUser(user);
+      if (!mounted) return;
     });
   }
 
