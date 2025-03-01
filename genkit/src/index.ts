@@ -1,7 +1,6 @@
 import { genkit, z } from "genkit";
 import { vertexAI } from "@genkit-ai/vertexai";
 import { logger } from "genkit/logging";
-import { startFlowServer } from "@genkit-ai/express";
 import express, { Request, Response, NextFunction } from "express";
 import * as admin from 'firebase-admin';
 import path from 'path';
