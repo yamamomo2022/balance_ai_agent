@@ -39,10 +39,10 @@ const checkAuth = (req: AuthenticatedRequest, res: Response, next: NextFunction)
       })
       .catch((error) => {
         console.error('トークンの検証エラー:', error);
-        res.status(403).send('認証に失敗しました。');
+        res.status(401).send('認証に失敗しました。');
       });
   } else {
-    res.status(403).send('認証トークンが提供されていません。');
+    res.status(401).send('認証トークンが提供されていません。');
   }
 };
 
