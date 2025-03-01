@@ -18,6 +18,7 @@
     "@types/express": "^5.0.0",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^22.10.1",
+    "genkit": "^1.0.5",
     "genkit-cli": "^1.0.4",
     "typescript": "^5.7.2"
   },
@@ -26,7 +27,6 @@
     "@genkit-ai/express": "^1.0.4",
     "@genkit-ai/googleai": "^1.0.4",
     "@genkit-ai/vertexai": "^1.0.4",
-    "express": "^4.21.2",
-    "genkit": "^1.0.4"
+    "express": "^4.21.2"
   }
 }
