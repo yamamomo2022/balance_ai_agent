@@ -17,7 +17,7 @@ class GenkitClient {
 
   final Dio dio;
 
-  final String baseUrl = dotenv.env['API_SERVER'] ?? 'http://10.0.2.2:3400';
+  final String baseUrl = dotenv.env['API_SERVER'] ?? 'http://127.0.0.1:4300';
 
   Future<String> generateChatResponse(
       String inputText, Lifestyle? lifestyle) async {
