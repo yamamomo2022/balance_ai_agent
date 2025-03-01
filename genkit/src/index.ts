@@ -41,8 +41,6 @@ const checkAuth = (req: AuthenticatedRequest, res: Response, next: NextFunction)
         console.error('トークンの検証エラー:', error);
         res.status(401).send('認証に失敗しました。');
       });
-  } else {
-    res.status(401).send('認証トークンが提供されていません。');
   }
 };
 
