@@ -110,20 +110,19 @@ class _LifestylePageState extends State<LifestylePage> {
         ],
         selectedItemColor: Colors.cyan,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ChatRoomPage()),
-            );
+          switch (index) {
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+              );
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingPage()),
+              );
           }
-          if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SettingPage()),
-            );
-
-            ;
-          }
+          ;
         },
       ),
     );
