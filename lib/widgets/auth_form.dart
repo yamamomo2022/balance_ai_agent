@@ -1,5 +1,5 @@
+import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthForm extends StatefulWidget {
@@ -44,7 +44,7 @@ class _AuthFormState extends State<AuthForm> {
         // Navigate to chat room after successful authentication
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+          MaterialPageRoute(builder: (context) => const LifestylePage()),
         );
       } on FirebaseAuthException catch (e) {
         String errorMessage = 'An error occurred.';
