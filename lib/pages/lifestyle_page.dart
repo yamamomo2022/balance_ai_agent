@@ -1,3 +1,4 @@
+import 'package:balance_ai_agent/pages/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
 import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
@@ -45,7 +46,9 @@ class _LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(
+        title: 'ポリシー',
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -89,6 +92,39 @@ class _LifestylePageState extends State<LifestylePage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'ポリシー',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'チャット',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: '設定',
+          ),
+        ],
+        selectedItemColor: Colors.cyan,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingPage()),
+            );
+
+            ;
+          }
+        },
       ),
     );
   }
