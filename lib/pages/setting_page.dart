@@ -108,7 +108,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '設定'),
+      appBar: CustomAppBar(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -143,40 +143,19 @@ class _SettingPageState extends State<SettingPage> {
                   ),
 
                   const SizedBox(height: 30),
-
-                  // Danger zone
-                  const Text(
-                    '危険ゾーン',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Card(
-                    color: Colors.red.shade50,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.delete_forever,
-                                color: Colors.red),
-                            title: const Text('アカウントを削除',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            subtitle: const Text(
-                                'アカウントとすべてのデータを完全に削除します。この操作は取り消せません。'),
-                            trailing: ElevatedButton(
-                              onPressed: () => _deleteAccount(context),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                              ),
-                              child: const Text('削除'),
-                            ),
-                          ),
-                        ],
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => _deleteAccount(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text(
+                        'アカウントを削除する',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

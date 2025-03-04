@@ -46,9 +46,7 @@ class _LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'ポリシー',
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -97,7 +95,7 @@ class _LifestylePageState extends State<LifestylePage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'ポリシー',
+            label: 'プロフィール',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
