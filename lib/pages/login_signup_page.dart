@@ -1,3 +1,5 @@
+import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'chat_room_page.dart';
@@ -43,7 +45,7 @@ class LoginSignupPage extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ChatRoomPage()),
+                        builder: (context) => const LifestylePage()),
                   );
                   try {
                     final userCredential =

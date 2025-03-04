@@ -33,7 +33,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         shadowColor: Colors.black, // 影の色
         surfaceTintColor: Colors.transparent, // サーフェスの色合い
         title: title != null
-            ? Text(title!, style: Theme.of(context).textTheme.labelLarge)
+            ? Text(
+                title!,
+                style: Theme.of(context).textTheme.labelLarge,
+              )
             : Container(),
         actions: actions ?? []);
   }

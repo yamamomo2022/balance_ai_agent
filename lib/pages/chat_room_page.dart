@@ -87,57 +87,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.assignment_outlined),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LifestylePage()),
-                );
-              },
-            ),
-          ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              SizedBox(
-                height: 128,
-                child: DrawerHeader(
-                  child: Text('Menu'),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 114, 219, 184),
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.logout),
-                    SizedBox(width: 8),
-                    Text('Logout'),
-                  ],
-                ),
-                onTap: () async {
-                  try {
-                    await FirebaseAuth.instance.signOut();
-                  } catch (e) {
-                    // エラーメッセージを表示するなどの処理を追加
-                  }
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginSignupPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+        appBar: CustomAppBar(title: 'チャット'),
         body: Chat(
           user: _user,
           messages: _messages,
