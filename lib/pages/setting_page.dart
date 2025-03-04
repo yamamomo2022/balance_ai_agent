@@ -1,3 +1,4 @@
+import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:balance_ai_agent/pages/login_signup_page.dart';
@@ -162,6 +163,7 @@ class _SettingPageState extends State<SettingPage> {
                 ],
               ),
             ),
+      bottomNavigationBar: AppBottomNavBar(currentIndex: 2),
     );
   }
 }
