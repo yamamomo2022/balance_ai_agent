@@ -1,4 +1,3 @@
-import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_signup_page.dart';
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Balance AI Agent',
+          title: 'だいたいあん',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
