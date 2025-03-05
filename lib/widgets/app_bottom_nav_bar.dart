@@ -17,16 +17,16 @@ class AppBottomNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'プロフィール',
+          icon: Icon(Icons.edit_note),
+          label: 'ライフスタイル',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat),
           label: 'チャット',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: '設定',
+          icon: Icon(Icons.person_outline),
+          label: '生成自画像',
         ),
       ],
       selectedItemColor: Colors.cyan,
