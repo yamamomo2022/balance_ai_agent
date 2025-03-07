@@ -15,6 +15,24 @@ class BasePage extends HookWidget {
   Widget build(BuildContext context) {
     final currentTab = useState(TabItem.lifestyle);
     return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 114, 219, 184),
+                Color.fromARGB(255, 87, 151, 199)
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        elevation: 5,
+        scrolledUnderElevation: 10.0, // スクロール時の高さ
+        shadowColor: Colors.black, // 影の色
+        surfaceTintColor: Colors.transparent, // サーフェスの色合い
+      ),
       body: Stack(
         children: TabItem.values
             .map(
@@ -33,6 +51,7 @@ class BasePage extends HookWidget {
             .toList(),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.cyan,
         type: BottomNavigationBarType.fixed,
         currentIndex: TabItem.values.indexOf(currentTab.value),
         items: TabItem.values

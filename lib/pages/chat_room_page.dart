@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:balance_ai_agent/models/lifestyle.dart';
-import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
-import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
 
@@ -85,7 +83,6 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(),
         body: Chat(
           user: _user,
           messages: _messages,

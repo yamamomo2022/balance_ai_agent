@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/services/image_generation_service.dart';
-import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
-import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 
 class SelfImageGenerationPage extends StatefulWidget {
   const SelfImageGenerationPage({super.key});
@@ -72,7 +70,6 @@ class _SelfImageGenerationPageState extends State<SelfImageGenerationPage> {
   Widget build(BuildContext context) {
     // Your existing build method...
     return Scaffold(
-      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -101,7 +98,6 @@ class _SelfImageGenerationPageState extends State<SelfImageGenerationPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const AppBottomNavBar(currentIndex: 2),
     );
   }
 }

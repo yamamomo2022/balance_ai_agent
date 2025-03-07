@@ -1,8 +1,8 @@
-import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:balance_ai_agent/pages/base_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
   const LoginSignupPage({super.key});
@@ -42,8 +42,7 @@ class LoginSignupPage extends StatelessWidget {
                   // 匿名で使用する処理
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const LifestylePage()),
+                    MaterialPageRoute(builder: (context) => const BasePage()),
                   );
                   try {
                     final userCredential =

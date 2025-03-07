@@ -1,8 +1,6 @@
-import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:balance_ai_agent/pages/login_signup_page.dart';
-import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -55,19 +53,11 @@ class _SettingPageState extends State<SettingPage> {
 
           // Navigate to login page after deletion
           if (mounted) {
-            Navigator.of(context).pushAndRemoveUntil(
+            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (context) => const LoginSignupPage(),
               ),
               (route) => false,
-            );
-
-            // Show success message
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('アカウントが削除されました'),
-                backgroundColor: Colors.green,
-              ),
             );
           }
         }
@@ -109,7 +99,6 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -163,7 +152,6 @@ class _SettingPageState extends State<SettingPage> {
                 ],
               ),
             ),
-      bottomNavigationBar: AppBottomNavBar(currentIndex: 2),
     );
   }
 }
