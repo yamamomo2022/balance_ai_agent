@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
-import 'chat_room_page.dart';
 
 class LifestylePage extends StatefulWidget {
   const LifestylePage({super.key});
@@ -14,7 +12,6 @@ class LifestylePage extends StatefulWidget {
 class _LifestylePageState extends State<LifestylePage> {
   final TextEditingController aspirationsController = TextEditingController();
   final TextEditingController goalsController = TextEditingController();
-  bool _isInitialized = false;
   bool _isEditMode = false; // 編集モード管理用の変数を追加
 
   // 既存のコードは同じ...
@@ -85,6 +82,7 @@ class _LifestylePageState extends State<LifestylePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 20),
               // 願望のテキストフィールド (編集モードに応じて有効/無効)
               Center(
                 child: const Text(
