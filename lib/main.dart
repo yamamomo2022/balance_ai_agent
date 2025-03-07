@@ -1,4 +1,4 @@
-import 'package:balance_ai_agent/pages/lifestyle_page.dart';
+import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'だいたいあん',
+          title: 'Balance AI Agent',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
@@ -64,7 +64,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     return Consumer<UserProvider>(
       builder: (context, userProvider, _) {
         return userProvider.isLoggedIn
-            ? const LifestylePage()
+            ? const ChatRoomPage()
             : const LoginSignupPage();
       },
     );

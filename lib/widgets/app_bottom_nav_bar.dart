@@ -1,7 +1,7 @@
+import 'package:balance_ai_agent/pages/self_image_generation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
-import 'package:balance_ai_agent/pages/setting_page.dart';
 
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({
@@ -50,10 +50,11 @@ class AppBottomNavBar extends StatelessWidget {
               );
             }
           case 2:
-            if (!(context.widget is SettingPage)) {
+            if (!(context.widget is SelfImageGenerationPage)) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingPage()),
+                MaterialPageRoute(
+                    builder: (context) => const SelfImageGenerationPage()),
               );
             }
         }
