@@ -1,8 +1,6 @@
-import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
-import 'chat_room_page.dart';
 import 'signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

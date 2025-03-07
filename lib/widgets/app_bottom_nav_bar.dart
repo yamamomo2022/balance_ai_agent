@@ -26,7 +26,7 @@ class AppBottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          label: '生成自画像',
+          label: '自画像生成',
         ),
       ],
       selectedItemColor: Colors.cyan,
@@ -36,21 +36,21 @@ class AppBottomNavBar extends StatelessWidget {
 
         switch (index) {
           case 0:
-            if (!(context.widget is LifestylePage)) {
+            if (context.widget is! LifestylePage) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LifestylePage()),
               );
             }
           case 1:
-            if (!(context.widget is ChatRoomPage)) {
+            if (context.widget is! ChatRoomPage) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const ChatRoomPage()),
               );
             }
           case 2:
-            if (!(context.widget is SelfImageGenerationPage)) {
+            if (context.widget is! SelfImageGenerationPage) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

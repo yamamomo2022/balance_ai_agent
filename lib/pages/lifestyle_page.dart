@@ -1,4 +1,3 @@
-import 'package:balance_ai_agent/pages/setting_page.dart';
 import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート

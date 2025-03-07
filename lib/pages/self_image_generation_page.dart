@@ -55,6 +55,7 @@ class _SelfImageGenerationPageState extends State<SelfImageGenerationPage> {
           _isLoading = false;
         });
       } else {
+        debugPrint('Image generation failed: ${result.errorMessage}');
         throw Exception(result.errorMessage);
       }
     } catch (e) {
