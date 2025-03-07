@@ -1,7 +1,5 @@
-import 'package:balance_ai_agent/widgets/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart'; // Lifestyle クラスの定義ファイルをインポート
-import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
 import 'chat_room_page.dart';
 
 class LifestylePage extends StatefulWidget {
@@ -46,51 +44,50 @@ class _LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBar(),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: const Text(
-                  '願望',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(
+              child: const Text(
+                '願望',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: aspirationsController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: aspirationsController,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 24),
-              Center(
-                child: const Text(
-                  '目標',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+            ),
+            const SizedBox(height: 24),
+            Center(
+              child: const Text(
+                '目標',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: goalsController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: goalsController,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _saveLifestyle,
-                child: const Text('保存'),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _saveLifestyle,
+              child: const Text('保存'),
+            ),
+          ],
         ),
-        bottomNavigationBar: AppBottomNavBar(currentIndex: 0));
+      ),
+    );
   }
 }
