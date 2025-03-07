@@ -6,6 +6,7 @@ final _navigatorKeys = <TabItem, GlobalKey<NavigatorState>>{
   TabItem.lifestyle: GlobalKey<NavigatorState>(),
   TabItem.chat: GlobalKey<NavigatorState>(),
   TabItem.selfImageGeneration: GlobalKey<NavigatorState>(),
+  TabItem.setting: GlobalKey<NavigatorState>(),
 };
 
 class BasePage extends HookWidget {
