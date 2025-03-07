@@ -2,6 +2,7 @@ import 'package:balance_ai_agent/pages/self_image_generation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
+import 'package:balance_ai_agent/enums/tab_item.dart';
 
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({
@@ -15,18 +16,18 @@ class AppBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.edit_note),
-          label: 'ライフスタイル',
+          icon: Icon(TabItem.lifestyle.icon),
+          label: TabItem.lifestyle.title,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat),
-          label: 'チャット',
+          label: TabItem.lifestyle.title,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          label: '自画像生成',
+          label: TabItem.lifestyle.title,
         ),
       ],
       selectedItemColor: Colors.cyan,
@@ -39,22 +40,28 @@ class AppBottomNavBar extends StatelessWidget {
             if (context.widget is! LifestylePage) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LifestylePage()),
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const LifestylePage(),
+                ),
               );
             }
           case 1:
             if (context.widget is! ChatRoomPage) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const ChatRoomPage(),
+                ),
               );
             }
           case 2:
             if (context.widget is! SelfImageGenerationPage) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const SelfImageGenerationPage()),
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) =>
+                      const SelfImageGenerationPage(),
+                ),
               );
             }
         }

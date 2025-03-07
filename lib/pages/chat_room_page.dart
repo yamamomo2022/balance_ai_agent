@@ -91,6 +91,5 @@ class ChatRoomPageState extends State<ChatRoomPage> {
           messages: _messages,
           onSendPressed: _handleSendPressed,
         ),
-        bottomNavigationBar: const AppBottomNavBar(currentIndex: 1),
       );
 }
