@@ -55,7 +55,10 @@ class _SettingPageState extends State<SettingPage> {
           if (mounted) {
             Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => const LoginSignupPage(),
+                builder: (context) => const LoginSignupPage(
+                  // ここでログインページに遷移
+                  showDeletedMessage: true,
+                ),
               ),
               (route) => false,
             );

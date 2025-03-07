@@ -5,10 +5,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:balance_ai_agent/pages/base_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
-  const LoginSignupPage({super.key});
+  final bool showDeletedMessage;
+
+  const LoginSignupPage({
+    super.key,
+    this.showDeletedMessage = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Show message on the next frame if needed
+    if (showDeletedMessage) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('アカウントが削除されました'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      });
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
