@@ -1,5 +1,4 @@
-import 'package:balance_ai_agent/models/lifestyle.dart';
-import 'package:balance_ai_agent/pages/lifestyle_page.dart';
+import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -65,7 +64,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     return Consumer<UserProvider>(
       builder: (context, userProvider, _) {
         return userProvider.isLoggedIn
-            ? const LifestylePage()
+            ? const ChatRoomPage()
             : const LoginSignupPage();
       },
     );

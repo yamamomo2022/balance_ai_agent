@@ -1,7 +1,7 @@
+import 'package:balance_ai_agent/pages/self_image_generation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
-import 'package:balance_ai_agent/pages/setting_page.dart';
 
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({
@@ -17,16 +17,16 @@ class AppBottomNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'プロフィール',
+          icon: Icon(Icons.edit_note),
+          label: 'ライフスタイル',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat),
           label: 'チャット',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: '設定',
+          icon: Icon(Icons.person_outline),
+          label: '自画像生成',
         ),
       ],
       selectedItemColor: Colors.cyan,
@@ -36,24 +36,25 @@ class AppBottomNavBar extends StatelessWidget {
 
         switch (index) {
           case 0:
-            if (!(context.widget is LifestylePage)) {
+            if (context.widget is! LifestylePage) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LifestylePage()),
               );
             }
           case 1:
-            if (!(context.widget is ChatRoomPage)) {
+            if (context.widget is! ChatRoomPage) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const ChatRoomPage()),
               );
             }
           case 2:
-            if (!(context.widget is SettingPage)) {
+            if (context.widget is! SelfImageGenerationPage) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingPage()),
+                MaterialPageRoute(
+                    builder: (context) => const SelfImageGenerationPage()),
               );
             }
         }
