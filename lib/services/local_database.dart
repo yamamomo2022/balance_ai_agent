@@ -38,26 +38,36 @@ class LocalDatabase {
 
   Future<void> saveLifestyle(Lifestyle lifestyle) async {
     final db = await database;
-    await db.insert('lifestyle', {
-      'goals': lifestyle.goals,
-      'aspirations': lifestyle.aspirations,
-      'createdAt': DateTime.now().millisecondsSinceEpoch
-    });
+    try {
+      await db.insert('lifestyle', {
+        'goals': lifestyle.goals,
+        'aspirations': lifestyle.aspirations,
+        'createdAt': DateTime.now().millisecondsSinceEpoch
+      });
+    } catch (e) {
+      // エラーロギングや通知の処理をここに追加できます
+      print('Error saving lifestyle: $e');
+    }
   }
 
   Future<Lifestyle?> getLatestLifestyle() async {
     final db = await database;
-    final results = await db.query(
-      'lifestyle',
-      orderBy: 'createdAt DESC',
-      limit: 1,
-    );
+    try {
+      final results = await db.query(
+        'lifestyle',
+        orderBy: 'createdAt DESC',
+        limit: 1,
+      );
 
-    if (results.isNotEmpty) {
-      return Lifestyle.fromMap({
-        'goals': results.first['goals'] as String,
-        'aspirations': results.first['aspirations'] as String,
-      });
+      if (results.isNotEmpty) {
+        return Lifestyle.fromMap({
+          'goals': results.first['goals'] as String,
+          'aspirations': results.first['aspirations'] as String,
+        });
+      }
+    } catch (e) {
+      // エラーロギングや通知の処理をここに追加できます
+      print('Error getting latest lifestyle: $e');
     }
     return null;
   }
