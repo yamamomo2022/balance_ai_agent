@@ -18,9 +18,7 @@ String randomString() {
 }
 
 class ChatRoomPage extends StatefulWidget {
-  const ChatRoomPage({super.key, this.lifestyle});
-
-  final Lifestyle? lifestyle;
+  const ChatRoomPage({super.key});
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
@@ -80,8 +78,11 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+    await provider.loadLifestyle();
+
     final responseText = await _genkitClient.generateChatResponse(
-        message.text, widget.lifestyle);
+        message.text, provider.lifestyle);
     // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
