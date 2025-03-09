@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => LifestyleProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
