@@ -8,6 +8,8 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import 'package:dio/dio.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:provider/provider.dart';
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -36,14 +38,24 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
 
-    // Add lifestyle information as a message if it's not null
-    if (widget.lifestyle != null) {
+    // ビルド後に実行するようにスケジュール
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
+  Future<void> _initializeData() async {
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+    await provider.loadLifestyle();
+
+    // 既存のデータがあれば、それをテキストフィールドに設定
+    if (provider.lifestyle != null) {
       final lifestyleMessage = types.TextMessage(
         author: _agent, // Or _user, depending on who "owns" the lifestyle
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: randomString(),
         text:
-            '- 願望 -\n${widget.lifestyle!.aspirations}\n\n- 目標 -\n${widget.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
+            '- 願望 -\n${provider.lifestyle!.aspirations}\n\n- 目標 -\n${provider.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
       );
       _addMessage(lifestyleMessage);
     }
