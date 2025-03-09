@@ -14,9 +14,16 @@ class _LifestylePageState extends State<LifestylePage> {
   final TextEditingController goalsController = TextEditingController();
   bool _isEditMode = false; // 編集モード管理用の変数を追加
 
-  // 既存のコードは同じ...
-
   @override
+  void initState() {
+    super.initState();
+
+    // ビルド後に実行するようにスケジュール
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
   Future<void> _initializeData() async {
     // Providerから保存されたデータを読み込む
     final provider = Provider.of<LifestyleProvider>(context, listen: false);
@@ -42,8 +49,11 @@ class _LifestylePageState extends State<LifestylePage> {
   void _toggleEditMode(bool isEdit) {
     setState(() {
       _isEditMode = isEdit;
-      if (!_isEditMode) {
-        // 保存モードに切り替えた場合、保存処理を実行
+      if (_isEditMode) {
+        aspirationsController.text = aspirationsController.text;
+        goalsController.text = goalsController.text;
+      } else if (aspirationsController.text.isNotEmpty ||
+          goalsController.text.isNotEmpty) {
         _saveLifestyle();
       }
     });
@@ -57,16 +67,30 @@ class _LifestylePageState extends State<LifestylePage> {
   }
 
   void _saveLifestyle() {
-    // Providerを使ってデータを保存
-    final provider = Provider.of<LifestyleProvider>(context, listen: false);
-    provider.saveLifestyle(
-      goalsController.text,
-      aspirationsController.text,
-    );
+    try {
+      // Providerを使ってデータを保存
+      final provider = Provider.of<LifestyleProvider>(context, listen: false);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('保存しました。')),
-    );
+      // 最新のものと同じであれば，保存しない
+      if (provider.lifestyle != null &&
+          provider.lifestyle!.aspirations == aspirationsController.text &&
+          provider.lifestyle!.goals == goalsController.text) {
+        return;
+      }
+
+      provider.saveLifestyle(
+        goalsController.text,
+        aspirationsController.text,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('保存しました。')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('エラーが発生しました: $e')),
+      );
+    }
   }
 
   @override
