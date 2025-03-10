@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 import 'package:dio/dio.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:provider/provider.dart';
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -16,9 +17,7 @@ String randomString() {
 }
 
 class ChatRoomPage extends StatefulWidget {
-  const ChatRoomPage({super.key, this.lifestyle});
-
-  final Lifestyle? lifestyle;
+  const ChatRoomPage({super.key});
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
@@ -36,14 +35,28 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
 
-    // Add lifestyle information as a message if it's not null
-    if (widget.lifestyle != null) {
+    // ビルド後に実行するようにスケジュール
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
+  Future<void> _initializeData() async {
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+    try {
+      await provider.loadLifestyle();
+    } catch (e) {
+      print('Failed to load lifestyle: $e');
+    }
+
+    // 既存のデータがあれば、それをテキストフィールドに設定
+    if (provider.lifestyle != null) {
       final lifestyleMessage = types.TextMessage(
         author: _agent, // Or _user, depending on who "owns" the lifestyle
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: randomString(),
         text:
-            '- 願望 -\n${widget.lifestyle!.aspirations}\n\n- 目標 -\n${widget.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
+            '- 願望 -\n${provider.lifestyle!.aspirations}\n\n- 目標 -\n${provider.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
       );
       _addMessage(lifestyleMessage);
     }
@@ -68,8 +81,11 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+    await provider.loadLifestyle();
+
     final responseText = await _genkitClient.generateChatResponse(
-        message.text, widget.lifestyle);
+        message.text, provider.lifestyle);
     // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
