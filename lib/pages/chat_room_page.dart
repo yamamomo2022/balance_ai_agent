@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -44,7 +43,11 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   Future<void> _initializeData() async {
     final provider = Provider.of<LifestyleProvider>(context, listen: false);
-    await provider.loadLifestyle();
+    try {
+      await provider.loadLifestyle();
+    } catch (e) {
+      print('Failed to load lifestyle: $e');
+    }
 
     // 既存のデータがあれば、それをテキストフィールドに設定
     if (provider.lifestyle != null) {
