@@ -99,6 +99,19 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                setState(() {
+                  _messages.clear();
+                });
+                _initializeData();
+              },
+            ),
+          ],
+        ),
         body: Chat(
           user: _user,
           messages: _messages,
