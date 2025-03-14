@@ -1,6 +1,7 @@
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
+
 import 'package:balance_ai_agent/services/image_generation_service.dart';
+import 'package:flutter/material.dart';
 
 class SelfImageGenerationPage extends StatefulWidget {
   const SelfImageGenerationPage({super.key});
