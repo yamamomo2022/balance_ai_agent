@@ -1,11 +1,13 @@
 import { genkit, z } from "genkit";
-import { vertexAI } from "@genkit-ai/vertexai";
+import { vertexAI} from "@genkit-ai/vertexai";
 import { logger } from "genkit/logging";
 import express, { Request, Response, NextFunction } from "express";
 import * as admin from 'firebase-admin';
 import path from 'path';
 import helmet from 'helmet';
+import { enableFirebaseTelemetry } from "@genkit-ai/firebase";
 
+enableFirebaseTelemetry();
 // Firebaseの初期化
 const serviceAccount = require(path.resolve(__dirname, '../service-account-key.json'));
 admin.initializeApp({
