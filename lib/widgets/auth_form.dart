@@ -70,6 +70,33 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
+  // パスワードリセット処理
+  void _handlePasswordReset(BuildContext context) async {
+    if (_emailAddress.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('パスワードをリセットするには、メールアドレスを入力してください'),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailAddress);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('パスワードリセットメールを送信しました'),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('パスワードリセットに失敗しました: ${e.toString()}'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -133,6 +160,12 @@ class _AuthFormState extends State<AuthForm> {
                   });
                 },
               ),
+              const SizedBox(height: 8),
+              if (widget.isLogin)
+                TextButton(
+                  onPressed: () => _handlePasswordReset(context),
+                  child: const Text('パスワードをリセット'),
+                ),
               const SizedBox(height: 32),
               SizedBox(
                 width: 300,
