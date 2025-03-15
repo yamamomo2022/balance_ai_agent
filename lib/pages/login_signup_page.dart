@@ -13,7 +13,7 @@ class LoginSignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 削除メッセージの表示
+    // アカウント削除メッセージの表示
     if (showDeletedMessage) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
