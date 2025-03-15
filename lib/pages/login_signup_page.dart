@@ -32,11 +32,6 @@ class LoginSignupPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.balance_rounded,
-              size: 120,
-              color: Colors.blueGrey,
-            ),
             const SizedBox(height: 16),
             AuthForm(isLogin: true), // Login
             SizedBox(
@@ -84,7 +79,7 @@ class LoginSignupPage extends StatelessWidget {
                   }
                 },
                 child: const Text(
-                  'Use Anonymously',
+                  'おためし',
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -93,8 +88,13 @@ class LoginSignupPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Does not have account?",
-                    style: TextStyle(fontSize: 16)),
+                Flexible(
+                  child: const Text(
+                    "アカウントをお持ちではありませんか？",
+                    style: TextStyle(fontSize: 16),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 const SizedBox(width: 16),
                 InkWell(
                   // GestureDetector で Text をラップ
@@ -108,7 +108,7 @@ class LoginSignupPage extends StatelessWidget {
                   },
                   child: const Text(
                     // TextButton の代わりに Text を使用
-                    'Sign Up',
+                    'サインアップ',
                     style: TextStyle(
                         fontSize: 16, color: Colors.blueGrey), // スタイルを調整
                   ),

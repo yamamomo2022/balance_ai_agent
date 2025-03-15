@@ -1,12 +1,12 @@
 import 'package:balance_ai_agent/pages/lifestyle_page.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
-    Key? key,
+    super.key,
     required this.isLogin,
-  }) : super(key: key);
+  });
 
   final bool isLogin;
 
@@ -123,7 +123,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'パスワードを入力してください';
                   }
                   return null;
                 },
@@ -139,7 +139,7 @@ class _AuthFormState extends State<AuthForm> {
                 child: ElevatedButton(
                   onPressed: _submitForm,
                   child: Text(
-                    widget.isLogin ? 'Login' : 'Signup',
+                    widget.isLogin ? 'ログイン' : 'サインアップ',
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
