@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/widgets/auth_form.dart';
-import 'signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:balance_ai_agent/pages/base_page.dart';
+import 'package:balance_ai_agent/widgets/auth_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import 'signup_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
   final bool showDeletedMessage;
