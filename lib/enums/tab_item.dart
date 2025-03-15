@@ -1,8 +1,7 @@
+import 'package:balance_ai_agent/pages/chat_room_page.dart';
+import 'package:balance_ai_agent/pages/lifestyle_page.dart';
 import 'package:balance_ai_agent/pages/setting_page.dart';
 import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/pages/lifestyle_page.dart';
-import 'package:balance_ai_agent/pages/chat_room_page.dart';
-import 'package:balance_ai_agent/pages/self_image_generation_page.dart';
 
 enum TabItem {
   lifestyle(
@@ -14,11 +13,6 @@ enum TabItem {
     title: 'チャット',
     icon: Icons.chat,
     page: ChatRoomPage(),
-  ),
-  selfImageGeneration(
-    title: '自画像生成',
-    icon: Icons.person_outline,
-    page: SelfImageGenerationPage(),
   ),
   setting(
     title: '設定',
