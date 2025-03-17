@@ -108,7 +108,7 @@ class _AuthFormState extends State<AuthForm> {
           child: Column(
             children: [
               TextFormField(
-                autofocus: true,
+                autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Email',
