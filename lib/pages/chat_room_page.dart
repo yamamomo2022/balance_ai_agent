@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
+import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-
-import 'package:dio/dio.dart';
-import 'package:balance_ai_agent/services/genkit_client.dart';
 import 'package:provider/provider.dart';
-import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -82,11 +81,9 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     _addMessage(textMessage);
 
     final provider = Provider.of<LifestyleProvider>(context, listen: false);
-    await provider.loadLifestyle();
 
     final responseText = await _genkitClient.generateChatResponse(
         message.text, provider.lifestyle);
-    // Agent's reply (parrot)
     final agentMessage = types.TextMessage(
       author: _agent,
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -99,23 +96,24 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () {
-                setState(() {
-                  _messages.clear();
-                });
-                _initializeData();
-              },
-            ),
-          ],
-        ),
+        appBar: AppBar(backgroundColor: Colors.white),
         body: Chat(
           user: _user,
           messages: _messages,
           onSendPressed: _handleSendPressed,
+          theme: const DefaultChatTheme(backgroundColor: Colors.white),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _messages.clear();
+              _initializeData();
+            });
+          },
+          backgroundColor: Color.fromARGB(255, 104, 208, 200),
+          child: const Icon(Icons.refresh, color: Colors.black),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       );
 }
