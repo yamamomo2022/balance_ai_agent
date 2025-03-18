@@ -94,26 +94,55 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     _addMessage(agentMessage);
   }
 
+  /// 会話履歴をクリアして初期データを再ロードします
+  void _handleResetConversation() {
+    setState(() {
+      _messages.clear();
+    });
+    _initializeData();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(backgroundColor: Colors.white),
-        body: Chat(
-          user: _user,
-          messages: _messages,
-          onSendPressed: _handleSendPressed,
-          theme: const DefaultChatTheme(backgroundColor: Colors.white),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _messages.clear();
-              _initializeData();
-            });
-          },
-          backgroundColor: Color.fromARGB(255, 104, 208, 200),
-          child: const Icon(Icons.refresh, color: Colors.black),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        body: Stack(children: [
+          Chat(
+            user: _user,
+            messages: _messages,
+            onSendPressed: _handleSendPressed,
+            theme: const DefaultChatTheme(backgroundColor: Colors.transparent),
+          ),
+          Positioned(
+              top: 20.0, // 上からの距離
+              right: 20.0, // 右からの距離
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _handleResetConversation,
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: Container(
+                    width: 56.0,
+                    height: 56.0,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 98, 185, 195), // テーマカラー
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4.0,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.refresh,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
+                    ),
+                  ),
+                ),
+              )),
+        ]),
       );
 }
