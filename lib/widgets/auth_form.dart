@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:balance_ai_agent/pages/chat_room_page.dart';
+import 'package:balance_ai_agent/pages/base_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
-    Key? key,
+    super.key,
     required this.isLogin,
-  }) : super(key: key);
+  });
 
   final bool isLogin;
 
@@ -44,7 +44,7 @@ class _AuthFormState extends State<AuthForm> {
         // Navigate to chat room after successful authentication
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const ChatRoomPage()),
+          MaterialPageRoute(builder: (context) => const BasePage()),
         );
       } on FirebaseAuthException catch (e) {
         String errorMessage = 'An error occurred.';
@@ -70,6 +70,33 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
+  // パスワードリセット処理
+  void _handlePasswordReset(BuildContext context) async {
+    if (_emailAddress.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('パスワードをリセットするには、メールアドレスを入力してください'),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailAddress);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('パスワードリセットメールを送信しました'),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('パスワードリセットに失敗しました: ${e.toString()}'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -81,7 +108,7 @@ class _AuthFormState extends State<AuthForm> {
           child: Column(
             children: [
               TextFormField(
-                autofocus: true,
+                autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Email',
@@ -123,7 +150,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'パスワードを入力してください';
                   }
                   return null;
                 },
@@ -133,13 +160,19 @@ class _AuthFormState extends State<AuthForm> {
                   });
                 },
               ),
+              const SizedBox(height: 8),
+              if (widget.isLogin)
+                TextButton(
+                  onPressed: () => _handlePasswordReset(context),
+                  child: const Text('パスワードをリセット'),
+                ),
               const SizedBox(height: 32),
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
                   onPressed: _submitForm,
                   child: Text(
-                    widget.isLogin ? 'Login' : 'Signup',
+                    widget.isLogin ? 'ログイン' : 'サインアップ',
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),

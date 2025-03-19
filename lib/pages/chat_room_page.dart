@@ -1,17 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:balance_ai_agent/models/lifestyle.dart';
-import 'package:balance_ai_agent/pages/login_signup_page.dart';
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
+import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-
-import 'lifestyle_page.dart';
-import 'package:balance_ai_agent/widgets/custom_app_bar.dart';
-import 'package:dio/dio.dart';
-import 'package:balance_ai_agent/services/genkit_client.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -20,9 +16,7 @@ String randomString() {
 }
 
 class ChatRoomPage extends StatefulWidget {
-  const ChatRoomPage({super.key, this.lifestyle});
-
-  final Lifestyle? lifestyle;
+  const ChatRoomPage({super.key});
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
@@ -40,14 +34,28 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     super.initState();
     _genkitClient = GenkitClient(dio: dio);
 
-    // Add lifestyle information as a message if it's not null
-    if (widget.lifestyle != null) {
+    // ビルド後に実行するようにスケジュール
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
+  Future<void> _initializeData() async {
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+    try {
+      await provider.loadLifestyle();
+    } catch (e) {
+      print('Failed to load lifestyle: $e');
+    }
+
+    // 既存のデータがあれば、それをテキストフィールドに設定
+    if (provider.lifestyle != null) {
       final lifestyleMessage = types.TextMessage(
         author: _agent, // Or _user, depending on who "owns" the lifestyle
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: randomString(),
         text:
-            '- 願望 -\n${widget.lifestyle!.aspirations}\n\n- 目標 -\n${widget.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
+            '- 願望 -\n${provider.lifestyle!.aspirations}\n\n- 目標 -\n${provider.lifestyle!.goals}\n\n素晴らしい願望と目標ですね!\n\nところで，あなたは今，何をしようとしているのですか？',
       );
       _addMessage(lifestyleMessage);
     }
@@ -72,9 +80,10 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     _addMessage(textMessage);
 
+    final provider = Provider.of<LifestyleProvider>(context, listen: false);
+
     final responseText = await _genkitClient.generateChatResponse(
-        message.text, widget.lifestyle);
-    // Agent's reply (parrot)
+        message.text, provider.lifestyle);
     final agentMessage = types.TextMessage(
       author: _agent,
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -85,63 +94,55 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     _addMessage(agentMessage);
   }
 
+  /// 会話履歴をクリアして初期データを再ロードします
+  void _handleResetConversation() {
+    setState(() {
+      _messages.clear();
+    });
+    _initializeData();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.assignment_outlined),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LifestylePage()),
-                );
-              },
-            ),
-          ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              SizedBox(
-                height: 128,
-                child: DrawerHeader(
-                  child: Text('Menu'),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 114, 219, 184),
+        body: Stack(children: [
+          Chat(
+            user: _user,
+            messages: _messages,
+            onSendPressed: _handleSendPressed,
+            theme: const DefaultChatTheme(backgroundColor: Colors.transparent),
+          ),
+          Positioned(
+              top: 20.0, // 上からの距離
+              right: 20.0, // 右からの距離
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _handleResetConversation,
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: Container(
+                    width: 56.0,
+                    height: 56.0,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 98, 185, 195), // テーマカラー
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4.0,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.refresh,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.logout),
-                    SizedBox(width: 8),
-                    Text('Logout'),
-                  ],
-                ),
-                onTap: () async {
-                  try {
-                    await FirebaseAuth.instance.signOut();
-                  } catch (e) {
-                    // エラーメッセージを表示するなどの処理を追加
-                  }
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginSignupPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        body: Chat(
-          user: _user,
-          messages: _messages,
-          onSendPressed: _handleSendPressed,
-        ),
+              )),
+        ]),
       );
 }
