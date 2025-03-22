@@ -175,14 +175,17 @@ class LoginSignupPage extends StatelessWidget {
                 ),
 
                 // 利用規約とプライバシーポリシーへのリンク
-                const Padding(
-                  padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
-                  child: Text(
-                    '利用開始をもって利用規約とプライバシーポリシーに同意したものとみなします',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
+                SizedBox(
+                  width: 300,
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
+                    child: Text(
+                      '利用開始をもって利用規約とプライバシーポリシーに同意したものとみなします',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
