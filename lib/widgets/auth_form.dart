@@ -166,7 +166,7 @@ class _AuthFormState extends State<AuthForm> {
                   onPressed: () => _handlePasswordReset(context),
                   child: const Text('パスワードをリセット'),
                 ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
