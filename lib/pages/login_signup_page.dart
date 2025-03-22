@@ -1,6 +1,9 @@
+import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'base_page.dart';
 import 'signup_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
@@ -10,6 +13,26 @@ class LoginSignupPage extends StatelessWidget {
     super.key,
     this.showDeletedMessage = false,
   });
+
+  /// お試しモードでアプリを利用するためのハンドラー
+  void _handleTryDemoMode(BuildContext context) {
+    // ゲストモードフラグを設定（UserProviderを使用）
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.setGuestMode(true);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const BasePage()),
+    );
+
+    // お試し利用の通知
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('お試しモードでログインしました。一部機能が制限されています。'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Color(0xFF3A8891),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +76,6 @@ class LoginSignupPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 // アプリ名
-                const Text(
-                  'だいたいあん',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF0E5E6F),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // アプリ説明
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
-                    '理想への扉を開く、多彩な選択肢',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                // ログインフォーム
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   elevation: 4,
@@ -144,6 +144,47 @@ class LoginSignupPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                // お試し利用ボタン
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: SizedBox(
+                    width: 300,
+                    child: OutlinedButton(
+                      onPressed: () => _handleTryDemoMode(context),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: primaryColor,
+                        side: const BorderSide(color: primaryColor, width: 1.5),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'お試し利用',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 利用規約とプライバシーポリシーへのリンク
+                SizedBox(
+                  width: 300,
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
+                    child: Text(
+                      '利用開始をもって利用規約とプライバシーポリシーに同意したものとみなします',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
                       ),
                     ),
                   ),
