@@ -1,6 +1,7 @@
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 
+import 'base_page.dart';
 import 'signup_page.dart';
 
 class LoginSignupPage extends StatelessWidget {
@@ -10,6 +11,24 @@ class LoginSignupPage extends StatelessWidget {
     super.key,
     this.showDeletedMessage = false,
   });
+
+  /// お試しモードでアプリを利用するためのハンドラー
+  void _handleTryDemoMode(BuildContext context) {
+    // ホーム画面に遷移
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const BasePage()),
+    );
+
+    // お試し利用の通知
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('お試しモードでログインしました。一部機能が制限されています。'),
+        duration: Duration(seconds: 4),
+        backgroundColor: Color(0xFF3A8891),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +164,44 @@ class LoginSignupPage extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                  ),
+                ),
+                // お試し利用ボタン
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: SizedBox(
+                    width: 300,
+                    child: OutlinedButton(
+                      onPressed: () => _handleTryDemoMode(context),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: primaryColor,
+                        side: const BorderSide(color: primaryColor, width: 1.5),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'お試し利用',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 利用規約とプライバシーポリシーへのリンク
+                const Padding(
+                  padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
+                  child: Text(
+                    '利用開始をもって利用規約とプライバシーポリシーに同意したものとみなします',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
                     ),
                   ),
                 ),
