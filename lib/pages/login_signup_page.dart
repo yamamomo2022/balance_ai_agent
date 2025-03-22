@@ -1,5 +1,7 @@
+import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'base_page.dart';
 import 'signup_page.dart';
@@ -14,7 +16,9 @@ class LoginSignupPage extends StatelessWidget {
 
   /// お試しモードでアプリを利用するためのハンドラー
   void _handleTryDemoMode(BuildContext context) {
-    // ホーム画面に遷移
+    // ゲストモードフラグを設定（UserProviderを使用）
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.setGuestMode(true);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const BasePage()),
