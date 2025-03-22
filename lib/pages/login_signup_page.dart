@@ -76,29 +76,6 @@ class LoginSignupPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 // アプリ名
-                const Text(
-                  'だいたいあん',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF0E5E6F),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // アプリ説明
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
-                    '理想への扉を開く、多彩な選択肢',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                // ログインフォーム
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   elevation: 4,
