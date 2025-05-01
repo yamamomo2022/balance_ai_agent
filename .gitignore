@@ -58,3 +58,5 @@ firebase.json
 
 # FVM Version Cache
 .fvm/
+
+firepit-log.txt
