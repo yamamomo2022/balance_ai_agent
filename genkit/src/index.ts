@@ -1,7 +1,6 @@
 import app, { checkAuth, AuthenticatedRequest } from "./app";
 import { chatFlow } from "./genkit-flows/chatFlow";
 
-// 認証が必要なテストエンドポイント
 app.post("/chat", checkAuth, async (req: AuthenticatedRequest, res) => {
   try {
     const userInput = req.body.data;
@@ -19,5 +18,5 @@ app.post("/chat", checkAuth, async (req: AuthenticatedRequest, res) => {
 // サーバー起動
 const PORT = process.env.PORT || 4300;
 app.listen(PORT, () => {
-  console.log(`サーバーがポート ${PORT} で起動しました。`);
+  console.log(`サーバーがポート ${PORT} で起動しました。`);	
 });

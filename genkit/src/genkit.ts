@@ -7,6 +7,8 @@ enableFirebaseTelemetry();
 
 logger.setLogLevel("debug");
 
-const ai = genkit({ plugins: [vertexAI()] });
+const ai = genkit({
+  plugins: [vertexAI()]
+ });
 
 export default ai;

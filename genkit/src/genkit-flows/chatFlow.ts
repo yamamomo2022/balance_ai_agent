@@ -1,33 +1,20 @@
 import { z } from "genkit";
 import ai from "../genkit";
 
+const chatPrompt = ai.prompt<z.ZodTypeAny, z.ZodTypeAny>(`chat`)
+
 export const chatFlow = ai.defineFlow(
-    {
-      name: "chat",
-      inputSchema:z.object({
-          message: z.string(),
-        }),
-      outputSchema: z.object({
-        response: z.string(),
-      }),
-    },
-    async (input) => {
-      const prompt = `You are a helpful assistant conversing in Japanese. You MUST respond with a JSON object that has the following structure: { "response": "your response here" }. Do not include any other text.\n
-  User: ${input.message}
-  Assistant:`;
-  
-      const response = await ai.generate({
-        model: "vertexai/gemini-1.5-flash",
-        prompt: prompt,
-        config: {
-          temperature: 0.7,
-        },
-        output: {
-          format: "text",
-        },
-      });
-  
-      console.log("Chat Response:", response);
-      return { response: response.text };
-    }
-  );
+  {
+    name: `chat`,
+    inputSchema: z.object({
+      message: z.string(),
+    }),
+    outputSchema: z.object({
+      response: z.string(),
+    }),
+  },
+  async (input) => {
+    const { output } = await chatPrompt(input)
+    return output
+  }
+)
