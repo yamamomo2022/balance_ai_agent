@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: create firebase_options.dart
+        run: |
+          echo "$FIREBASE_OPTIONS_BASE64" | base64 -d > lib/firebase_options.dart
+        env:
+          FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
