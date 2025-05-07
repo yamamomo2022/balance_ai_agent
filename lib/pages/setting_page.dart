@@ -117,43 +117,6 @@ class _SettingPageState extends State<SettingPage> {
     }
   }
 
-  /// ログアウト処理
-  Future<void> _handleLogout() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      // UserProviderのlogoutメソッドを呼び出し
-      await userProvider.logout();
-
-      // ログイン画面に遷移
-      if (mounted) {
-        Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const LoginSignupPage(),
-          ),
-          (route) => false,
-        );
-      }
-    } catch (logoutError) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('ログアウト中にエラーが発生しました: ${logoutError.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // ゲストモードかどうかを確認
