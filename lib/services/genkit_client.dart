@@ -41,15 +41,15 @@ class GenkitClient {
 
       final response = await dio.post('$baseUrl/chat',
           data: {
-            "data": {"message": combinedInputText},
+            'data': {'message': combinedInputText},
           },
           options: Options(
             headers: headers,
           ));
 
       if (response.statusCode == 200) {
-        print("Chat response received");
-        print("Response data: ${response.data}"); // デバッグ用
+        print('Chat response received');
+        print('Response data: ${response.data}'); // デバッグ用
 
         final resultData = response.data['result'];
 
