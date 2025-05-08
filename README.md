@@ -39,12 +39,9 @@ Firebase認証によるログイン・サインアップや、お試しモード
 - Flutter
 - Firebase Authentication
 - Provider（状態管理）
+- Genkit（AI統合）
 
 ## ライセンス
 
 このリポジトリはMITライセンスで公開されています。  
 詳細は [LICENSE](LICENSE) ファイルをご覧ください。
-
-
-
-
