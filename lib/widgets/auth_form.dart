@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/pages/base_page.dart';
+import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,15 +25,6 @@ class _AuthFormState extends State<AuthForm> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const BasePage()),
-    );
-  }
-
-  void _sebdsnakbar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 2),
-      ),
     );
   }
 
@@ -74,12 +66,12 @@ class _AuthFormState extends State<AuthForm> {
         }
 
         if (mounted) {
-          _sebdsnakbar(errorMessage);
+          showSnackBar(context, errorMessage);
         }
       } catch (e) {
         print(e);
         if (mounted) {
-          _sebdsnakbar('An unexpected error occurred.');
+          showSnackBar(context, 'An unexpected error occurred.');
         }
       }
     }
@@ -98,13 +90,13 @@ class _AuthFormState extends State<AuthForm> {
 
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailAddress);
-      if (mounted) {
-        _sebdsnakbar('パスワードリセットメールを送信しました');
+      if (context.mounted) {
+        showSnackBar(context, 'パスワードリセットメールを送信しました');
       }
     } catch (e) {
-      if (mounted) {
+      if (context.mounted) {
         // エラーメッセージを表示
-        _sebdsnakbar('パスワードリセットに失敗しました: ${e.toString()}');
+        showSnackBar(context, 'パスワードリセットに失敗しました: ${e.toString()}');
       }
     }
   }

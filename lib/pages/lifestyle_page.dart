@@ -1,15 +1,15 @@
+import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 
 class LifestylePage extends StatefulWidget {
   const LifestylePage({super.key});
 
   @override
-  _LifestylePageState createState() => _LifestylePageState();
+  LifestylePageState createState() => LifestylePageState();
 }
 
-class _LifestylePageState extends State<LifestylePage> {
+class LifestylePageState extends State<LifestylePage> {
   final TextEditingController aspirationsController = TextEditingController();
   final TextEditingController goalsController = TextEditingController();
   bool _isEditMode = false; // 編集モード管理用の変数を追加
