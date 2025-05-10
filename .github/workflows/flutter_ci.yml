@@ -16,9 +16,9 @@ jobs:
           FIREBASE_OPTIONS_BASE64: ${{ secrets.FIREBASE_OPTIONS_BASE64 }}
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.3'
+          flutter-version: '3.29.2'
       - name: Install packages
-        run: flutter pub get
+        run: flutter pub get && flutter pub get
       - name: Linter
         run: flutter analyze
       - name: Test
