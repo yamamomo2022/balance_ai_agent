@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/pages/base_page.dart';
+import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,13 @@ class _AuthFormState extends State<AuthForm> {
   bool _obscurePassword = true;
   String _emailAddress = '';
   String _password = '';
+
+  void _navigateToBasePage(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const BasePage()),
+    );
+  }
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -42,10 +50,9 @@ class _AuthFormState extends State<AuthForm> {
         }
 
         // Navigate to chat room after successful authentication
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const BasePage()),
-        );
+        if (mounted) {
+          _navigateToBasePage(context);
+        }
       } on FirebaseAuthException catch (e) {
         String errorMessage = 'An error occurred.';
         if (e.code == 'weak-password') {
@@ -58,14 +65,14 @@ class _AuthFormState extends State<AuthForm> {
           errorMessage = 'Wrong password provided for that user.';
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
-        );
+        if (mounted) {
+          showSnackBar(context, errorMessage);
+        }
       } catch (e) {
         print(e);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('An unexpected error occurred.')),
-        );
+        if (mounted) {
+          showSnackBar(context, 'An unexpected error occurred.');
+        }
       }
     }
   }
@@ -83,17 +90,14 @@ class _AuthFormState extends State<AuthForm> {
 
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailAddress);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('パスワードリセットメールを送信しました'),
-        ),
-      );
+      if (context.mounted) {
+        showSnackBar(context, 'パスワードリセットメールを送信しました');
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('パスワードリセットに失敗しました: ${e.toString()}'),
-        ),
-      );
+      if (context.mounted) {
+        // エラーメッセージを表示
+        showSnackBar(context, 'パスワードリセットに失敗しました: ${e.toString()}');
+      }
     }
   }
 
