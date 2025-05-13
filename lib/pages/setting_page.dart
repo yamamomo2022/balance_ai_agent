@@ -1,5 +1,6 @@
 import 'package:balance_ai_agent/pages/login_signup_page.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
+import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,7 @@ class _SettingPageState extends State<SettingPage> {
           await currentUser.delete();
 
           // 削除後、ログインページに戻る
-          if (mounted) {
+          if (context.mounted) {
             Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (context) => const LoginSignupPage(
@@ -90,21 +91,19 @@ class _SettingPageState extends State<SettingPage> {
           errorMessage = '再認証が必要です。一度ログアウトして再度ログインしてからお試しください';
         }
 
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMessage),
-              backgroundColor: Colors.red,
-            ),
+        if (context.mounted) {
+          showSnackBar(
+            context,
+            errorMessage,
+            backgroundColor: Colors.red,
           );
         }
       } catch (genericError) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('エラー：${genericError.toString()}'),
-              backgroundColor: Colors.red,
-            ),
+        if (context.mounted) {
+          showSnackBar(
+            context,
+            'アカウント削除中にエラーが発生しました: $genericError',
+            backgroundColor: Colors.red,
           );
         }
       } finally {
@@ -113,43 +112,6 @@ class _SettingPageState extends State<SettingPage> {
             _isLoading = false;
           });
         }
-      }
-    }
-  }
-
-  /// ログアウト処理
-  Future<void> _handleLogout() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      // UserProviderのlogoutメソッドを呼び出し
-      await userProvider.logout();
-
-      // ログイン画面に遷移
-      if (mounted) {
-        Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const LoginSignupPage(),
-          ),
-          (route) => false,
-        );
-      }
-    } catch (logoutError) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('ログアウト中にエラーが発生しました: ${logoutError.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
       }
     }
   }

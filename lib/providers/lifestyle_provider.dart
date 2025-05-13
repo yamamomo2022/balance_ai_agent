@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/services/local_database.dart';
+import 'package:flutter/foundation.dart';
 
 class LifestyleProvider extends ChangeNotifier {
   Lifestyle? _currentLifestyle;

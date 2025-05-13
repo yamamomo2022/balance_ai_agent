@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Genkit 経由で Gemini Pro 1.5 Flash を使用してチャット応答を生成するためのクライアント
 class GenkitClient {
@@ -41,15 +42,15 @@ class GenkitClient {
 
       final response = await dio.post('$baseUrl/chat',
           data: {
-            "data": {"message": combinedInputText},
+            'data': {'message': combinedInputText},
           },
           options: Options(
             headers: headers,
           ));
 
       if (response.statusCode == 200) {
-        print("Chat response received");
-        print("Response data: ${response.data}"); // デバッグ用
+        print('Chat response received');
+        print('Response data: ${response.data}'); // デバッグ用
 
         final resultData = response.data['result'];
 
