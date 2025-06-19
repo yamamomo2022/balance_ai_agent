@@ -5,7 +5,9 @@
   "editor.minimap.enabled": false,
   "editor.bracketPairColorization.enabled": true,
   "[dart]": {
-    "editor.rulers": [80],
+    "editor.rulers": [
+      80
+    ],
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "editor.selectionHighlight": false,
@@ -20,7 +22,7 @@
       "source.fixAll": "always"
     }
   },
-  "dart.flutterSdkPath": ".fvm/versions/3.29.2",
+  "dart.flutterSdkPath": ".fvm/versions/3.32.0",
   "dart.debugSdkLibraries": false,
   "dart.showSkippedTests": false,
   "dart.runPubGetOnPubspecChanges": "always",
@@ -47,22 +49,22 @@
     "*.dart": "$(capture).g.dart, $(capture).gr.dart, $(capture).freezed.dart"
   },
   "github.copilot.chat.codeGeneration.instructions": [
-      {
-          "text": "Use descriptive variable names."
-        },
-        {
-          "text": "Prioritize readability and maintainability."
-        },
-        {
-          "text": "Follow Flutter's style guide."
-        }
-    ],
-    "github.copilot.chat.commitMessageGeneration.instructions": [   
-      {
-          "text": "Use conventional commit message format."
-      },
-      {
-          "text": "Then, please include detailed changes for each file."
-      }
+    {
+      "text": "Use descriptive variable names."
+    },
+    {
+      "text": "Prioritize readability and maintainability."
+    },
+    {
+      "text": "Follow Flutter's style guide."
+    }
+  ],
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Use conventional commit message format."
+    },
+    {
+      "text": "Then, please include detailed changes for each file."
+    }
   ]
 }
