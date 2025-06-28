@@ -1,5 +1,6 @@
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,23 +16,47 @@ class LoginSignupPage extends StatelessWidget {
   });
 
   /// お試しモードでアプリを利用するためのハンドラー
-  void _handleTryDemoMode(BuildContext context) {
-    // ゲストモードフラグを設定（UserProviderを使用）
+  void _handleTryDemoMode(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.setGuestMode(true);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const BasePage()),
-    );
+    
+    try {
+      // Firebase匿名認証を実行
+      final userCredential = await FirebaseAuth.instance.signInAnonymously();
+      print('Anonymous user signed in: ${userCredential.user?.uid}');
+      
+      // ゲストモードフラグを設定（UserProviderを使用）
+      userProvider.setGuestMode(true);
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const BasePage()),
+      );
 
-    // お試し利用の通知
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('お試しモードでログインしました。一部機能が制限されています。'),
-        duration: Duration(seconds: 4),
-        backgroundColor: Color(0xFF3A8891),
-      ),
-    );
+      // お試し利用の通知
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('お試しモードでログインしました。AIチャット機能も利用できます。'),
+          duration: Duration(seconds: 4),
+          backgroundColor: Color(0xFF3A8891),
+        ),
+      );
+    } catch (e) {
+      print('Anonymous authentication failed: $e');
+      // 匿名認証が失敗した場合は従来通りのゲストモードにフォールバック
+      userProvider.setGuestMode(true);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const BasePage()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('お試しモードでログインしました。一部機能が制限されています。'),
+          duration: Duration(seconds: 4),
+          backgroundColor: Color(0xFF3A8891),
+        ),
+      );
+    }
   }
 
   @override

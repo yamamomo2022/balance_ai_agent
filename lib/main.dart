@@ -59,6 +59,18 @@ class _AuthWrapperState extends State<AuthWrapper> {
     // Listen to auth state changes
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (!mounted) return;
+      
+      // Sync Firebase auth state with UserProvider
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      if (user != null) {
+        userProvider.setUser(user);
+        // If it's an anonymous user, also set guest mode
+        if (user.isAnonymous) {
+          userProvider.setGuestMode(true);
+        }
+      } else {
+        userProvider.setUser(null);
+      }
     });
   }
 
