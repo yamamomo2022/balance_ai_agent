@@ -1,4 +1,5 @@
 # 個人開発アプリ 「だいたいあん」
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 
 [<img src="assets/images/app_store_badge.png" height="50">](https://apps.apple.com/jp/app/%E3%81%A0%E3%81%84%E3%81%9F%E3%81%84%E3%81%82%E3%82%93/id6742693704)
 
