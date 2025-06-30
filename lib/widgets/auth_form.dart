@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
-    super.key,
     required this.isLogin,
+    super.key,
   });
 
   final bool isLogin;
@@ -28,7 +28,7 @@ class _AuthFormState extends State<AuthForm> {
     );
   }
 
-  void _submitForm() async {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       try {
         if (widget.isLogin) {
@@ -54,7 +54,7 @@ class _AuthFormState extends State<AuthForm> {
           _navigateToBasePage(context);
         }
       } on FirebaseAuthException catch (e) {
-        String errorMessage = 'An error occurred.';
+        var errorMessage = 'An error occurred.';
         if (e.code == 'weak-password') {
           errorMessage = 'The password provided is too weak.';
         } else if (e.code == 'email-already-in-use') {
@@ -78,7 +78,7 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   // パスワードリセット処理
-  void _handlePasswordReset(BuildContext context) async {
+  Future<void> _handlePasswordReset(BuildContext context) async {
     if (_emailAddress.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -96,7 +96,7 @@ class _AuthFormState extends State<AuthForm> {
     } catch (e) {
       if (context.mounted) {
         // エラーメッセージを表示
-        showSnackBar(context, 'パスワードリセットに失敗しました: ${e.toString()}');
+        showSnackBar(context, 'パスワードリセットに失敗しました: $e');
       }
     }
   }
@@ -104,7 +104,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       child: Form(
         key: _formKey,
         child: SizedBox(
@@ -112,7 +112,6 @@ class _AuthFormState extends State<AuthForm> {
           child: Column(
             children: [
               TextFormField(
-                autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Email',
