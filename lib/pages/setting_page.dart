@@ -35,29 +35,30 @@ class _SettingPageState extends State<SettingPage> {
     }
 
     // 確認ダイアログを表示
-    final bool userConfirmed = await showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('アカウント削除'),
-          content: const Text(
-              'アカウントを削除すると、すべてのデータが完全に削除されます。この操作は取り消せません。削除してもよろしいですか？'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('キャンセル'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text(
-                '削除する',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        );
-      },
-    );
+    final userConfirmed = await showDialog<bool>(
+          context: context,
+          builder: (BuildContext dialogContext) {
+            return AlertDialog(
+              title: const Text('アカウント削除'),
+              content: const Text(
+                  'アカウントを削除すると、すべてのデータが完全に削除されます。この操作は取り消せません。削除してもよろしいですか？'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(false),
+                  child: const Text('キャンセル'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(true),
+                  child: const Text(
+                    '削除する',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
 
     if (userConfirmed) {
       setState(() {
@@ -66,7 +67,7 @@ class _SettingPageState extends State<SettingPage> {
 
       try {
         // 現在のユーザーを取得
-        final User? currentUser = _auth.currentUser;
+        final currentUser = _auth.currentUser;
         if (currentUser != null) {
           // ユーザーを削除
           await currentUser.delete();
@@ -84,7 +85,7 @@ class _SettingPageState extends State<SettingPage> {
           }
         }
       } on FirebaseAuthException catch (authError) {
-        String errorMessage = 'アカウント削除中にエラーが発生しました';
+        var errorMessage = 'アカウント削除中にエラーが発生しました';
 
         // 特定のエラーケースを処理
         if (authError.code == 'requires-recent-login') {
@@ -119,13 +120,13 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     // ゲストモードかどうかを確認
-    final bool isGuestMode = userProvider.isGuestMode;
+    final isGuestMode = userProvider.isGuestMode;
 
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -141,12 +142,12 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                   const SizedBox(height: 10),
                   Card(
-                    elevation: 2.0,
+                    elevation: 2,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12),
                       child: Column(
                         children: [
                           // アカウント情報表示
@@ -195,12 +196,12 @@ class _SettingPageState extends State<SettingPage> {
                     const SizedBox(height: 30),
                     Card(
                       color: Colors.blue[50],
-                      elevation: 1.0,
+                      elevation: 1,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
