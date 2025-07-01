@@ -28,9 +28,14 @@ class UserProvider with ChangeNotifier {
   /// [isGuest] - trueの場合ゲストモードを有効化、falseの場合は無効化
   void setGuestMode(bool isGuest) {
     _isGuestMode = isGuest;
-    // ゲストモードが有効の場合は、_userをnullに設定して通常ユーザーをクリア
+    // ゲストモードが有効の場合でも、Firebase匿名ユーザーがいる場合は保持する
     if (isGuest) {
-      _user = null;
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null && currentUser.isAnonymous) {
+        _user = currentUser;
+      } else {
+        _user = null;
+      }
     }
     notifyListeners();
   }
@@ -38,7 +43,7 @@ class UserProvider with ChangeNotifier {
   /// ログアウト処理
   /// ゲストモード・通常ユーザーモード両方をクリア
   Future<void> logout() async {
-    // Firebase認証からログアウト
+    // Firebase認証からログアウト（匿名ユーザーも含む）
     if (_user != null) {
       await FirebaseAuth.instance.signOut();
     }
