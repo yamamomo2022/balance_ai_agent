@@ -1,18 +1,17 @@
+import 'package:balance_ai_agent/pages/base_page.dart';
+import 'package:balance_ai_agent/pages/signup_page.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'base_page.dart';
-import 'signup_page.dart';
-
 class LoginSignupPage extends StatelessWidget {
-  final bool showDeletedMessage;
 
   const LoginSignupPage({
     super.key,
     this.showDeletedMessage = false,
   });
+  final bool showDeletedMessage;
 
   /// お試しモードでアプリを利用するためのハンドラー
   void _handleTryDemoMode(BuildContext context) {
@@ -28,7 +27,6 @@ class LoginSignupPage extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('お試しモードでログインしました。一部機能が制限されています。'),
-        duration: Duration(seconds: 4),
         backgroundColor: Color(0xFF3A8891),
       ),
     );
@@ -49,7 +47,7 @@ class LoginSignupPage extends StatelessWidget {
     }
 
     // テーマカラーの定義
-    const Color primaryColor = Color(0xFF3A8891); // バランスを表す青緑色
+    const primaryColor = Color(0xFF3A8891); // バランスを表す青緑色
 
     return Scaffold(
       body: Container(
@@ -69,7 +67,7 @@ class LoginSignupPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // 天秤のイラスト
-                Icon(
+                const Icon(
                   Icons.balance,
                   size: 80,
                   color: primaryColor,
@@ -82,17 +80,17 @@ class LoginSignupPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20),
                     child: AuthForm(isLogin: true),
                   ),
                 ),
                 const SizedBox(height: 24),
                 // 区切り線
-                SizedBox(
+                const SizedBox(
                   width: 300,
                   child: Row(
-                    children: const [
+                    children: [
                       Expanded(
                         child: Divider(
                           color: Colors.grey,
@@ -100,7 +98,7 @@ class LoginSignupPage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           'または',
                           style: TextStyle(
@@ -150,7 +148,7 @@ class LoginSignupPage extends StatelessWidget {
                 ),
                 // お試し利用ボタン
                 Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 16),
                   child: SizedBox(
                     width: 300,
                     child: OutlinedButton(
@@ -175,10 +173,10 @@ class LoginSignupPage extends StatelessWidget {
                 ),
 
                 // 利用規約とプライバシーポリシーへのリンク
-                SizedBox(
+                const SizedBox(
                   width: 300,
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 24, bottom: 16),
                     child: Text(
                       '利用開始をもって利用規約とプライバシーポリシーに同意したものとみなします',
                       textAlign: TextAlign.center,

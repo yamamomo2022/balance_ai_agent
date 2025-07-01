@@ -96,9 +96,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   /// 会話履歴をクリアして初期データを再ロードします
   void _handleResetConversation() {
-    setState(() {
-      _messages.clear();
-    });
+    setState(_messages.clear);
     _initializeData();
   }
 
@@ -112,23 +110,23 @@ class ChatRoomPageState extends State<ChatRoomPage> {
             theme: const DefaultChatTheme(backgroundColor: Colors.transparent),
           ),
           Positioned(
-              top: 20.0, // 上からの距離
-              right: 20.0, // 右からの距離
+              top: 20, // 上からの距離
+              right: 20, // 右からの距離
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: _handleResetConversation,
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(30),
                   child: Container(
-                    width: 56.0,
-                    height: 56.0,
+                    width: 56,
+                    height: 56,
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 98, 185, 195), // テーマカラー
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black26,
-                          blurRadius: 4.0,
+                          blurRadius: 4,
                           offset: Offset(0, 2),
                         ),
                       ],
@@ -137,7 +135,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
                       child: Icon(
                         Icons.refresh,
                         color: Colors.white,
-                        size: 24.0,
+                        size: 24,
                       ),
                     ),
                   ),

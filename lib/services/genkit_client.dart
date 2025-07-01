@@ -27,7 +27,7 @@ class GenkitClient {
         idToken = await user.getIdToken();
       }
 
-      String combinedInputText = inputText;
+      var combinedInputText = inputText;
 
       if (lifestyle != null) {
         combinedInputText =
@@ -35,7 +35,7 @@ class GenkitClient {
       }
 
       // add user id to the request header
-      Map<String, dynamic> headers = {};
+      final headers = <String, dynamic>{};
       if (idToken != null) {
         headers['Authorization'] = 'Bearer $idToken';
       }

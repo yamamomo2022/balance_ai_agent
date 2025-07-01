@@ -1,15 +1,14 @@
+import 'package:balance_ai_agent/firebase_options.dart';
 import 'package:balance_ai_agent/pages/chat_room_page.dart';
+import 'package:balance_ai_agent/pages/login_signup_page.dart';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
+import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-
-import 'firebase_options.dart';
-import 'pages/login_signup_page.dart';
-import 'providers/user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,7 @@ void main() async {
   );
 
   // flavor に応じて .env ファイルをロード
-  String envFile = kReleaseMode ? '.env.production' : '.env.development';
+  const envFile = kReleaseMode ? '.env.production' : '.env.development';
   await dotenv.load(fileName: envFile);
 
   runApp(const MyApp());
