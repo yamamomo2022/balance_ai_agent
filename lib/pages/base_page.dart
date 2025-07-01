@@ -29,7 +29,7 @@ class BasePage extends HookWidget {
           ),
         ),
         elevation: 5,
-        scrolledUnderElevation: 10.0, // スクロール時の高さ
+        scrolledUnderElevation: 10, // スクロール時の高さ
         shadowColor: Colors.black, // 影の色
         surfaceTintColor: Colors.transparent, // サーフェスの色合い
       ),

@@ -106,10 +106,10 @@ class LifestylePageState extends State<LifestylePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // 願望のテキストフィールド (編集モードに応じて有効/無効)
-              Center(
-                child: const Text(
+              const Center(
+                child: Text(
                   '願望',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -127,8 +127,8 @@ class LifestylePageState extends State<LifestylePage> {
               const SizedBox(height: 24),
 
               // 目標のテキストフィールド (編集モードに応じて有効/無効)
-              Center(
-                child: const Text(
+              const Center(
+                child: Text(
                   '目標',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -148,7 +148,6 @@ class LifestylePageState extends State<LifestylePage> {
               // トグルボタンの実装
               Center(
                 child: ToggleButtons(
-                  direction: Axis.horizontal,
                   onPressed: (int index) {
                     _toggleEditMode(index == 0); // 0=編集モード, 1=保存モード
                   },
@@ -158,8 +157,8 @@ class LifestylePageState extends State<LifestylePage> {
                   fillColor: _isEditMode ? Colors.blue : Colors.green,
                   color: Colors.blue,
                   constraints: const BoxConstraints(
-                    minHeight: 40.0,
-                    minWidth: 120.0,
+                    minHeight: 40,
+                    minWidth: 120,
                   ),
                   isSelected: [_isEditMode, !_isEditMode],
                   children: const [

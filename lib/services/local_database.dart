@@ -1,12 +1,12 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class LocalDatabase {
-  static final LocalDatabase instance = LocalDatabase._init();
-  static Database? _database;
 
   LocalDatabase._init();
+  static final LocalDatabase instance = LocalDatabase._init();
+  static Database? _database;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -18,7 +18,7 @@ class LocalDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(
+    return openDatabase(
       path,
       version: 1,
       onCreate: _createDB,
@@ -61,8 +61,8 @@ class LocalDatabase {
 
       if (results.isNotEmpty) {
         return Lifestyle.fromMap({
-          'goals': results.first['goals'] as String,
-          'aspirations': results.first['aspirations'] as String,
+          'goals': results.first['goals']! as String,
+          'aspirations': results.first['aspirations']! as String,
         });
       }
     } catch (e) {
