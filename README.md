@@ -116,7 +116,7 @@ genkit/                       # AI統合バックエンド
 ## 📱 スクリーンショット
 
 <div align="center">
-  <img src="assets/images/login_page.png" height="500" style="margin: 0 20px;">
-  <img src="assets/images/lifestyle_page.png" height="500" style="margin: 0 20px;">
-  <img src="assets/images/chat_page.png" height="500" style="margin: 0 20px;">
+  <img src="assets/images/login_page.png" height="500" style="margin: 0 75px;">
+  <img src="assets/images/lifestyle_page.png" height="500" style="margin: 0 75px;">
+  <img src="assets/images/chat_page.png" height="500" style="margin: 0 75px;">
 </div>
