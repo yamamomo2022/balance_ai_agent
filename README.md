@@ -116,3 +116,7 @@ genkit/                       # AI統合バックエンド
 ## 📱 スクリーンショット
 
 *（実機でのスクリーンショットを後日追加予定）*
+
+[<img src="assets/images/login_page.png" height="250">]
+[<img src="assets/images/lifestyle_page.png" height="250">]
+[<img src="assets/images/chat_page.png" height="250">]
