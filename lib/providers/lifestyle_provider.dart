@@ -1,41 +1,22 @@
 import 'package:balance_ai_agent/models/lifestyle.dart';
-import 'package:balance_ai_agent/services/local_database.dart';
+import 'package:balance_ai_agent/viewmodels/lifestyle_view_model.dart';
 import 'package:flutter/foundation.dart';
 
 class LifestyleProvider extends ChangeNotifier {
-  Lifestyle? _currentLifestyle;
-  final LocalDatabase _db = LocalDatabase.instance;
-  bool isLoading = false;
+  final LifestyleViewModel _viewModel = LifestyleViewModel();
 
-  Lifestyle? get lifestyle => _currentLifestyle;
+  Lifestyle? get lifestyle => _viewModel.lifestyle;
+  bool get isLoading => _viewModel.isLoading;
 
   // 初期化
   Future<void> loadLifestyle() async {
-    isLoading = true;
+    await _viewModel.loadLifestyle();
     notifyListeners();
-
-    try {
-      _currentLifestyle = await _db.getLatestLifestyle();
-    } finally {
-      isLoading = false;
-      notifyListeners();
-    }
   }
 
   // 保存
   Future<void> saveLifestyle(String goals, String aspirations) async {
-    isLoading = true;
-    notifyListeners();
-
-    final lifestyle = Lifestyle(
-      goals: goals,
-      aspirations: aspirations,
-    );
-
-    await _db.saveLifestyle(lifestyle);
-    _currentLifestyle = lifestyle;
-
-    isLoading = false;
+    await _viewModel.saveLifestyle(goals, aspirations);
     notifyListeners();
   }
 }

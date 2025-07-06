@@ -1,6 +1,6 @@
 import 'package:balance_ai_agent/firebase_options.dart';
-import 'package:balance_ai_agent/pages/chat_room_page.dart';
-import 'package:balance_ai_agent/pages/login_signup_page.dart';
+import 'package:balance_ai_agent/views/chat_room_page.dart';
+import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';

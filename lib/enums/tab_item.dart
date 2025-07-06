@@ -1,6 +1,6 @@
-import 'package:balance_ai_agent/pages/chat_room_page.dart';
-import 'package:balance_ai_agent/pages/lifestyle_page.dart';
-import 'package:balance_ai_agent/pages/setting_page.dart';
+import 'package:balance_ai_agent/views/chat_room_page.dart';
+import 'package:balance_ai_agent/views/lifestyle_page.dart';
+import 'package:balance_ai_agent/views/setting_page.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem {
