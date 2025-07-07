@@ -1,5 +1,5 @@
-import 'package:balance_ai_agent/pages/base_page.dart';
-import 'package:balance_ai_agent/pages/signup_page.dart';
+import 'package:balance_ai_agent/views/base_page.dart';
+import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/widgets/auth_form.dart';
 import 'package:flutter/material.dart';

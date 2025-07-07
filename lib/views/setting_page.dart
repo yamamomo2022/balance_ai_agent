@@ -1,4 +1,4 @@
-import 'package:balance_ai_agent/pages/login_signup_page.dart';
+import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';

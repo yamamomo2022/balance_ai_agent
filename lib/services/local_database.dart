@@ -3,7 +3,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LocalDatabase {
-
   LocalDatabase._init();
   static final LocalDatabase instance = LocalDatabase._init();
   static Database? _database;

@@ -1,4 +1,4 @@
-import 'package:balance_ai_agent/Models/lifestyle.dart';
+import 'package:balance_ai_agent/models/lifestyle.dart';
 
 class User {
   User({
