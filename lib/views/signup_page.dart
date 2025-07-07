@@ -1,4 +1,4 @@
-import 'package:balance_ai_agent/widgets/auth_form.dart';
+import 'package:balance_ai_agent/views/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatelessWidget {

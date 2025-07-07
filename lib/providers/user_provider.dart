@@ -1,4 +1,4 @@
-import 'package:balance_ai_agent/viewmodels/user_view_model.dart';
+import 'package:balance_ai_agent/view_models/user_view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 

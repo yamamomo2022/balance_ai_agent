@@ -1,12 +1,11 @@
+import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/views/base_page.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
-import 'package:balance_ai_agent/providers/user_provider.dart';
-import 'package:balance_ai_agent/widgets/auth_form.dart';
+import 'package:balance_ai_agent/views/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginSignupPage extends StatelessWidget {
-
   const LoginSignupPage({
     super.key,
     this.showDeletedMessage = false,
