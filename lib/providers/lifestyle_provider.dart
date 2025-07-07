@@ -1,5 +1,5 @@
 import 'package:balance_ai_agent/models/lifestyle.dart';
-import 'package:balance_ai_agent/viewmodels/lifestyle_view_model.dart';
+import 'package:balance_ai_agent/view_models/lifestyle_view_model.dart';
 import 'package:flutter/foundation.dart';
 
 class LifestyleProvider extends ChangeNotifier {
