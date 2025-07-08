@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
+import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -152,10 +153,10 @@ class LifestylePageState extends State<LifestylePage> {
                     _toggleEditMode(index == 0); // 0=編集モード, 1=保存モード
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  selectedBorderColor: _isEditMode ? Colors.blue : Colors.green,
-                  selectedColor: Colors.white,
-                  fillColor: _isEditMode ? Colors.blue : Colors.green,
-                  color: Colors.blue,
+                  selectedBorderColor: _isEditMode ? AppTheme.editModeColor : AppTheme.saveModeColor,
+                  selectedColor: AppTheme.whiteColor,
+                  fillColor: _isEditMode ? AppTheme.editModeColor : AppTheme.saveModeColor,
+                  color: AppTheme.editModeColor,
                   constraints: const BoxConstraints(
                     minHeight: 40,
                     minWidth: 120,

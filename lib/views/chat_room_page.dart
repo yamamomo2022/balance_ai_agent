@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -107,13 +108,13 @@ class ChatRoomPageState extends State<ChatRoomPage> {
             user: _user,
             messages: _messages,
             onSendPressed: _handleSendPressed,
-            theme: const DefaultChatTheme(backgroundColor: Colors.transparent),
+            theme: const DefaultChatTheme(backgroundColor: AppTheme.transparent),
           ),
           Positioned(
               top: 20, // 上からの距離
               right: 20, // 右からの距離
               child: Material(
-                color: Colors.transparent,
+                color: AppTheme.transparent,
                 child: InkWell(
                   onTap: _handleResetConversation,
                   borderRadius: BorderRadius.circular(30),
@@ -121,7 +122,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
                     width: 56,
                     height: 56,
                     decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 98, 185, 195), // テーマカラー
+                      color: AppTheme.secondaryColor, // テーマカラー
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -134,7 +135,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
                     child: const Center(
                       child: Icon(
                         Icons.refresh,
-                        color: Colors.white,
+                        color: AppTheme.whiteColor,
                         size: 24,
                       ),
                     ),

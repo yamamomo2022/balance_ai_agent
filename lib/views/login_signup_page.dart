@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/providers/user_provider.dart';
+import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/base_page.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/auth_form.dart';
@@ -26,7 +27,7 @@ class LoginSignupPage extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('お試しモードでログインしました。一部機能が制限されています。'),
-        backgroundColor: Color(0xFF3A8891),
+        backgroundColor: AppTheme.primaryColor,
       ),
     );
   }
@@ -39,26 +40,18 @@ class LoginSignupPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('アカウントが削除されました'),
-            backgroundColor: Colors.green,
+            backgroundColor: AppTheme.successColor,
           ),
         );
       });
     }
 
-    // テーマカラーの定義
-    const primaryColor = Color(0xFF3A8891); // バランスを表す青緑色
+    // テーマカラーの定義は削除済み（AppThemeを使用）
 
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFE8F3F3),
-              Colors.white,
-            ],
-          ),
+          gradient: AppTheme.loginBackgroundGradient,
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -69,7 +62,7 @@ class LoginSignupPage extends StatelessWidget {
                 const Icon(
                   Icons.balance,
                   size: 80,
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                 ),
                 const SizedBox(height: 16),
                 // アプリ名
@@ -128,7 +121,7 @@ class LoginSignupPage extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
+                      backgroundColor: AppTheme.primaryColor,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(
@@ -153,8 +146,9 @@ class LoginSignupPage extends StatelessWidget {
                     child: OutlinedButton(
                       onPressed: () => _handleTryDemoMode(context),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: primaryColor,
-                        side: const BorderSide(color: primaryColor, width: 1.5),
+                        foregroundColor: AppTheme.primaryColor,
+                        side: const BorderSide(
+                            color: AppTheme.primaryColor, width: 1.5),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
