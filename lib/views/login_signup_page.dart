@@ -147,7 +147,8 @@ class LoginSignupPage extends StatelessWidget {
                       onPressed: () => _handleTryDemoMode(context),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppTheme.primaryColor,
-                        side: const BorderSide(color: AppTheme.primaryColor, width: 1.5),
+                        side: const BorderSide(
+                            color: AppTheme.primaryColor, width: 1.5),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
