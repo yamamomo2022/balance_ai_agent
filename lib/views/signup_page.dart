@@ -1,3 +1,4 @@
+import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class SignupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppTheme.transparent,
         ),
         body: const Column(
           mainAxisAlignment: MainAxisAlignment.center,

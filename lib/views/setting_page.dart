@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/providers/user_provider.dart';
+import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,9 +18,6 @@ class _SettingPageState extends State<SettingPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
-
-  // テーマカラーの定義
-  static const Color primaryColor = Color(0xFF3A8891);
 
   @override
   void didChangeDependencies() {
@@ -51,7 +49,7 @@ class _SettingPageState extends State<SettingPage> {
                   onPressed: () => Navigator.of(dialogContext).pop(true),
                   child: const Text(
                     '削除する',
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: AppTheme.errorColor),
                   ),
                 ),
               ],
@@ -96,7 +94,7 @@ class _SettingPageState extends State<SettingPage> {
           showSnackBar(
             context,
             errorMessage,
-            backgroundColor: Colors.red,
+            backgroundColor: AppTheme.errorColor,
           );
         }
       } catch (genericError) {
@@ -104,7 +102,7 @@ class _SettingPageState extends State<SettingPage> {
           showSnackBar(
             context,
             'アカウント削除中にエラーが発生しました: $genericError',
-            backgroundColor: Colors.red,
+            backgroundColor: AppTheme.errorColor,
           );
         }
       } finally {
@@ -154,7 +152,7 @@ class _SettingPageState extends State<SettingPage> {
                           ListTile(
                             leading: Icon(
                               isGuestMode ? Icons.person_outline : Icons.person,
-                              color: primaryColor,
+                              color: AppTheme.primaryColor,
                             ),
                             title: const Text('アカウント情報'),
                             subtitle: isGuestMode
@@ -173,8 +171,8 @@ class _SettingPageState extends State<SettingPage> {
                       child: ElevatedButton(
                         onPressed: () => _deleteAccount(context),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
+                          backgroundColor: AppTheme.errorColor,
+                          foregroundColor: AppTheme.whiteColor,
                           minimumSize: const Size(240, 48),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
