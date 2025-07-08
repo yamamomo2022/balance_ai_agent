@@ -1,7 +1,15 @@
 # 個人開発アプリ 「だいたいあん」
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 
-[<img src="assets/images/app_store_badge.png"  width="10%">](https://apps.apple.com/jp/app/%E3%81%A0%E3%81%84%E3%81%9F%E3%81%84%E3%81%82%E3%82%93/id6742693704)
+[<img src="assets/images/app_store_badge.png"  width="15%">](https://apps.apple.com/jp/app/%E3%81%A0%E3%81%84%E3%81%9F%E3%81%84%E3%81%82%E3%82%93/id6742693704)
+
+## 📱 スクリーンショット
+
+<div align="center">
+  <img src="assets/images/login_page.png"  width="25%">
+  <img src="assets/images/lifestyle_page.png"  width="25%">
+  <img src="assets/images/chat_page.png"  width="25%">
+</div>
 
 ## 🌟 開発背景
 
@@ -113,10 +121,3 @@ genkit/                       # AI統合バックエンド
 - 環境別設定ファイルによる柔軟なデプロイ
 - TypeScript + Node.jsによるバックエンド開発
 
-## 📱 スクリーンショット
-
-<div align="center">
-  <img src="assets/images/login_page.png"  width="25%">
-  <img src="assets/images/lifestyle_page.png"  width="25%">
-  <img src="assets/images/chat_page.png"  width="25%">
-</div>
