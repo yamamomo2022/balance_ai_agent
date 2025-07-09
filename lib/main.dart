@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -32,14 +33,14 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => LifestyleProvider()),
         ],
-        child: MaterialApp(
+        child: MaterialApp.router(
+          routerConfig: _router,
           debugShowCheckedModeBanner: false,
           title: 'Balance AI Agent',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
           ),
-          home: const AuthWrapper(),
         ));
   }
 }
@@ -72,3 +73,23 @@ class _AuthWrapperState extends State<AuthWrapper> {
     );
   }
 }
+
+/// The route configuration.
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LoginSignupPage();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'chatRoom',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ChatRoomPage();
+          },
+        ),
+      ],
+    ),
+  ],
+);

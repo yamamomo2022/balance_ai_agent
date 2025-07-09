@@ -1,9 +1,9 @@
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/utility/app_theme.dart';
-import 'package:balance_ai_agent/views/base_page.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class LoginSignupPage extends StatelessWidget {
@@ -18,10 +18,7 @@ class LoginSignupPage extends StatelessWidget {
     // ゲストモードフラグを設定（UserProviderを使用）
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.setGuestMode(true);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const BasePage()),
-    );
+    context.go('/chatRoom'); // ルートをリセット
 
     // お試し利用の通知
     ScaffoldMessenger.of(context).showSnackBar(
