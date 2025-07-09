@@ -76,13 +76,14 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
+  initialLocation: '/home',
+  routes: [
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return const LoginSignupPage();
       },
-      routes: <RouteBase>[
+      routes: [
         GoRoute(
           path: 'chatRoom',
           builder: (BuildContext context, GoRouterState state) {
