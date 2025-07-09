@@ -3,6 +3,7 @@ import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/views/chat_room_page.dart';
 import 'package:balance_ai_agent/views/login_signup_page.dart';
+import 'package:balance_ai_agent/views/widgets/app_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -75,22 +76,19 @@ class _AuthWrapperState extends State<AuthWrapper> {
 }
 
 /// The route configuration.
-final GoRouter _router = GoRouter(
-  initialLocation: '/home',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const LoginSignupPage();
+final GoRouter _router = GoRouter(initialLocation: '/home', routes: [
+  StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return AppNavigationBar(navigationShell: navigationShell);
       },
-      routes: [
-        GoRoute(
-          path: 'chatRoom',
-          builder: (BuildContext context, GoRouterState state) {
-            return const ChatRoomPage();
-          },
-        ),
-      ],
-    ),
-  ],
-);
+      branches: [
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/home',
+            pageBuilder: (constext, state) => const NoTransitionPage(
+              child: AuthWrapper(),
+            ),
+          ),
+        ])
+      ])
+]);
