@@ -122,7 +122,9 @@ class _SettingPageState extends State<SettingPage> {
     final isGuestMode = userProvider.isGuestMode;
 
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(
+        title: Text('Settings'),
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

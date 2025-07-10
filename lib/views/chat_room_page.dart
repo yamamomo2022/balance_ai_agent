@@ -104,7 +104,9 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const CustomAppBar(),
+        appBar: const CustomAppBar(
+          title: Text('Chat Room'),
+        ),
         body: Stack(children: [
           Chat(
             user: _user,
