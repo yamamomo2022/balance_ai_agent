@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
 import 'package:balance_ai_agent/utility/app_theme.dart';
+import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -103,6 +104,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: const CustomAppBar(),
         body: Stack(children: [
           Chat(
             user: _user,
