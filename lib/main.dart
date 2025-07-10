@@ -1,9 +1,7 @@
+import 'package:balance_ai_agent/app_router.dart';
 import 'package:balance_ai_agent/firebase_options.dart';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/providers/user_provider.dart';
-import 'package:balance_ai_agent/views/chat_room_page.dart';
-import 'package:balance_ai_agent/views/login_signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,43 +30,14 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => LifestyleProvider()),
         ],
-        child: MaterialApp(
+        child: MaterialApp.router(
+          routerConfig: appRouter,
           debugShowCheckedModeBanner: false,
           title: 'Balance AI Agent',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
           ),
-          home: const AuthWrapper(),
         ));
-  }
-}
-
-class AuthWrapper extends StatefulWidget {
-  const AuthWrapper({super.key});
-
-  @override
-  State<AuthWrapper> createState() => _AuthWrapperState();
-}
-
-class _AuthWrapperState extends State<AuthWrapper> {
-  @override
-  void initState() {
-    super.initState();
-    // Listen to auth state changes
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (!mounted) return;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<UserProvider>(
-      builder: (context, userProvider, _) {
-        return userProvider.isLoggedIn
-            ? const ChatRoomPage()
-            : const LoginSignupPage();
-      },
-    );
   }
 }
