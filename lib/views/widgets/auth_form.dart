@@ -1,5 +1,5 @@
 import 'package:balance_ai_agent/utility/show_snack_bar.dart';
-import 'package:balance_ai_agent/views/base_page.dart';
+import 'package:balance_ai_agent/views/lifestyle_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class _AuthFormState extends State<AuthForm> {
   void _navigateToBasePage(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const BasePage()),
+      MaterialPageRoute(builder: (context) => const LifestylePage()),
     );
   }
 
