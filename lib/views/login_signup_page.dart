@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+/// ログイン・サインアップページ
 class LoginSignupPage extends StatelessWidget {
+  /// コンストラクタ
   const LoginSignupPage({
     super.key,
     this.showDeletedMessage = false,
@@ -18,7 +20,7 @@ class LoginSignupPage extends StatelessWidget {
     // ゲストモードフラグを設定（UserProviderを使用）
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.setGuestMode(true);
-    context.go('/chatRoom'); // ルートをリセット
+    context.go('/chatRoom'); // ルートをセット
 
     // お試し利用の通知
     ScaffoldMessenger.of(context).showSnackBar(
