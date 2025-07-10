@@ -2,6 +2,7 @@ import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:balance_ai_agent/views/login_signup_page.dart';
+import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -121,6 +122,7 @@ class _SettingPageState extends State<SettingPage> {
     final isGuestMode = userProvider.isGuestMode;
 
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

@@ -108,7 +108,8 @@ class ChatRoomPageState extends State<ChatRoomPage> {
             user: _user,
             messages: _messages,
             onSendPressed: _handleSendPressed,
-            theme: const DefaultChatTheme(backgroundColor: AppTheme.transparent),
+            theme:
+                const DefaultChatTheme(backgroundColor: AppTheme.transparent),
           ),
           Positioned(
               top: 20, // 上からの距離
