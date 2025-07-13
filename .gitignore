@@ -44,11 +44,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Node.jsの依存ディレクトリ
-genkit/node_modules/
-genkit/.genkit/
-genkit/service-account-key.json
-
 # Firebaseの設定ファイル
 lib/firebase_options.dart
 
@@ -71,3 +66,8 @@ typings/
 # Node.js dependency directory
 node_modules/
 *.local
+
+# Node.jsの依存ディレクトリ
+functions/node_modules/
+functions/.genkit/
+functions/service-account-key.json

@@ -1,0 +1,19 @@
+---
+model: vertexai/gemini-2.0-flash-lite
+config:
+  temperature: 1.4
+  topK: 50
+  topP: 0.4
+  maxOutputTokens: 400
+  stopSequences:
+    -   "<end>"
+    -   "<fin>"
+input:
+  schema:
+    text: string
+---
+
+以下のテキストに基づいて、あなたの回答を述べてください．
+なお，回答だけを出力してください．
+
+{{text}}
