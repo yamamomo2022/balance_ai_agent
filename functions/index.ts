@@ -15,7 +15,7 @@ export const helloGenkit = onCall(
   })
 );
 
-export const GenerateImagen = onCall(
+export const generateImagen = onCall(
   opts,
   withErrorHandler(async (request: CallableRequest) => {
     verifyAuth(request);
