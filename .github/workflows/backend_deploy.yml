@@ -6,9 +6,6 @@ on:
     types: 
       - completed
   workflow_dispatch:
-  push:
-    branches:
-       - feature/deploy
 
 jobs:
   deploy:
@@ -37,11 +34,6 @@ jobs:
       run: |
         echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY_BASE64 }}" | base64 -d > "./functions/service-account-key.json"
     
-    # # Note: The predeploy steps (lint and build) are defined in firebase.json
-    # # and will be automatically executed by the Firebase CLI
-    # - name: Deploy to Firebase Functions
-    #   run: firebase deploy --only functions --token "${{ secrets.FIREBASE_TOKEN }}" --non-interactive
-
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@v11.9.0
       with:
