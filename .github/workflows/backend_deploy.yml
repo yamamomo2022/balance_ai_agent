@@ -6,6 +6,9 @@ on:
     types: 
       - completed
   workflow_dispatch:
+  push:
+    branches:
+       - feature/deploy
 
 jobs:
   deploy:
@@ -42,7 +45,7 @@ jobs:
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@v11.9.0
       with:
-        args: deploy
+        args: deploy --only functions
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         PROJECT_PATH: ./functions
