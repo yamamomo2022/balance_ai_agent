@@ -1,0 +1,40 @@
+name: Deploy to Firebase Functions
+
+on:
+  workflow_run:
+    workflows: ["Lint"]
+    types: 
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: './functions/package-lock.json'
+    
+    - name: Install dependencies
+      working-directory: ./functions
+      run: npm ci
+    
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Decode service-account-key.json from secret
+      run: |
+        echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY_BASE64 }}" | base64 -d > "./functions/service-account-key.json"
+    
+    # Note: The predeploy steps (lint and build) are defined in firebase.json
+    # and will be automatically executed by the Firebase CLI
+    - name: Deploy to Firebase Functions
+      run: firebase deploy --only functions --token "${{ secrets.FIREBASE_TOKEN }}" --non-interactive
