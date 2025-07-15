@@ -1,0 +1,15 @@
+---
+model: vertexai/imagen-3.0-fast-generate-001
+config:
+  temperature: 0.7
+  sampleCount: 1
+input:
+  schema:
+    prompt: string
+output:
+  format: media
+---
+
+You are an expert satellite imagery specialist.
+Please generate a high-quality satellite image of {{prompt}}. 
+The image should show an aerial view of the location from space, with clear geographical features, terrain, and infrastructure visible from above.
