@@ -33,6 +33,15 @@ jobs:
         echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN exists: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN != '' }}"
         echo "ACTIONS_ID_TOKEN_REQUEST_URL exists: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
 
+    - name: Debug GitHub context
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Ref: ${{ github.ref }}"
+        echo "Actor: ${{ github.actor }}"
+        echo "Repository Owner: ${{ github.repository_owner }}"
+        echo "Head Ref: ${{ github.head_ref }}"
+        echo "Base Ref: ${{ github.base_ref }}"
+
     - name: Install dependencies
       working-directory: ./functions
       run: npm ci
