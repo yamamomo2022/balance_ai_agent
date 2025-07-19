@@ -48,7 +48,7 @@ jobs:
         export_environment_variables: true
 
     - name: Copy firebase.json to functions directory
-      run: cp firebase.json functions/
+      run: ls
 
     - name: Deploy to Functions
       run: |
