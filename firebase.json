@@ -1,0 +1,48 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "balance-ai-agent-49377",
+          "appId": "1:369174040690:android:24e7a2ad5b2a2b32bfb2eb",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "balance-ai-agent-49377",
+          "appId": "1:369174040690:ios:fef52f43ce8cda83bfb2eb",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "balance-ai-agent-49377",
+          "configurations": {
+            "android": "1:369174040690:android:24e7a2ad5b2a2b32bfb2eb",
+            "ios": "1:369174040690:ios:fef52f43ce8cda83bfb2eb",
+            "web": "1:369174040690:web:16e3377604f31e59bfb2eb"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}

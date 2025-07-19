@@ -49,7 +49,6 @@ lib/firebase_options.dart
 
 .env.development
 .env.production
-firebase.json
 
 # FVM Version Cache
 .fvm/
