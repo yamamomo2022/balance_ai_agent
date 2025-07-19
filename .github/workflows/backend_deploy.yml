@@ -23,6 +23,11 @@ jobs:
         cache: 'npm'
         cache-dependency-path: './functions/package-lock.json'
     
+    - name: Debug token availability
+      run: |
+        echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN exists: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN != '' }}"
+        echo "ACTIONS_ID_TOKEN_REQUEST_URL exists: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
+
     - name: Install dependencies
       working-directory: ./functions
       run: npm ci
