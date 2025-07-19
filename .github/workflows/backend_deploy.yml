@@ -7,6 +7,11 @@ on:
       - completed
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
