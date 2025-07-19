@@ -47,6 +47,9 @@ jobs:
         create_credentials_file: true
         export_environment_variables: true
 
+    - name: Copy firebase.json to functions directory
+      run: cp firebase.json functions/  
+
     - name: Deploy to Functions
       run: |
         npm install -g firebase-tools
