@@ -47,8 +47,14 @@ jobs:
         create_credentials_file: true
         export_environment_variables: true
 
+    - name: Set GOOGLE_APPLICATION_CREDENTIALS
+      run: echo "${{ github.workspace }}/functions/service-account-key.json"
+      shell: bash
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/functions/service-account-key.json
+
     - name: Copy firebase.json to functions directory
-      run: ls
+      run: cp firebase.json functions/
 
     - name: Deploy to Functions
       run: |
