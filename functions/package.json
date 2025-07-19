@@ -13,7 +13,7 @@
   "engines": {
     "node": "22"
   },
-  "main": "lib/index.js",
+  "main": "index.js",
   "dependencies": {
     "@genkit-ai/firebase": "^1.14.1",
     "@genkit-ai/vertexai": "^1.14.1",
