@@ -52,4 +52,4 @@ jobs:
 
     - name: Deploy to Functions
       run: |
-        firebase deploy --only functions --force --project=${{ secrets.FIREBASE_PROJECT_ID }} --service-account=${{ secrets.SERVICE_ACCOUNT }}
+        firebase deploy --only functions --force --project=${{ secrets.FIREBASE_PROJECT_ID }}
