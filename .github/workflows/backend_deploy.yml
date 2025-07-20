@@ -52,4 +52,5 @@ jobs:
 
     - name: Deploy to Functions
       run: |
+        gcloud secrets versions access latest --secret=GOOGLE_GENAI_API_KEY --project=${{ secrets.GOOGLE_PROJECT_ID }}
         firebase deploy --only functions --force --project=${{ secrets.FIREBASE_PROJECT_ID }}
