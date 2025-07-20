@@ -31,7 +31,6 @@
   "functions": [
     {
       "source": "functions",
-      "codebase": "default",
       "serviceAccountEmail": "deploy-to-firebase-backend@balance-ai-agent-49377.iam.gserviceaccount.com",
       "ignore": [
         "node_modules",
