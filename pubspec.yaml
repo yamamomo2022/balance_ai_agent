@@ -49,6 +49,7 @@ dependencies:
   path: ^1.9.0
   very_good_analysis: ^9.0.0
   go_router: ^16.0.0
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -108,3 +109,9 @@ flutter:
 flutter_icons:
   ios: true
   image_path: "assets/icon.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/icon.png"
+  android_gravity: left
+  ios_content_mode: left
