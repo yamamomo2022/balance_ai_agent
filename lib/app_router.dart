@@ -1,6 +1,7 @@
 import 'package:balance_ai_agent/views/Lifestyle_page.dart';
 import 'package:balance_ai_agent/views/chat_room_page.dart';
 import 'package:balance_ai_agent/views/setting_page.dart';
+import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/app_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,9 @@ final chatRoomNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ChatRoom');
 
 /// The navigator key for the settings tab.
 final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'setting');
+
+/// The navigator key for the signup tab.
+final signupNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'signup');
 
 /// The route configuration.
 final GoRouter appRouter = GoRouter(
@@ -51,11 +55,17 @@ final GoRouter appRouter = GoRouter(
           navigatorKey: settingNavigatorKey,
           routes: [
             GoRoute(
-              path: '/Setting',
-              pageBuilder: (constext, state) => const NoTransitionPage(
-                child: SettingPage(),
-              ),
-            ),
+                path: '/Setting',
+                pageBuilder: (constext, state) => const NoTransitionPage(
+                      child: SettingPage(),
+                    ),
+                routes: [
+                  GoRoute(
+                      path: '/signup',
+                      builder: (context, state) {
+                        return const SignupPage();
+                      })
+                ]),
           ],
         ),
       ],
