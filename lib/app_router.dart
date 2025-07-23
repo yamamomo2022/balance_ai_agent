@@ -19,9 +19,6 @@ final chatRoomNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ChatRoom');
 /// The navigator key for the settings tab.
 final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'setting');
 
-/// The navigator key for the signup tab.
-final signupNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'signup');
-
 /// The route configuration.
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
