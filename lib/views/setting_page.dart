@@ -5,6 +5,7 @@ import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
@@ -132,16 +133,6 @@ class _SettingPageState extends State<SettingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
-
-                  // アカウントセクション
-                  const Text(
-                    'アカウント設定',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(height: 10),
                   Card(
                     elevation: 2,
@@ -164,6 +155,30 @@ class _SettingPageState extends State<SettingPage> {
                                 : Text(_auth.currentUser?.email ?? ''),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // サインアップボタン
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => context.go('/Setting/signup'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.errorColor,
+                        foregroundColor: AppTheme.whiteColor,
+                        minimumSize: const Size(240, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'サインアップ',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
