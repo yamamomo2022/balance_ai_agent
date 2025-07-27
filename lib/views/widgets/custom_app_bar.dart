@@ -1,5 +1,6 @@
 import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// A custom AppBar with a gradient background and shadow effects.
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,6 +14,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: title,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+          child: IconButton(
+            icon: const Icon(Icons.settings, size: 32),
+            onPressed: () {
+              context.go('/Setting');
+            },
+          ),
+        ),
+      ],
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           gradient: AppTheme.appBarGradient,
