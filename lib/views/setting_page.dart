@@ -126,7 +126,7 @@ class _SettingPageState extends State<SettingPage> {
       appBar: const CustomAppBar(
         title: Text('Settings'),
         showBackButton: true,
-        backRootRouteName: '/Lifestyle',
+        backRootRouteName: 'Lifestyle',
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -187,7 +187,7 @@ class _SettingPageState extends State<SettingPage> {
                   // サインアップボタン
                   Center(
                     child: ElevatedButton(
-                      onPressed: () => context.go('/Setting/Signup'),
+                      onPressed: () => context.goNamed('Signup'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
                         foregroundColor: AppTheme.whiteColor,
