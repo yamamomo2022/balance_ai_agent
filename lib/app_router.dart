@@ -44,24 +44,11 @@ final GoRouter appRouter = GoRouter(
       branches: [
         StatefulShellBranch(navigatorKey: lifestyleNavigatorKey, routes: [
           GoRoute(
-              path: '/Lifestyle',
-              pageBuilder: (constext, state) => const NoTransitionPage(
-                    child: LifestylePage(),
-                  ),
-              routes: [
-                GoRoute(
-                    path: '/Setting',
-                    pageBuilder: (constext, state) => const NoTransitionPage(
-                          child: SettingPage(),
-                        ),
-                    routes: [
-                      GoRoute(
-                          path: '/Signup',
-                          builder: (context, state) {
-                            return const SignupPage();
-                          })
-                    ]),
-              ]),
+            path: '/Lifestyle',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: LifestylePage(),
+            ),
+          ),
         ]),
         StatefulShellBranch(
           navigatorKey: chatRoomNavigatorKey,
