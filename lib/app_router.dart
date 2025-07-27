@@ -24,6 +24,19 @@ final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/Lifestyle',
   routes: [
+    // Add Setting as a global route
+    GoRoute(
+      path: '/Setting',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: SettingPage(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'Signup',
+          builder: (context, state) => const SignupPage(),
+        ),
+      ],
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppNavigationBar(navigationShell: navigationShell);
@@ -32,7 +45,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(navigatorKey: lifestyleNavigatorKey, routes: [
           GoRoute(
             path: '/Lifestyle',
-            pageBuilder: (constext, state) => const NoTransitionPage(
+            pageBuilder: (context, state) => const NoTransitionPage(
               child: LifestylePage(),
             ),
           ),
@@ -42,27 +55,10 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/ChatRoom',
-              pageBuilder: (constext, state) => const NoTransitionPage(
+              pageBuilder: (context, state) => const NoTransitionPage(
                 child: ChatRoomPage(),
               ),
             ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: settingNavigatorKey,
-          routes: [
-            GoRoute(
-                path: '/Setting',
-                pageBuilder: (constext, state) => const NoTransitionPage(
-                      child: SettingPage(),
-                    ),
-                routes: [
-                  GoRoute(
-                      path: '/Signup',
-                      builder: (context, state) {
-                        return const SignupPage();
-                      })
-                ]),
           ],
         ),
       ],
