@@ -5,6 +5,7 @@ import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
@@ -132,16 +133,6 @@ class _SettingPageState extends State<SettingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
-
-                  // アカウントセクション
-                  const Text(
-                    'アカウント設定',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(height: 10),
                   Card(
                     elevation: 2,
@@ -168,62 +159,50 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ),
 
-                  // アカウント削除ボタン（ゲストモードでは非表示）
-                  if (!isGuestMode) ...[
-                    const SizedBox(height: 30),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () => _deleteAccount(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.errorColor,
-                          foregroundColor: AppTheme.whiteColor,
-                          minimumSize: const Size(240, 48),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => _deleteAccount(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.errorColor,
+                        foregroundColor: AppTheme.whiteColor,
+                        minimumSize: const Size(240, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'アカウントを削除する',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      child: const Text(
+                        'アカウントを削除する',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
+                  ),
 
-                  // お試しモードの説明（ゲストモードのみ表示）
-                  if (isGuestMode) ...[
-                    const SizedBox(height: 30),
-                    Card(
-                      color: Colors.blue[50],
-                      elevation: 1,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  const SizedBox(height: 30),
+                  // サインアップボタン
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => context.go('/Setting/Signup'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.primaryColor,
+                        foregroundColor: AppTheme.whiteColor,
+                        minimumSize: const Size(240, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'お試しモードについて',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'お試しモードでは一部機能が制限されています。全ての機能を利用するには、アカウントを作成してログインしてください。',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
+                      child: const Text(
+                        'サインアップ',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ],
               ),
             ),
