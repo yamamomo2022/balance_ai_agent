@@ -24,6 +24,19 @@ final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/Lifestyle',
   routes: [
+    // グローバルルートとしてSettingを追加
+    GoRoute(
+      path: '/Setting',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: SettingPage(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'Signup',
+          builder: (context, state) => const SignupPage(),
+        ),
+      ],
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppNavigationBar(navigationShell: navigationShell);
@@ -31,11 +44,24 @@ final GoRouter appRouter = GoRouter(
       branches: [
         StatefulShellBranch(navigatorKey: lifestyleNavigatorKey, routes: [
           GoRoute(
-            path: '/Lifestyle',
-            pageBuilder: (constext, state) => const NoTransitionPage(
-              child: LifestylePage(),
-            ),
-          ),
+              path: '/Lifestyle',
+              pageBuilder: (constext, state) => const NoTransitionPage(
+                    child: LifestylePage(),
+                  ),
+              routes: [
+                GoRoute(
+                    path: '/Setting',
+                    pageBuilder: (constext, state) => const NoTransitionPage(
+                          child: SettingPage(),
+                        ),
+                    routes: [
+                      GoRoute(
+                          path: '/Signup',
+                          builder: (context, state) {
+                            return const SignupPage();
+                          })
+                    ]),
+              ]),
         ]),
         StatefulShellBranch(
           navigatorKey: chatRoomNavigatorKey,
@@ -46,23 +72,6 @@ final GoRouter appRouter = GoRouter(
                 child: ChatRoomPage(),
               ),
             ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: settingNavigatorKey,
-          routes: [
-            GoRoute(
-                path: '/Setting',
-                pageBuilder: (constext, state) => const NoTransitionPage(
-                      child: SettingPage(),
-                    ),
-                routes: [
-                  GoRoute(
-                      path: '/Signup',
-                      builder: (context, state) {
-                        return const SignupPage();
-                      })
-                ]),
           ],
         ),
       ],

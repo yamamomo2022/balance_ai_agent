@@ -24,8 +24,7 @@ class AppNavigationBar extends StatelessWidget {
         destinations: const [
           NavigationDestination(
               icon: Icon(Icons.edit_note), label: 'Lifestyle'),
-          NavigationDestination(icon: Icon(Icons.chat), label: 'chat'),
-          NavigationDestination(icon: Icon(Icons.settings), label: 'settings'),
+          NavigationDestination(icon: Icon(Icons.chat), label: 'Chat'),
         ],
         onDestinationSelected: (index) {
           navigationShell.goBranch(index,
