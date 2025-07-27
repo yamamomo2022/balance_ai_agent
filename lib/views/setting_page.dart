@@ -125,6 +125,8 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: const CustomAppBar(
         title: Text('Settings'),
+        showBackButton: true,
+        backRootRouteName: '/Lifestyle',
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

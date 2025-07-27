@@ -5,14 +5,46 @@ import 'package:go_router/go_router.dart';
 /// A custom AppBar with a gradient background and shadow effects.
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// constructor
-  const CustomAppBar({super.key, this.title});
+  const CustomAppBar({
+    super.key,
+    this.title,
+    this.showBackButton = false,
+    this.onBackPressed,
+    this.backRootRouteName,
+  });
 
   /// The title widget to display in the AppBar.
   final Widget? title;
 
+  /// Whether to show the back button.
+  final bool showBackButton;
+
+  /// Callback when the back button is pressed.
+  final VoidCallback? onBackPressed;
+
+  /// The name of the root route to navigate back to.
+  final String? backRootRouteName;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: showBackButton
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back, size: 32),
+              onPressed: () {
+                if (onBackPressed != null) {
+                  onBackPressed!();
+                } else if (backRootRouteName != null) {
+                  context.go(backRootRouteName!);
+                } else {
+                  context.pop();
+                }
+              },
+            )
+          : null,
       title: title,
       actions: [
         Padding(
@@ -36,7 +68,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: AppTheme.transparent, // サーフェスの色合い
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
