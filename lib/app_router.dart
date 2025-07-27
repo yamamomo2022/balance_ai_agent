@@ -55,7 +55,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/ChatRoom',
-              pageBuilder: (constext, state) => const NoTransitionPage(
+              pageBuilder: (context, state) => const NoTransitionPage(
                 child: ChatRoomPage(),
               ),
             ),
