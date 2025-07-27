@@ -27,12 +27,14 @@ final GoRouter appRouter = GoRouter(
     // Add Setting as a global route
     GoRoute(
       path: '/Setting',
+      name: 'Setting',
       pageBuilder: (context, state) => const NoTransitionPage(
         child: SettingPage(),
       ),
       routes: [
         GoRoute(
           path: 'Signup',
+          name: 'Signup',
           builder: (context, state) => const SignupPage(),
         ),
       ],
@@ -45,6 +47,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(navigatorKey: lifestyleNavigatorKey, routes: [
           GoRoute(
             path: '/Lifestyle',
+            name: 'Lifestyle',
             pageBuilder: (context, state) => const NoTransitionPage(
               child: LifestylePage(),
             ),
@@ -55,6 +58,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/ChatRoom',
+              name: 'ChatRoom',
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: ChatRoomPage(),
               ),

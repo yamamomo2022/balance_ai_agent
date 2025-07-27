@@ -38,7 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 if (onBackPressed != null) {
                   onBackPressed!();
                 } else if (backRootRouteName != null) {
-                  context.go(backRootRouteName!);
+                  context.goNamed(backRootRouteName!);
                 } else {
                   context.pop();
                 }
@@ -52,7 +52,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: IconButton(
             icon: const Icon(Icons.settings, size: 32),
             onPressed: () {
-              context.push('/Setting');
+              context.goNamed('Setting');
             },
           ),
         ),
