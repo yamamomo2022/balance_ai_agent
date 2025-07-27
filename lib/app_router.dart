@@ -24,7 +24,7 @@ final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/Lifestyle',
   routes: [
-    // グローバルルートとしてSettingを追加
+    // Add Setting as a global route
     GoRoute(
       path: '/Setting',
       pageBuilder: (context, state) => const NoTransitionPage(
