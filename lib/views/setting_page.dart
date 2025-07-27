@@ -159,8 +159,29 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => _deleteAccount(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.errorColor,
+                        foregroundColor: AppTheme.whiteColor,
+                        minimumSize: const Size(240, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'アカウントを削除する',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
 
+                  const SizedBox(height: 30),
                   // サインアップボタン
                   Center(
                     child: ElevatedButton(
@@ -182,63 +203,6 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     ),
                   ),
-
-                  // アカウント削除ボタン（ゲストモードでは非表示）
-                  if (!isGuestMode) ...[
-                    const SizedBox(height: 30),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () => _deleteAccount(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.errorColor,
-                          foregroundColor: AppTheme.whiteColor,
-                          minimumSize: const Size(240, 48),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          'アカウントを削除する',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-
-                  // お試しモードの説明（ゲストモードのみ表示）
-                  if (isGuestMode) ...[
-                    const SizedBox(height: 30),
-                    Card(
-                      color: Colors.blue[50],
-                      elevation: 1,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'お試しモードについて',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'お試しモードでは一部機能が制限されています。全ての機能を利用するには、アカウントを作成してログインしてください。',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),
