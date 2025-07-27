@@ -164,9 +164,9 @@ class _SettingPageState extends State<SettingPage> {
                   // サインアップボタン
                   Center(
                     child: ElevatedButton(
-                      onPressed: () => context.go('/Setting/signup'),
+                      onPressed: () => context.go('/Setting/Signup'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.errorColor,
+                        backgroundColor: AppTheme.primaryColor,
                         foregroundColor: AppTheme.whiteColor,
                         minimumSize: const Size(240, 48),
                         shape: RoundedRectangleBorder(

@@ -17,7 +17,7 @@ final lifestyleNavigatorKey =
 final chatRoomNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ChatRoom');
 
 /// The navigator key for the settings tab.
-final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'setting');
+final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Setting');
 
 /// The route configuration.
 final GoRouter appRouter = GoRouter(
@@ -58,7 +58,7 @@ final GoRouter appRouter = GoRouter(
                     ),
                 routes: [
                   GoRoute(
-                      path: '/signup',
+                      path: '/Signup',
                       builder: (context, state) {
                         return const SignupPage();
                       })
