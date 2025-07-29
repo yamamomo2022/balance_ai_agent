@@ -11,11 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = false,
     this.onBackPressed,
     this.backRootRouteName,
-  }) : assert(
-          (showBackButton && onBackPressed != null) ||
-              (!showBackButton && backRootRouteName != null),
-          'Either showBackButton with onBackPressed or backRootRouteName must be provided.',
-        );
+  });
 
   /// The title widget to display in the AppBar.
   final Widget? title;
