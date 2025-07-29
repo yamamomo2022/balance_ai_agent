@@ -123,8 +123,10 @@ class _SettingPageState extends State<SettingPage> {
     final isGuestMode = userProvider.isGuestMode;
 
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: Text('Settings'),
+      appBar: CustomAppBar(
+        title: const Text('Settings'),
+        showBackButton: true,
+        backRootRouteName: 'Lifestyle',
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -185,7 +187,7 @@ class _SettingPageState extends State<SettingPage> {
                   // サインアップボタン
                   Center(
                     child: ElevatedButton(
-                      onPressed: () => context.go('/Setting/Signup'),
+                      onPressed: () => context.goNamed('Signup'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
                         foregroundColor: AppTheme.whiteColor,
