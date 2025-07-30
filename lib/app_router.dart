@@ -1,71 +1,71 @@
-import 'package:balance_ai_agent/views/Lifestyle_page.dart';
+import 'package:balance_ai_agent/providers/persistent_tab_state_notifier.dart';
 import 'package:balance_ai_agent/views/chat_room_page.dart';
+import 'package:balance_ai_agent/views/lifestyle_page.dart';
 import 'package:balance_ai_agent/views/setting_page.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/app_navigation_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// The root navigator key for the entire app.
-final rootNavigatorKey = GlobalKey<NavigatorState>();
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final PersistentTabStateNotifier =
+      ref.read(persistentTabStateProvider.notifier);
 
-/// The navigator keys for each tab in the app.
-final lifestyleNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'Lifestyle');
-
-/// The navigator key for the chat room tab.
-final chatRoomNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ChatRoom');
-
-/// The navigator key for the settings tab.
-final settingNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Setting');
-
-/// The route configuration.
-final GoRouter appRouter = GoRouter(
-  navigatorKey: rootNavigatorKey,
-  initialLocation: '/Lifestyle',
-  routes: [
-    // Add Setting as a global route
-    GoRoute(
-      path: '/Setting',
-      name: 'Setting',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: SettingPage(),
-      ),
-      routes: [
-        GoRoute(
-          path: 'Signup',
-          name: 'Signup',
-          builder: (context, state) => const SignupPage(),
-        ),
-      ],
-    ),
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return AppNavigationBar(navigationShell: navigationShell);
-      },
-      branches: [
-        StatefulShellBranch(navigatorKey: lifestyleNavigatorKey, routes: [
-          GoRoute(
-            path: '/Lifestyle',
-            name: 'Lifestyle',
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: LifestylePage(),
-            ),
-          ),
-        ]),
-        StatefulShellBranch(
-          navigatorKey: chatRoomNavigatorKey,
+  return GoRouter(
+    initialLocation: '/Lifestyle',
+    routes: [
+      GoRoute(
+          path: '/Setting',
+          name: 'Setting',
+          pageBuilder: (context, state) => const NoTransitionPage(
+                child: SettingPage(),
+              ),
           routes: [
             GoRoute(
-              path: '/ChatRoom',
-              name: 'ChatRoom',
+              path: 'Signup',
+              name: 'Signup',
               pageBuilder: (context, state) => const NoTransitionPage(
-                child: ChatRoomPage(),
+                child: SignupPage(),
               ),
-            ),
-          ],
-        ),
-      ],
-    )
-  ],
-);
+            )
+          ]),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return AppNavigationBar(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/Lifestyle',
+                name: 'Lifestyle',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: LifestylePage(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/ChatRoom',
+                name: 'ChatRoom',
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: ChatRoomPage(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      )
+    ],
+    redirect: (context, state) async {
+      await PersistentTabStateNotifier.loadLastVisitedTab();
+      final lastTabPath = ref.read(persistentTabStateProvider).path;
+      if (state.fullPath == '/Lifestyle' || state.fullPath == '/ChatRoom') {
+        return lastTabPath; // Redirect to the last visited tab
+      }
+      return null;
+    },
+  );
+});
