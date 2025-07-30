@@ -59,13 +59,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       )
     ],
-    redirect: (context, state) async {
-      await PersistentTabStateNotifier.loadLastVisitedTab();
-      final lastTabPath = ref.read(persistentTabStateProvider).path;
-      if (state.fullPath == '/Lifestyle' || state.fullPath == '/ChatRoom') {
-        return lastTabPath; // Redirect to the last visited tab
-      }
-      return null;
-    },
+    // redirect: (context, state) async {
+    //   await PersistentTabStateNotifier.loadLastVisitedTab();
+    //   final lastTabPath = ref.read(persistentTabStateProvider).path;
+    //   final isTabRoute =
+    //       state.fullPath == '/Lifestyle' || state.fullPath == '/ChatRoom';
+    //   if (isTabRoute && state.fullPath != lastTabPath) {
+    //     return lastTabPath;
+    //   }
+    //   return null;
+    // },
   );
 });
