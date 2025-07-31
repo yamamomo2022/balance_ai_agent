@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:balance_ai_agent/services/logger_service.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,17 +15,23 @@ class GenkitClient {
               const Duration(seconds: 60); // Set timeout to 60 seconds
 
   final Dio dio;
+  final _logger = LoggerService.instance;
 
   final String baseUrl = dotenv.env['API_SERVER'] ?? 'http://127.0.0.1:4300';
 
   Future<String> generateChatResponse(
       String inputText, Lifestyle? lifestyle) async {
     try {
+      _logger.debug('Starting chat response generation');
+      
       // get current user's id
       final user = FirebaseAuth.instance.currentUser;
       String? idToken;
       if (user != null) {
         idToken = await user.getIdToken();
+        _logger.debug('User authenticated for chat request');
+      } else {
+        _logger.debug('Guest user for chat request');
       }
 
       var combinedInputText = inputText;
@@ -32,6 +39,7 @@ class GenkitClient {
       if (lifestyle != null) {
         combinedInputText =
             'Goals: ${lifestyle.goals}\nAspirations: ${lifestyle.aspirations}\nしかし，以下の逆効果のことをやろうとしてしまっています．願望と目標に沿った代替案を具体的に30字程度で提案してください．\n\n```\n$inputText\n```';
+        _logger.debug('Enhanced prompt with lifestyle context');
       }
 
       // add user id to the request header
@@ -39,6 +47,8 @@ class GenkitClient {
       if (idToken != null) {
         headers['Authorization'] = 'Bearer $idToken';
       }
+
+      _logger.logApiCall('$baseUrl/chat', method: 'POST');
 
       final response = await dio.post('$baseUrl/chat',
           data: {
@@ -49,8 +59,8 @@ class GenkitClient {
           ));
 
       if (response.statusCode == 200) {
-        print('Chat response received');
-        print('Response data: ${response.data}'); // デバッグ用
+        _logger.logApiCall('$baseUrl/chat', method: 'POST', statusCode: response.statusCode);
+        _logger.debug('Response data received from chat API');
 
         final resultData = response.data['result'];
 
@@ -68,7 +78,8 @@ class GenkitClient {
                 return parsed.values.first.toString();
               }
             }
-          } catch (_) {
+          } catch (e) {
+            _logger.warning('Failed to parse JSON response, returning as string', error: e);
             // 単純な文字列として返す
             return resultData;
           }
@@ -88,15 +99,20 @@ class GenkitClient {
           return resultData.toString();
         }
       }
+      
+      _logger.logApiCall('$baseUrl/chat', method: 'POST', statusCode: response.statusCode, error: 'Unexpected status code');
       throw Exception(
           'Failed to generate chat response: ${response.statusCode}');
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionError) {
+        _logger.logApiCall('$baseUrl/chat', method: 'POST', error: 'Connection refused');
         throw Exception('Failed to generate chat response: Connection refused');
       } else if (e.type == DioExceptionType.sendTimeout) {
+        _logger.logApiCall('$baseUrl/chat', method: 'POST', error: 'Connection timed out');
         throw Exception(
             'Failed to generate chat response: Connection timed out');
       }
+      _logger.logApiCall('$baseUrl/chat', method: 'POST', error: e.message);
       throw Exception('Failed to generate chat response: ${e.message}');
     }
   }
