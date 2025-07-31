@@ -1,3 +1,4 @@
+import 'package:balance_ai_agent/services/logger_service.dart';
 import 'package:balance_ai_agent/utility/show_snack_bar.dart';
 import 'package:balance_ai_agent/views/lifestyle_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +21,7 @@ class _AuthFormState extends State<AuthForm> {
   bool _obscurePassword = true;
   String _emailAddress = '';
   String _password = '';
+  final _logger = LoggerService.instance;
 
   void _navigateToBasePage(BuildContext context) {
     Navigator.pushReplacement(
@@ -33,20 +35,24 @@ class _AuthFormState extends State<AuthForm> {
       try {
         if (widget.isLogin) {
           // Sign-in logic
+          _logger.logUserAction('Attempting user sign-in');
           final credential =
               await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _emailAddress,
             password: _password,
           );
-          print('User signed in: ${credential.user?.email}');
+          _logger.info('User signed in successfully');
+          _logger.logUserAction('User sign-in completed');
         } else {
           // Sign-up logic
+          _logger.logUserAction('Attempting user registration');
           final credential =
               await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _emailAddress,
             password: _password,
           );
-          print('User created: ${credential.user?.email}');
+          _logger.info('User account created successfully');
+          _logger.logUserAction('User registration completed');
         }
 
         // Navigate to chat room after successful authentication
@@ -69,7 +75,7 @@ class _AuthFormState extends State<AuthForm> {
           showSnackBar(context, errorMessage);
         }
       } catch (e) {
-        print(e);
+        _logger.error('Authentication error occurred', error: e);
         if (mounted) {
           showSnackBar(context, 'An unexpected error occurred.');
         }

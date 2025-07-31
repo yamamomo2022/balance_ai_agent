@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
 import 'package:balance_ai_agent/services/genkit_client.dart';
+import 'package:balance_ai_agent/services/logger_service.dart';
 import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:dio/dio.dart';
@@ -30,6 +31,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
   final _agent = const types.User(id: 'agentId');
   final dio = Dio();
   late final GenkitClient _genkitClient;
+  final _logger = LoggerService.instance;
 
   @override
   void initState() {
@@ -46,12 +48,14 @@ class ChatRoomPageState extends State<ChatRoomPage> {
     final provider = Provider.of<LifestyleProvider>(context, listen: false);
     try {
       await provider.loadLifestyle();
+      _logger.info('Lifestyle data loaded successfully');
     } catch (e) {
-      print('Failed to load lifestyle: $e');
+      _logger.error('Failed to load lifestyle data', error: e);
     }
 
     // 既存のデータがあれば、それをテキストフィールドに設定
     if (provider.lifestyle != null) {
+      _logger.logUserAction('Display lifestyle welcome message');
       final lifestyleMessage = types.TextMessage(
         author: _agent, // Or _user, depending on who "owns" the lifestyle
         createdAt: DateTime.now().millisecondsSinceEpoch,
