@@ -8,9 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final persistentTabStateNotifier =
-      ref.read(persistentTabStateProvider.notifier);
-
   return GoRouter(
     initialLocation: '/Lifestyle',
     routes: [
@@ -64,11 +61,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final isTabRoute =
           state.fullPath == '/Lifestyle' || state.fullPath == '/ChatRoom';
 
-      // 初回のみリダイレクト（例: クエリパラメータやstate.extraで判定してもOK）
-      if (isTabRoute &&
-          state.fullPath != lastVisitedTabPath &&
-          state.extra != 'redirected') {
-        // GoRouterのstate.extraを使ってリダイレクト済みか判定
+      if (isTabRoute && state.fullPath != lastVisitedTabPath) {
         return lastVisitedTabPath;
       }
       return null;
