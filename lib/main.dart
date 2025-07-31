@@ -6,7 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as provider;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,20 +19,25 @@ void main() async {
   const envFile = kReleaseMode ? '.env.production' : '.env.development';
   await dotenv.load(fileName: envFile);
 
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(appRouterProvider);
+    return provider.MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => UserProvider()),
-          ChangeNotifierProvider(create: (_) => LifestyleProvider()),
+          provider.ChangeNotifierProvider(create: (_) => UserProvider()),
+          provider.ChangeNotifierProvider(create: (_) => LifestyleProvider()),
         ],
         child: MaterialApp.router(
-          routerConfig: appRouter,
+          routerConfig: goRouter,
           debugShowCheckedModeBanner: false,
           title: 'Balance AI Agent',
           theme: ThemeData(

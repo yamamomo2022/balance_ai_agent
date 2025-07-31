@@ -98,8 +98,8 @@ class LifestylePageState extends State<LifestylePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text('LifeStyle'),
+      appBar: const CustomAppBar(
+        title: Text('LifeStyle'),
       ),
       body: Consumer<LifestyleProvider>(builder: (context, provider, child) {
         if (provider.isLoading) {

@@ -50,6 +50,8 @@ dependencies:
   very_good_analysis: ^9.0.0
   go_router: ^16.0.0
   flutter_native_splash: ^2.4.6
+  flutter_riverpod: ^2.6.1
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
