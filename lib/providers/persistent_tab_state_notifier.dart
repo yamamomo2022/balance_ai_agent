@@ -1,17 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Represents the state of the persistent tab
 enum TabRoute {
-  Lifestyle('/Lifestyle'),
-  Chatroom('/Chatroom');
+  /// Lifestyle tab
+  lifestyle('/Lifestyle'),
+
+  /// Chatroom tab
+  chatroom('/Chatroom');
 
   const TabRoute(this.path);
+
+  /// The path associated with the tab route
   final String path;
 
+  /// Returns the TabRoute from a given path
   static TabRoute fromPath(String path) {
     return TabRoute.values.firstWhere(
       (tabRoute) => tabRoute.path == path,
-      orElse: () => TabRoute.Lifestyle,
+      orElse: () => TabRoute.lifestyle,
     );
   }
 }
@@ -24,9 +31,11 @@ final persistentTabStateProvider =
 
 /// Notifier to manage the persistent state of the selected tab
 class PersistentTabStateNotifier extends StateNotifier<TabRoute> {
-  PersistentTabStateNotifier() : super(TabRoute.Lifestyle);
+  /// Constructor initializes the state with the default tab
+  PersistentTabStateNotifier() : super(TabRoute.lifestyle);
   static const String _lastTabPathKey = 'last_visited_tab_path';
 
+  /// Load the last visited tab from persistent storage
   Future<void> loadLastVisitedTab() async {
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
@@ -35,7 +44,7 @@ class PersistentTabStateNotifier extends StateNotifier<TabRoute> {
       if (lastVisitedTabPath != null) {
         state = TabRoute.fromPath(lastVisitedTabPath);
       }
-    } catch (error) {
+    } on Exception catch (error) {
       print('Error loading last visited tab: $error');
     }
   }
@@ -51,7 +60,7 @@ class PersistentTabStateNotifier extends StateNotifier<TabRoute> {
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
       await sharedPreferences.setString(_lastTabPathKey, tabRoute.path);
-    } catch (error) {
+    } on Exception catch (error) {
       // Handle error gracefully
       print('Failed to save last visited tab: $error');
     }
