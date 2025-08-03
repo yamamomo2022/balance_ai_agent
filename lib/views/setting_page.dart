@@ -123,8 +123,7 @@ class _SettingPageState extends State<SettingPage> {
     final isGuestMode = userProvider.isGuestMode;
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text('Settings'),
+      appBar: const CustomAppBar(
         showBackButton: true,
         backRootRouteName: 'Lifestyle',
       ),
