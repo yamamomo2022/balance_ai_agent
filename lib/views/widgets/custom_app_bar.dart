@@ -7,14 +7,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// constructor
   const CustomAppBar({
     super.key,
-    this.title,
     this.showBackButton = false,
     this.onBackPressed,
     this.backRootRouteName,
   });
-
-  /// The title widget to display in the AppBar.
-  final Widget? title;
 
   /// Whether to show the back button.
   final bool showBackButton;
@@ -45,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             )
           : null,
-      title: title,
+      title: const Text('だいたいあん'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
