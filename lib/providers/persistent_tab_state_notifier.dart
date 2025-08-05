@@ -7,7 +7,10 @@ enum TabRoute {
   lifestyle('/Lifestyle'),
 
   /// Chatroom tab
-  chatroom('/ChatRoom');
+  chatroom('/ChatRoom'),
+
+  /// Lifestyle list tab
+  lifestyleList('/LifestyleList');
 
   const TabRoute(this.path);
 

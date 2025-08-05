@@ -27,12 +27,20 @@ class AppNavigationBar extends ConsumerWidget {
           NavigationDestination(
               icon: Icon(Icons.edit_note), label: 'Lifestyle'),
           NavigationDestination(icon: Icon(Icons.chat), label: 'Chat'),
+          NavigationDestination(
+              icon: Icon(Icons.edit_note), label: 'LifestyleList'),
         ],
         onDestinationSelected: (index) {
+          late TabRoute tabRoute;
           // 選択されたタブのインデックスに基づいてルートを更新
-          final tabRoute = index == 0
-              ? TabRoute.lifestyle
-              : TabRoute.chatroom; // 選択されたタブに応じてルートを設定
+          switch (index) {
+            case 0:
+              tabRoute = TabRoute.lifestyle;
+            case 1:
+              tabRoute = TabRoute.chatroom;
+            case 2:
+              tabRoute = TabRoute.lifestyleList;
+          }
           ref
               .read(persistentTabStateProvider.notifier)
               .updateCurrentTab(tabRoute);
