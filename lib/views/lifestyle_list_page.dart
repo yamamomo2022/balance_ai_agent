@@ -11,11 +11,21 @@ class LifestyleListPage extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Center(
-        child: ListView.builder(itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
-        }),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('title'),
+                  Text('content $index'),
+                  const Text('title'),
+                  Text('content $index'),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
