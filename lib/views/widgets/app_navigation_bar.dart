@@ -28,7 +28,7 @@ class AppNavigationBar extends ConsumerWidget {
               icon: Icon(Icons.edit_note), label: 'Lifestyle'),
           NavigationDestination(icon: Icon(Icons.chat), label: 'Chat'),
           NavigationDestination(
-              icon: Icon(Icons.edit_note), label: 'LifestyleList'),
+              icon: Icon(Icons.view_list), label: 'LifestyleList'),
         ],
         onDestinationSelected: (index) {
           late TabRoute tabRoute;
