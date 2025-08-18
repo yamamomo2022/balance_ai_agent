@@ -134,52 +134,39 @@ class _SettingPageState extends State<SettingPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-
-                  // アカウント情報
                   Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        children: [
-                          // アカウント情報表示
-                          ListTile(
-                            leading: Icon(
-                              isGuestMode ? Icons.person_outline : Icons.person,
-                              color: AppTheme.primaryColor,
-                            ),
-                            title: const Text('ログイン / サインアップ'),
+                    child: SizedBox(
+                      height: 64,
+                      width: double.infinity,
+                      child: ListTile(
+                          leading: const Icon(
+                            Icons.person,
+                            color: AppTheme.primaryColor,
                           ),
-                        ],
-                      ),
+                          title: const Text('ログイン / サインアップ'),
+                          onTap: () => {}),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
-                  // アカウント情報
                   Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12),
-                      child: Column(
-                        children: [
-                          // アカウント情報表示
-                          ListTile(
-                            leading: Icon(
-                              Icons.person,
-                              color: AppTheme.primaryColor,
-                            ),
-                            title: Text('アカウントを削除する'),
+                    child: SizedBox(
+                      height: 64,
+                      width: double.infinity,
+                      child: ListTile(
+                          leading: const Icon(
+                            Icons.delete_forever,
+                            color: AppTheme.primaryColor,
                           ),
-                        ],
-                      ),
+                          title: const Text('アカウント削除'),
+                          onTap: () => {}),
                     ),
                   ),
                 ],
