@@ -5,7 +5,6 @@ import 'package:balance_ai_agent/views/login_signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
@@ -135,6 +134,8 @@ class _SettingPageState extends State<SettingPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
+
+                  // アカウント情報
                   Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
@@ -150,57 +151,34 @@ class _SettingPageState extends State<SettingPage> {
                               isGuestMode ? Icons.person_outline : Icons.person,
                               color: AppTheme.primaryColor,
                             ),
-                            title: const Text('アカウント情報'),
-                            subtitle: isGuestMode
-                                ? const Text('お試しモードで利用中')
-                                : Text(_auth.currentUser?.email ?? ''),
+                            title: const Text('ログイン / サインアップ'),
                           ),
                         ],
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 30),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () => _deleteAccount(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.errorColor,
-                        foregroundColor: AppTheme.whiteColor,
-                        minimumSize: const Size(240, 48),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'アカウントを削除する',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 10),
 
-                  const SizedBox(height: 30),
-                  // サインアップボタン
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () => context.goNamed('Signup'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        foregroundColor: AppTheme.whiteColor,
-                        minimumSize: const Size(240, 48),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'サインアップ',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  // アカウント情報
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          // アカウント情報表示
+                          ListTile(
+                            leading: Icon(
+                              Icons.person,
+                              color: AppTheme.primaryColor,
+                            ),
+                            title: Text('アカウントを削除する'),
+                          ),
+                        ],
                       ),
                     ),
                   ),
