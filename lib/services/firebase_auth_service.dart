@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as fb;
 /// Concrete AuthService using FirebaseAuth SDK. Keep light and testable by
 /// accepting an optional [fb.FirebaseAuth] instance.
 class FirebaseAuthService implements AuthService {
+  /// Creates a new instance of [FirebaseAuthService].
   FirebaseAuthService({fb.FirebaseAuth? firebaseAuth})
       : _firebaseAuth = firebaseAuth ?? fb.FirebaseAuth.instance;
   final fb.FirebaseAuth _firebaseAuth;
@@ -38,15 +39,17 @@ class FirebaseAuthService implements AuthService {
   Future<AuthUser> linkWithEmailAndPassword(
       {required String email, required String password}) async {
     final user = _firebaseAuth.currentUser;
-    if (user == null)
+    if (user == null) {
       throw AppAuthException('no-user', 'No current user to link');
+    }
     try {
       final credential =
           fb.EmailAuthProvider.credential(email: email, password: password);
       final result = await user.linkWithCredential(credential);
       final u = result.user;
-      if (u == null)
+      if (u == null) {
         throw AppAuthException('no-user', 'No user returned after link');
+      }
       return AuthUser(uid: u.uid, isAnonymous: u.isAnonymous, email: u.email);
     } on fb.FirebaseAuthException catch (e) {
       throw AppAuthException(e.code, e.message ?? 'FirebaseAuth error');
@@ -56,8 +59,9 @@ class FirebaseAuthService implements AuthService {
   @override
   Future<void> deleteUser() async {
     final user = _firebaseAuth.currentUser;
-    if (user == null)
+    if (user == null) {
       throw AppAuthException('no-user', 'No current user to delete');
+    }
     try {
       await user.delete();
     } on fb.FirebaseAuthException catch (e) {
@@ -69,8 +73,9 @@ class FirebaseAuthService implements AuthService {
   Future<void> reauthenticateWithEmailAndPassword(
       {required String email, required String password}) async {
     final user = _firebaseAuth.currentUser;
-    if (user == null)
+    if (user == null) {
       throw AppAuthException('no-user', 'No current user to reauthenticate');
+    }
     try {
       final credential =
           fb.EmailAuthProvider.credential(email: email, password: password);
