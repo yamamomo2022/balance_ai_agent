@@ -19,11 +19,16 @@ class AuthUser {
 }
 
 /// Generic auth-related exception that implementations should throw when
-/// an underlying SDK (Firebase etc.) returns an error. Keeps tests deterministic.
+/// an underlying SDK (Firebase etc.) returns an error.
+/// Keeps tests deterministic.
 class AppAuthException implements Exception {
   /// Creates an instance of [AppAuthException].
   AppAuthException(this.code, [this.message = 'Authentication error']);
+
+  /// The error code associated with the exception.
   final String code;
+
+  /// The error message associated with the exception.
   final String message;
 
   @override
@@ -31,7 +36,6 @@ class AppAuthException implements Exception {
 }
 
 /// Lightweight abstraction for authentication operations used by the app.
-/// Keep methods minimal to make testing straightforward.
 abstract class AuthService {
   /// Returns the currently signed-in user or null.
   Future<AuthUser?> currentUser();
