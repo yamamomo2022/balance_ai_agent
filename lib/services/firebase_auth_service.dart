@@ -17,6 +17,12 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
+  Stream<AuthUser?> authStateChanges() =>
+      _firebaseAuth.authStateChanges().map((u) => u == null
+          ? null
+          : AuthUser(uid: u.uid, isAnonymous: u.isAnonymous, email: u.email));
+
+  @override
   Future<AuthUser> signInAnonymously() async {
     try {
       final cred = await _firebaseAuth.signInAnonymously();

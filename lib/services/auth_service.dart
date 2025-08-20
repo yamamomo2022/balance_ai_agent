@@ -60,4 +60,8 @@ abstract class AuthService {
   /// Required before some sensitive operations.
   Future<void> reauthenticateWithEmailAndPassword(
       {required String email, required String password});
+
+  /// Stream of authentication state changes. Emits the current user (or null)
+  /// when auth state changes. Useful to drive UI reactively.
+  Stream<AuthUser?> authStateChanges();
 }
