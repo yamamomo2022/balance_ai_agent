@@ -1,7 +1,6 @@
 import 'package:balance_ai_agent/app_router.dart';
 import 'package:balance_ai_agent/firebase_options.dart';
 import 'package:balance_ai_agent/providers/lifestyle_provider.dart';
-import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
