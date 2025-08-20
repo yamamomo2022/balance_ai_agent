@@ -84,16 +84,28 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
     final provider = Provider.of<LifestyleProvider>(context, listen: false);
 
-    final responseText = await _genkitClient.generateChatResponse(
-        message.text, provider.lifestyle);
-    final agentMessage = types.TextMessage(
-      author: _agent,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: randomString(),
-      text: responseText,
-    );
+    try {
+      final responseText = await _genkitClient.generateChatResponse(
+          message.text, provider.lifestyle);
+      final agentMessage = types.TextMessage(
+        author: _agent,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: randomString(),
+        text: responseText,
+      );
 
-    _addMessage(agentMessage);
+      _addMessage(agentMessage);
+    } catch (e) {
+      // Handle API errors gracefully
+      final errorMessage = types.TextMessage(
+        author: _agent,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        id: randomString(),
+        text: '申し訳ございません。現在サーバーに接続できません。しばらくしてから再試行してください。\n\nエラー: ${e.toString()}',
+      );
+
+      _addMessage(errorMessage);
+    }
   }
 
   /// 会話履歴をクリアして初期データを再ロードします

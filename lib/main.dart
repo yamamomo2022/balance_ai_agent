@@ -17,7 +17,13 @@ void main() async {
 
   // flavor に応じて .env ファイルをロード
   const envFile = kReleaseMode ? '.env.production' : '.env.development';
-  await dotenv.load(fileName: envFile);
+  try {
+    await dotenv.load(fileName: envFile);
+  } catch (e) {
+    // Environment file not found, use defaults
+    print('Warning: Environment file $envFile not found, using defaults');
+    dotenv.env['API_SERVER'] ??= 'http://127.0.0.1:4300';
+  }
 
   runApp(
     const ProviderScope(

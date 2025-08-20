@@ -51,11 +51,9 @@ class LifestylePageState extends State<LifestylePage> {
   void _toggleEditMode(bool isEdit) {
     setState(() {
       _isEditMode = isEdit;
-      if (_isEditMode) {
-        aspirationsController.text = aspirationsController.text;
-        goalsController.text = goalsController.text;
-      } else if (aspirationsController.text.isNotEmpty ||
-          goalsController.text.isNotEmpty) {
+      if (!_isEditMode && 
+          (aspirationsController.text.isNotEmpty ||
+           goalsController.text.isNotEmpty)) {
         _saveLifestyle();
       }
     });

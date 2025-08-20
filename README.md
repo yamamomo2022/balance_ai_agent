@@ -121,3 +121,33 @@ genkit/                       # AI統合バックエンド
 - 環境別設定ファイルによる柔軟なデプロイ
 - TypeScript + Node.jsによるバックエンド開発
 
+## 🚀 セットアップ
+
+### 環境設定
+アプリを実行する前に、環境設定ファイルを作成する必要があります：
+
+1. `.env.development.template` を `.env.development` にコピー
+2. `.env.production.template` を `.env.production` にコピー  
+3. 必要に応じてAPIサーバーのURLを設定
+
+```bash
+# 開発環境用
+cp .env.development.template .env.development
+
+# 本番環境用  
+cp .env.production.template .env.production
+```
+
+### Flutter アプリの実行
+```bash
+flutter pub get
+flutter run
+```
+
+### Node.js バックエンドの実行
+```bash
+cd genkit
+npm install
+npm run build && npm start
+```
+
