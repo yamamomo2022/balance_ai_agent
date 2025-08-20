@@ -1,35 +1,42 @@
-import 'package:balance_ai_agent/models/lifestyle.dart';
-
+/// ユーザー情報を保持するクラス
 class User {
-  User({
-    required this.id,
-    required this.name,
+  /// コンストラクタ
+  const User({
+    required this.userId,
     required this.email,
-    required this.lifestyle,
+    required this.isAnonymous,
+    this.createdAt,
   });
 
-  // MapからUserインスタンスを生成するためのファクトリコンストラクタ
+  /// MapからUserインスタンスを生成するためのファクトリコンストラクタ
   factory User.fromMap(Map<String, dynamic> data) {
     return User(
-      id: data['id'] as String? ?? '',
-      name: data['name'] as String? ?? '',
+      userId: data['userId'] as String? ?? '',
       email: data['email'] as String? ?? '',
-      lifestyle:
-          Lifestyle.fromMap((data['lifestyle'] ?? {}) as Map<String, dynamic>),
+      isAnonymous: data['isAnonymous'] as bool? ?? false,
+      createdAt: DateTime.tryParse(data['created_at'] as String? ?? ''),
     );
   }
-  final String id;
-  final String name;
-  final String email;
-  final Lifestyle lifestyle;
 
-  // UserインスタンスをMapに変換するメソッド
+  /// ユーザー情報を保持するフィールド
+  final String userId;
+
+  /// ユーザーのメールアドレス
+  final String email;
+
+  /// ユーザーが匿名かどうか
+  final bool isAnonymous;
+
+  /// ユーザーの作成日時(null許容)
+  final DateTime? createdAt;
+
+  /// UserインスタンスをMapに変換するメソッド
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
+      'userId': userId,
       'email': email,
-      'lifestyle': lifestyle.toMap(),
+      'isAnonymous': isAnonymous,
+      'createdAt': createdAt?.toIso8601String(),
     };
   }
 }
