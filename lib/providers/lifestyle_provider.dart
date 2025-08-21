@@ -1,22 +1,23 @@
 import 'package:balance_ai_agent/models/lifestyle.dart';
 import 'package:balance_ai_agent/view_models/lifestyle_view_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class LifestyleProvider extends ChangeNotifier {
-  final LifestyleViewModel _viewModel = LifestyleViewModel();
+part 'lifestyle_provider.g.dart';
 
-  Lifestyle? get lifestyle => _viewModel.lifestyle;
-  bool get isLoading => _viewModel.isLoading;
-
-  // 初期化
-  Future<void> loadLifestyle() async {
-    await _viewModel.loadLifestyle();
-    notifyListeners();
+/// Provides the current user's lifestyle information.
+@riverpod
+class LifestyleNotifier extends _$LifestyleNotifier {
+  @override
+  Future<Lifestyle?> build() async {
+    final lifestyleViewModel = LifestyleViewModel();
+    await lifestyleViewModel.loadLifestyle();
+    return lifestyleViewModel.lifestyle;
   }
 
-  // 保存
+  /// Saves the user's lifestyle information.
   Future<void> saveLifestyle(String goals, String aspirations) async {
-    await _viewModel.saveLifestyle(goals, aspirations);
-    notifyListeners();
+    final lifestyleViewModel = LifestyleViewModel();
+    await lifestyleViewModel.saveLifestyle(goals, aspirations);
+    state = AsyncValue.data(lifestyleViewModel.lifestyle);
   }
 }
