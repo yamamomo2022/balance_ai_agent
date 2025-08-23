@@ -1,4 +1,3 @@
-import 'package:balance_ai_agent/providers/persistent_tab_state_notifier.dart';
 import 'package:balance_ai_agent/views/chat_room_page.dart';
 import 'package:balance_ai_agent/views/lifestyle_list_page.dart';
 import 'package:balance_ai_agent/views/setting_page.dart';
@@ -9,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/Lifestyle',
+    initialLocation: '/LifestyleList',
     routes: [
       GoRoute(
           path: '/Setting',
@@ -57,14 +56,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       )
     ],
     redirect: (context, state) async {
-      final lastVisitedTabPath = ref.read(persistentTabStateProvider).path;
-      final isTabRoute =
-          state.fullPath == '/LifestyleList' || state.fullPath == '/ChatRoom';
+      // final lastVisitedTabPath = ref.read(persistentTabStateProvider).path;
+      // final isTabRoute =
+      //     state.fullPath == '/LifestyleList' || state.fullPath == '/ChatRoom';
 
-      if (isTabRoute && state.fullPath != lastVisitedTabPath) {
-        return lastVisitedTabPath;
-      }
-      return '/Lifestyle';
+      // if (isTabRoute && state.fullPath != lastVisitedTabPath) {
+      //   return lastVisitedTabPath;
+      // }
+      return '/LifestyleList';
     },
   );
 });
