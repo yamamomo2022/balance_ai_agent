@@ -1,10 +1,7 @@
-import 'package:balance_ai_agent/providers/user_provider.dart';
 import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 /// ログイン・サインアップページ
 class LoginSignupPage extends StatelessWidget {
@@ -14,22 +11,6 @@ class LoginSignupPage extends StatelessWidget {
     this.showDeletedMessage = false,
   });
   final bool showDeletedMessage;
-
-  /// お試しモードでアプリを利用するためのハンドラー
-  void _handleTryDemoMode(BuildContext context) {
-    // ゲストモードフラグを設定（UserProviderを使用）
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.setGuestMode(true);
-    context.go('/chatRoom'); // ルートをセット
-
-    // お試し利用の通知
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('お試しモードでログインしました。一部機能が制限されています。'),
-        backgroundColor: AppTheme.primaryColor,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,32 +114,6 @@ class LoginSignupPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                // お試し利用ボタン
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: SizedBox(
-                    width: 300,
-                    child: OutlinedButton(
-                      onPressed: () => _handleTryDemoMode(context),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppTheme.primaryColor,
-                        side: const BorderSide(
-                            color: AppTheme.primaryColor, width: 1.5),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'お試し利用',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                   ),
