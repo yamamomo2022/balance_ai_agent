@@ -2,14 +2,11 @@ import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class SettingPage extends StatefulWidget {
+/// 設定画面
+class SettingPage extends StatelessWidget {
+  /// コンストラクタ
   const SettingPage({super.key});
 
-  @override
-  State<SettingPage> createState() => _SettingPageState();
-}
-
-class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
