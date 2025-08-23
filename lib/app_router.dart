@@ -1,7 +1,6 @@
 import 'package:balance_ai_agent/providers/persistent_tab_state_notifier.dart';
 import 'package:balance_ai_agent/views/chat_room_page.dart';
 import 'package:balance_ai_agent/views/lifestyle_list_page.dart';
-import 'package:balance_ai_agent/views/lifestyle_page.dart';
 import 'package:balance_ai_agent/views/setting_page.dart';
 import 'package:balance_ai_agent/views/signup_page.dart';
 import 'package:balance_ai_agent/views/widgets/app_navigation_bar.dart';
@@ -35,10 +34,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/Lifestyle',
-                name: 'Lifestyle',
+                path: '/LifestyleList',
+                name: 'LifestyleList',
                 pageBuilder: (context, state) => const NoTransitionPage(
-                  child: LifestylePage(),
+                  child: LifestyleListPage(),
                 ),
               ),
             ],
@@ -48,19 +47,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/ChatRoom',
                 name: 'ChatRoom',
-                pageBuilder: (context, state) => const NoTransitionPage(
+                pageBuilder: (context, state) => NoTransitionPage(
                   child: ChatRoomPage(),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/LifestyleList',
-                name: 'LifestyleList',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: LifestyleListPage(),
                 ),
               ),
             ],
@@ -76,7 +64,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (isTabRoute && state.fullPath != lastVisitedTabPath) {
         return lastVisitedTabPath;
       }
-      return null;
+      return '/Lifestyle';
     },
   );
 });
