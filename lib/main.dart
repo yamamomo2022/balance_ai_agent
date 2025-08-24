@@ -1,5 +1,6 @@
 import 'package:balance_ai_agent/app_router.dart';
 import 'package:balance_ai_agent/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,21 @@ void main() async {
   // flavor に応じて .env ファイルをロード
   const envFile = kReleaseMode ? '.env.production' : '.env.development';
   await dotenv.load(fileName: envFile);
+
+  // firebase auth
+  final auth = FirebaseAuth.instance;
+  try {
+    if (auth.currentUser == null) {
+      await auth.signInAnonymously();
+    }
+  } on FirebaseAuthException catch (e) {
+    switch (e.code) {
+      case 'operation-not-allowed':
+        print("Anonymous auth hasn't been enabled for this project.");
+      default:
+        print('Unknown error.');
+    }
+  }
 
   runApp(
     const ProviderScope(
