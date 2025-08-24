@@ -52,6 +52,7 @@ class FakeAuthService implements AuthService {
       throw AppAuthException('no-user', 'No current user to delete');
     }
     _user = null;
+    _controller.add(null);
   }
 
   @override
