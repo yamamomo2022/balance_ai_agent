@@ -14,7 +14,7 @@ class AppNavigationBar extends ConsumerWidget {
     super.key,
   });
 
-  // NavigationShellを受け取る
+  /// NavigationShellを受け取る
   final StatefulNavigationShell navigationShell;
 
   @override
@@ -27,19 +27,15 @@ class AppNavigationBar extends ConsumerWidget {
           NavigationDestination(
               icon: Icon(Icons.edit_note), label: 'Lifestyle'),
           NavigationDestination(icon: Icon(Icons.chat), label: 'Chat'),
-          NavigationDestination(
-              icon: Icon(Icons.view_list), label: 'LifestyleList'),
         ],
         onDestinationSelected: (index) {
           late TabRoute tabRoute;
           // 選択されたタブのインデックスに基づいてルートを更新
           switch (index) {
             case 0:
-              tabRoute = TabRoute.lifestyle;
+              tabRoute = TabRoute.lifestyleList;
             case 1:
               tabRoute = TabRoute.chatroom;
-            case 2:
-              tabRoute = TabRoute.lifestyleList;
           }
           ref
               .read(persistentTabStateProvider.notifier)

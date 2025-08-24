@@ -1,31 +1,20 @@
-import 'package:balance_ai_agent/view_models/user_view_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:balance_ai_agent/models/user.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class UserProvider with ChangeNotifier {
-  final UserViewModel _viewModel = UserViewModel();
+part 'user_provider.g.dart';
 
-  User? get user => _viewModel.user;
-  bool get isGuestMode => _viewModel.isGuestMode;
-  bool get isLoggedIn => _viewModel.isLoggedIn;
+/// ユーザー情報を管理するプロバイダー
+@riverpod
+class UserNotifier extends _$UserNotifier {
+  @override
+  User? build() => null;
 
-  /// 通常のユーザー設定
-  void setUser(User? user) {
-    _viewModel.setUser(user);
-    notifyListeners();
-  }
+  /// ユーザー情報を取得するゲッター
+  User? get user => state;
 
-  /// ゲストモードの設定
-  /// [isGuest] - trueの場合ゲストモードを有効化、falseの場合は無効化
-  void setGuestMode(bool isGuest) {
-    _viewModel.setGuestMode(isGuest);
-    notifyListeners();
-  }
+  /// ユーザー情報を設定するセッター
+  set user(User? newUser) => state = newUser;
 
   /// ログアウト処理
-  /// ゲストモード・通常ユーザーモード両方をクリア
-  Future<void> logout() async {
-    await _viewModel.logout();
-    notifyListeners();
-  }
+  void logout() => state = null;
 }
