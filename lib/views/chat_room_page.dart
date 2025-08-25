@@ -4,15 +4,18 @@ import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:uuid/uuid.dart';
 
+/// チャットルームページ
 class ChatRoomPage extends StatefulWidget {
+  /// コンストラクタ
   const ChatRoomPage({super.key});
 
   @override
   ChatRoomPageState createState() => ChatRoomPageState();
 }
 
-/// チャットルームページ
+/// チャットルームページの状態
 class ChatRoomPageState extends State<ChatRoomPage> {
+  /// コンストラクタ
   ChatRoomPageState();
 
   final _chatController = InMemoryChatController();
