@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});
@@ -34,8 +33,7 @@ class ChatRoomPageState extends State<ChatRoomPage> {
           onMessageSend: (text) {
             _chatController.insertMessage(
               TextMessage(
-                // Better to use UUID or similar for the ID - IDs must be unique
-                id: '${Random().nextInt(1000) + 1}',
+                id: const Uuid().v4(),
                 authorId: 'user1',
                 createdAt: DateTime.now().toUtc(),
                 text: text,
