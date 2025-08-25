@@ -20,6 +20,8 @@ class ChatRoomPageState extends State<ChatRoomPage> {
 
   final _chatController = InMemoryChatController();
 
+  final _currentUserId = 'user1';
+
   @override
   void dispose() {
     _chatController.dispose();
@@ -32,12 +34,12 @@ class ChatRoomPageState extends State<ChatRoomPage> {
       body: Stack(children: [
         Chat(
           chatController: _chatController,
-          currentUserId: 'user1',
+          currentUserId: _currentUserId,
           onMessageSend: (text) {
             _chatController.insertMessage(
               TextMessage(
                 id: const Uuid().v4(),
-                authorId: 'user1',
+                authorId: _currentUserId,
                 createdAt: DateTime.now().toUtc(),
                 text: text,
               ),
