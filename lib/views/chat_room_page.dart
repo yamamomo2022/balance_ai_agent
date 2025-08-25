@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:balance_ai_agent/utility/app_theme.dart';
 import 'package:balance_ai_agent/views/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
@@ -46,38 +45,6 @@ class ChatRoomPageState extends State<ChatRoomPage> {
           resolveUser: (UserID id) async {
             return User(id: id, name: 'John Doe');
           },
-        ),
-        Positioned(
-            top: 20, // 上からの距離
-            right: 20, // 右からの距離
-            child: Material(
-              color: AppTheme.transparent,
-              child: InkWell(
-                onTap: () => {},
-                borderRadius: BorderRadius.circular(30),
-                child: Container(
-                  width: 56,
-                  height: 56,
-                  decoration: const BoxDecoration(
-                    color: AppTheme.secondaryColor, // テーマカラー
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.refresh,
-                      color: AppTheme.whiteColor,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-            )),
+        )
       ]));
 }
