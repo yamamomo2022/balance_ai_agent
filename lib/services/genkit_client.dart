@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:balance_ai_agent/services/logging_service.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -49,8 +50,8 @@ class GenkitClient {
           ));
 
       if (response.statusCode == 200) {
-        print('Chat response received');
-        print('Response data: ${response.data}'); // デバッグ用
+        LoggingService.instance.debug('Chat response received successfully');
+        LoggingService.instance.debug('Response data: ${response.data}');
 
         final resultData = response.data['result'];
 

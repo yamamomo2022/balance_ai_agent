@@ -24,6 +24,9 @@ flutter analyze
 
 # Run a specific test file
 flutter test test/widget_test.dart
+
+# Test logging service
+flutter test test/logging_service_test.dart
 ```
 
 ### Node.js Backend (Genkit)
@@ -59,6 +62,13 @@ This is a Flutter mobile app with a Node.js backend that provides AI-powered lif
 - **AI Integration**: Google Genkit with Gemini Pro 1.5 Flash
 - **Authentication**: Firebase Admin SDK for JWT token verification
 - **API**: Single `/chat` endpoint with Bearer token authentication
+- **Logging**: Custom logger implementation using the logger package
+
+**Logging System:**
+- **Service**: `LoggingService` singleton pattern for unified logging
+- **Configuration**: Environment-dependent log levels (debug in development, info in production)
+- **Features**: Pretty printing with colors, emojis, timestamps, and stack trace support
+- **Coverage**: Replaces all `print` statements throughout the application
 
 ### Key Architectural Patterns
 

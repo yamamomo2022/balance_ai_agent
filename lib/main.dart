@@ -1,5 +1,6 @@
 import 'package:balance_ai_agent/app_router.dart';
 import 'package:balance_ai_agent/firebase_options.dart';
+import 'package:balance_ai_agent/services/logging_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize logging service
+  LoggingService.instance.initialize();
+  LoggingService.instance.info('Application starting...');
+  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -16,19 +22,27 @@ void main() async {
   // flavor に応じて .env ファイルをロード
   const envFile = kReleaseMode ? '.env.production' : '.env.development';
   await dotenv.load(fileName: envFile);
+  LoggingService.instance.info('Environment loaded: $envFile');
 
   // firebase auth
   final auth = FirebaseAuth.instance;
   try {
     if (auth.currentUser == null) {
       await auth.signInAnonymously();
+      LoggingService.instance.info('Signed in anonymously');
     }
   } on FirebaseAuthException catch (e) {
     switch (e.code) {
       case 'operation-not-allowed':
-        print("Anonymous auth hasn't been enabled for this project.");
+        LoggingService.instance.error(
+          "Anonymous auth hasn't been enabled for this project.",
+          error: e,
+        );
       default:
-        print('Unknown error.');
+        LoggingService.instance.error(
+          'Firebase auth error: ${e.code}',
+          error: e,
+        );
     }
   }
 
