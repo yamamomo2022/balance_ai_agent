@@ -1,3 +1,4 @@
+import 'package:balance_ai_agent/services/logging_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,7 +49,10 @@ class PersistentTabStateNotifier extends StateNotifier<TabRoute> {
         state = TabRoute.fromPath(lastVisitedTabPath);
       }
     } on Exception catch (error) {
-      print('Error loading last visited tab: $error');
+      LoggingService.instance.error(
+        'Error loading last visited tab',
+        error: error,
+      );
     }
   }
 
@@ -65,7 +69,10 @@ class PersistentTabStateNotifier extends StateNotifier<TabRoute> {
       await sharedPreferences.setString(_lastTabPathKey, tabRoute.path);
     } on Exception catch (error) {
       // Handle error gracefully
-      print('Failed to save last visited tab: $error');
+      LoggingService.instance.error(
+        'Failed to save last visited tab',
+        error: error,
+      );
     }
   }
 }
