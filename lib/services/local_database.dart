@@ -1,4 +1,5 @@
 import 'package:balance_ai_agent/models/lifestyle.dart';
+import 'package:balance_ai_agent/utility/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -44,8 +45,7 @@ class LocalDatabase {
         'createdAt': DateTime.now().millisecondsSinceEpoch
       });
     } catch (e) {
-      // エラーロギングや通知の処理をここに追加できます
-      print('Error saving lifestyle: $e');
+      logger.e('Error saving lifestyle', error: e);
     }
   }
 
@@ -65,8 +65,7 @@ class LocalDatabase {
         });
       }
     } catch (e) {
-      // エラーロギングや通知の処理をここに追加できます
-      print('Error getting latest lifestyle: $e');
+      logger.e('Error getting latest lifestyle', error: e);
     }
     return null;
   }
