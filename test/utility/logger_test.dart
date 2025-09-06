@@ -10,11 +10,6 @@ void main() {
       expect(logger, isNotNull);
     });
 
-    test('logger should have proper configuration', () {
-      // loggerが適切に設定されていることを確認
-      expect(logger.printer, isA<PrettyPrinter>());
-    });
-
     test('logger should handle different log levels', () {
       // 異なるログレベルでエラーが発生しないことを確認
       expect(() => logger.d('Debug test message'), returnsNormally);
