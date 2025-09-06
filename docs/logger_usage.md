@@ -30,16 +30,10 @@ logger.i('ユーザーがログインしました');
 // エラーとスタックトレースを含む
 try {
   // 何らかの処理
-} catch (error, stackTrace) {
+} on Exception catch (error, stackTrace) {
   logger.e('処理中にエラーが発生しました', error: error, stackTrace: stackTrace);
 }
 
-// 構造化データを含む
-logger.d('API呼び出し', {
-  'endpoint': '/api/chat',
-  'method': 'POST',
-  'userId': user.id
-});
 ```
 
 ## 設定
@@ -57,7 +51,6 @@ loggerは以下の設定で初期化されています：
 実装例は以下のファイルを参照してください：
 
 - `lib/utility/logger.dart` - Logger定義
-- `lib/utility/logger_demo.dart` - 使用例
 - `lib/services/local_database.dart` - 実際の使用例
 - `lib/services/genkit_client.dart` - 実際の使用例
 - `lib/main.dart` - アプリ起動時のログ例
