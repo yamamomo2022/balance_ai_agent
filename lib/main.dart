@@ -3,27 +3,20 @@ import 'package:balance_ai_agent/firebase_options.dart';
 import 'package:balance_ai_agent/utility/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // アプリケーション開始ログ
   logger.i('Balance AI Agent application starting...');
-  
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
-  logger.i('Firebase initialized successfully');
 
-  // flavor に応じて .env ファイルをロード
-  const envFile = kReleaseMode ? '.env.production' : '.env.development';
-  await dotenv.load(fileName: envFile);
-  logger.i('Environment loaded', {'envFile': envFile});
+  logger.i('Firebase initialized successfully');
 
   // firebase auth
   final auth = FirebaseAuth.instance;
